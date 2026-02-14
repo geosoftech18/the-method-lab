@@ -40,7 +40,7 @@ export default function TwoComplementaryWings() {
       <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <p className="label-small-caps text-ablr-dark/70 mb-3 sm:mb-4 text-xs sm:text-sm">Structure</p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-dark/80 mb-4 sm:mb-6">
             Two Complementary Wings
           </h2>
           <p className="text-gray-600 mt-4 sm:mt-6 max-w-3xl mx-auto text-sm sm:text-base md:text-lg px-4">
@@ -62,7 +62,7 @@ export default function TwoComplementaryWings() {
                 <div className="absolute left-0 top-0 bottom-0 "></div>
                 
                 {/* Massive bold serif heading */}
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-4 sm:mb-6 text-ablr-primary leading-tight">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-4 sm:mb-6 text-ablr-dark/80 leading-tight">
                   {wing.title}
                 </h3>
                 
@@ -80,7 +80,7 @@ export default function TwoComplementaryWings() {
                     <ScrollAnimation key={idx} direction="up" delay={idx * 60}>
                       <li className="flex items-start group">
                         <div className="mr-3 sm:mr-4 mt-1 flex-shrink-0">
-                          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-ablr-primary/30 flex items-center justify-center group-hover:border-ablr-primary group-hover:bg-ablr-primary transition-all duration-500">
+                          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-ablr-dark/30 flex items-center justify-center group-hover:border-ablr-dark/80 group-hover:bg-ablr-dark transition-all duration-500">
                             <Check size={12} className="sm:w-[14px] sm:h-[14px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
                         </div>
@@ -91,7 +91,7 @@ export default function TwoComplementaryWings() {
                 </ul>
                 
                 {/* Learn More link */}
-                <a href="#" className="inline-flex items-center gap-2 sm:gap-3 text-ablr-primary font-semibold underline-animate group/link text-sm sm:text-base">
+                <a href="#" className="inline-flex items-center gap-2 sm:gap-3 text-ablr-dark/80 font-semibold underline-animate group/link text-sm sm:text-base">
                   <span>Learn More</span>
                   <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] group-hover/link:translate-x-1 transition-transform duration-300" />
                 </a>

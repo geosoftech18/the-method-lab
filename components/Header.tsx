@@ -26,8 +26,8 @@ export default function Header() {
           {/* Navigation Links - Center */}
           <div className="hidden lg:flex items-center space-x-10">
            
-            <a href="#" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">Home</a>
-            <a href="#about" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">About</a>
+            <a href="/" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">Home</a>
+            <a href="/about" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">About</a>
             <div 
               className="relative"
               onMouseEnter={() => setProgrammesDropdown(true)}
@@ -38,17 +38,17 @@ export default function Header() {
                 <ChevronDown size={14} className={`transition-transform duration-300 ${programmesDropdown ? 'rotate-180' : ''}`} />
               </a>
               {programmesDropdown && (
-                <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200/50 rounded-lg shadow-lg py-2 min-w-[240px] z-50 card-elevated">
-                  <a href="#" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">All Programmes</a>
-                  <a href="#" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Applied Behaviour Analysis</a>
-                  <a href="#" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Research & Evaluation</a>
+                <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200/50 rounded-lg shadow-lg py-2 min-w-[280px] z-50 card-elevated">
+                  <a href="/programs" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">All Programmes</a>
+                  <a href="/programs/learning" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Applied Learning and Training Wing</a>
+                  <a href="/programs/research" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Applied Research and Practice Wing</a>
                 </div>
               )}
             </div>
-            <a href="#" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
+            <a href="/for-organisations" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
               For Organisations
             </a>
-            <a href="#faculty" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
+            <a href="/faculty-collaborators" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
               Faculty & Collaborators
             </a>
       
@@ -61,9 +61,9 @@ export default function Header() {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-3">
-              <button className="magnetic-button bg-ablr-primary text-white px-8 py-3 rounded-sm hover:bg-ablr-dark transition-all duration-300 font-semibold text-sm shadow-sm hover:shadow-md">
+              <a href="/inquiry" className="magnetic-button bg-ablr-primary text-white px-8 py-3 rounded-sm hover:bg-ablr-dark transition-all duration-300 font-semibold text-sm shadow-sm hover:shadow-md">
                Enquire Now
-              </button>
+              </a>
             
             </div>
 
@@ -80,17 +80,18 @@ export default function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden mt-4 space-y-4 pb-4 border-t border-gray-200 pt-4">
-            <a href="#" className="block text-gray-700 hover:text-ablr-primary">Mumbai</a>
-            <a href="#" className="block text-gray-700 hover:text-ablr-primary">Home</a>
-            <a href="#about" className="block text-gray-700 hover:text-ablr-primary">About</a>
-            <a href="#programmes" className="block text-gray-700 hover:text-ablr-primary">Programmes</a>
-            <a href="#" className="block text-gray-700 hover:text-ablr-primary">For Organisations</a>
-            <a href="#faculty" className="block text-gray-700 hover:text-ablr-primary">Faculty & Collaborators</a>
-            <a href="#contact" className="block text-gray-700 hover:text-ablr-primary">Enquire</a>
+            <a href="/" className="block text-gray-700 hover:text-ablr-primary">Home</a>
+            <a href="/about" className="block text-gray-700 hover:text-ablr-primary">About</a>
+            <a href="/programs" className="block text-gray-700 hover:text-ablr-primary">All Programmes</a>
+            <a href="/programs/learning" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Learning and Training</a>
+            <a href="/programs/research" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Research and Practice</a>
+            <a href="/for-organisations" className="block text-gray-700 hover:text-ablr-primary">For Organisations</a>
+            <a href="/faculty-collaborators" className="block text-gray-700 hover:text-ablr-primary">Faculty & Collaborators</a>
+            <a href="/inquiry" className="block text-gray-700 hover:text-ablr-primary">Enquire</a>
             <div className="flex items-center space-x-2 pt-2">
-              <button className="bg-ablr-primary text-white px-6 py-2 rounded hover:bg-ablr-dark transition font-semibold text-sm flex-1">
+              <a href="/inquiry" className="bg-ablr-primary text-white px-6 py-2 rounded hover:bg-ablr-dark transition font-semibold text-sm flex-1 text-center">
               Enquire 
-              </button>
+              </a>
              
             </div>
           </div>

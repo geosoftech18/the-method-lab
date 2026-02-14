@@ -18,12 +18,12 @@ export default function Footer() {
               Applied Behavioural Learning and Research Centre
             </p>
           </div>
-          
+
           <div className="col-span-12 sm:col-span-6 md:col-span-3">
             <h4 className="font-semibold mb-4 sm:mb-6 label-small-caps text-white/90 text-xs sm:text-sm">Navigation</h4>
             <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <li>
-                <a href="#about" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/about" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   About Us
                 </a>
               </li>
@@ -109,6 +109,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
+          
         </div>
         
         <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">

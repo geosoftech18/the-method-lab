@@ -8,7 +8,7 @@ export default function Quote() {
       
       {/* Oversized quotation mark watermark - positioned behind text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="text-[200px] sm:text-[300px] md:text-[350px] lg:text-[400px] relative -top-36 md:-top-36 lg:-top-36 font-serif text-ablr-dark opacity-[0.3] select-none" style={{ lineHeight: 1 }}>
+        <div className="text-[200px] sm:text-[300px] md:text-[350px] lg:text-[400px] relative -top-36 md:-top-36 lg:-top-36 font-serif text-ablr-dark opacity-[0.5] select-none" style={{ lineHeight: 1 }}>
           "
         </div>
       </div>

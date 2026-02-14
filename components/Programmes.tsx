@@ -201,7 +201,7 @@ export default function Programmes() {
       <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <p className="label-small-caps text-ablr-dark/70 mb-3 sm:mb-4 text-xs sm:text-sm">Our Offerings</p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-dark/90 mb-4 sm:mb-6">
             Current & Upcoming Programmes
           </h2>
         </div>
@@ -215,11 +215,11 @@ export default function Programmes() {
                 onClick={() => setActiveTab(tab)}
                 className="relative px-4 sm:px-6 md:px-8 py-2 sm:py-3 text-sm sm:text-base md:text-lg font-semibold transition-colors duration-300 whitespace-nowrap flex-shrink-0"
               >
-                <span className={activeTab === tab ? 'text-ablr-primary' : 'text-gray-600 hover:text-ablr-primary'}>
+                <span className={activeTab === tab ? 'text-ablr-dark' : 'text-gray-600 hover:text-ablr-dark'}>
                   {tab}
                 </span>
                 {activeTab === tab && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ablr-primary transition-all duration-500"></div>
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ablr-dark transition-all duration-500"></div>
                 )}
               </button>
             ))}
@@ -245,7 +245,7 @@ export default function Programmes() {
                   className="flex-shrink-0 w-[calc(100vw-2rem)] snap-center"
                 >
                   <ScrollAnimation direction="up" delay={index * 100}>
-                    <div className="group card-elevated bg-ablr-primary rounded-lg p-6 h-[350px] relative overflow-hidden flex flex-col mx-auto">
+                    <div className="group card-elevated bg-ablr-dark rounded-lg p-6 h-[350px] relative overflow-hidden flex flex-col mx-auto">
                       {/* Background Image */}
                       <div 
                         className="absolute inset-0 hidden group-hover:block bg-cover bg-center"
@@ -253,7 +253,7 @@ export default function Programmes() {
                       ></div>
                       
                       {/* Gradient Overlay for text readability */}
-                      <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-500 bg-gradient-to-br from-ablr-primary via-ablr-primary/85 to-ablr-secondary/5"></div>
+                      <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-500 bg-gradient-to-br from-ablr-dark via-ablr-dark/85 to-ablr-secondary/5"></div>
                       
                       {/* Content */}
                       <div className="relative z-10 flex flex-col h-full">
@@ -298,7 +298,7 @@ export default function Programmes() {
             {filteredProgrammes.map((programme, index) => (
               <div key={index} className="col-span-6 lg:col-span-3">
                 <ScrollAnimation direction="up" delay={index * 100}>
-                  <div className="group card-elevated bg-ablr-primary rounded-lg p-6 sm:p-8 h-[380px] md:h-[400px] relative overflow-hidden flex flex-col">
+                  <div className="group card-elevated rounded-lg p-6 sm:p-8 h-[380px] md:h-[400px] relative overflow-hidden flex flex-col">
                     {/* Background Image */}
                     <div 
                       className="absolute inset-0 hidden group-hover:block bg-cover bg-center"
@@ -306,7 +306,7 @@ export default function Programmes() {
                     ></div>
                     
                     {/* Gradient Overlay for text readability */}
-                    <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-500 bg-gradient-to-br from-ablr-primary via-ablr-primary/85 to-ablr-secondary/5"></div>
+                    <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-500 bg-gradient-to-br from-ablr-dark via-ablr-dark/90 to-ablr-dark"></div>
                     
                     {/* Content */}
                     <div className="relative z-10 flex flex-col h-full">
@@ -354,7 +354,7 @@ export default function Programmes() {
                   onClick={() => handleDotClick(index)}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     index === currentIndex 
-                      ? 'bg-ablr-primary w-8' 
+                      ? 'bg-ablr-dark/80 w-8' 
                       : 'bg-gray-300 w-2 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to programme ${index + 1}`}
@@ -365,7 +365,7 @@ export default function Programmes() {
         </div>
         
         <div className="text-center">
-          <button className="magnetic-button bg-ablr-primary text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-sm hover:bg-ablr-dark transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl w-full sm:w-auto">
+          <button className="magnetic-button bg-ablr-dark text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-sm hover:bg-ablr-dark/95 transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl w-full sm:w-auto">
             View All Programmes
           </button>
         </div>

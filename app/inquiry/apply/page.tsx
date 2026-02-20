@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -10,6 +11,7 @@ import { GraduationCap, ArrowLeft, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 
 export default function ApplyPage() {
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,14 +19,49 @@ export default function ApplyPage() {
     role: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [programmeOptions, setProgrammeOptions] = useState<string[]>([])
 
-  const programmes = [
+  const baseProgrammes = [
     'Applied Learning and Training Programme',
     'Applied Research and Practice Programme',
     'Clinical Training Programme',
     'Research Methodology Course',
     'Professional Development Workshop',
   ]
+
+  // Pre-select course from URL parameters and update options
+  useEffect(() => {
+    const courseName = searchParams.get('courseName')
+    
+    if (courseName) {
+      const decodedCourseName = decodeURIComponent(courseName)
+      // Check if the course name exists in the programmes list
+      const matchingProgramme = baseProgrammes.find(prog => 
+        prog.toLowerCase() === decodedCourseName.toLowerCase() ||
+        decodedCourseName.toLowerCase().includes(prog.toLowerCase()) ||
+        prog.toLowerCase().includes(decodedCourseName.toLowerCase())
+      )
+      
+      // If found, use the matching programme; otherwise, use the course name directly
+      const selectedProgramme = matchingProgramme || decodedCourseName
+      
+      // Update programme options - add course name if it's not in the base list
+      if (decodedCourseName && !baseProgrammes.includes(decodedCourseName)) {
+        setProgrammeOptions([...baseProgrammes, decodedCourseName])
+      } else {
+        setProgrammeOptions(baseProgrammes)
+      }
+      
+      // Pre-select the programme
+      setFormData(prev => ({
+        ...prev,
+        programme: selectedProgramme
+      }))
+    } else {
+      // No course name in URL, just use base programmes
+      setProgrammeOptions(baseProgrammes)
+    }
+  }, [searchParams])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -140,7 +177,7 @@ export default function ApplyPage() {
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-ablr-primary focus:outline-none transition-colors duration-300 bg-white"
                       >
                         <option value="">Select a programme</option>
-                        {programmes.map((prog, index) => (
+                        {programmeOptions.map((prog, index) => (
                           <option key={index} value={prog}>
                             {prog}
                           </option>

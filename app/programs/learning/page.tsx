@@ -24,7 +24,7 @@ export default function LearningPage() {
           <div className="max-w-4xl mx-auto text-center">
             <p className="label-small-caps text-white/80 mb-4 text-sm sm:text-base">Programmes</p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 leading-tight">
-              Applied Learning and Training Wing
+            Practice and Implementation Wing 
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
               Building practical competencies through structured, evidence-based training programmes

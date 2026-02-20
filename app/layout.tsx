@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { ProgramProvider } from '@/contexts/ProgramContext'
 
 export const metadata: Metadata = {
   title: 'Applied Behavioural Learning and Research | ABLR',
@@ -19,7 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ProgramProvider>
+          {children}
+        </ProgramProvider>
+      </body>
     </html>
   )
 }

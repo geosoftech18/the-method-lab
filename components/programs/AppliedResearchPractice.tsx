@@ -1,44 +1,24 @@
 'use client'
 
+import { useState, useEffect, useMemo } from 'react'
 import { FlaskConical, ChevronDown, Users, Clock, ArrowRight, CheckCircle2, BookOpen, Settings, BarChart3, FileText, Lightbulb } from 'lucide-react'
 import CourseCard from './CourseCard'
 import ScrollAnimation from '../ScrollAnimation'
 import Link from 'next/link'
+import { usePrograms } from '@/contexts/ProgramContext'
 
-const highlightedCourses = [
-  {
-    id: '3',
-    title: 'Research Methodology Intensive',
-    duration: '10 weeks',
-    isSelfPaced: true,
-    mode: 'pre-recorded' as const,
-    wing: 'Applied Research and Practice' as const,
-    audience: 'students' as const,
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',
-  },
-  {
-    id: '5',
-    title: 'Data Analysis for Behavioural Research',
-    duration: '6 weeks',
-    isSelfPaced: true,
-    mode: 'pre-recorded' as const,
-    wing: 'Applied Research and Practice' as const,
-    audience: 'students' as const,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-  },
-  {
-    id: '7',
-    title: 'Evidence Synthesis and Meta-Analysis',
-    duration: '8 weeks',
-    nextCohort: 'April 2024',
-    mode: 'live' as const,
-    wing: 'Applied Research and Practice' as const,
-    audience: 'professionals' as const,
-    image: 'https://images.unsplash.com/photo-1532619675605-1ede6c7edf47?w=800&h=600&fit=crop',
-  },
-]
+export default function AppliedResearchPractice() {
+  const { programs, loading } = usePrograms()
+  
+  // Filter for Applied Research and Practice or Research and Methodology wings
+  const highlightedCourses = useMemo(() => {
+    return programs.filter((program) => 
+      program.wing === 'Applied Research and Practice' || 
+      program.wing === 'Research and Methodology'
+    )
+  }, [programs])
 
-const focusAreas = [
+  const focusAreas = [
   {
     icon: Settings,
     title: 'Applied Behaviour Analysis (ABA)',
@@ -85,18 +65,25 @@ const programFormats = [
   },
 ]
 
-export default function AppliedResearchPractice() {
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600">Loading programmes...</p>
+      </div>
+    )
+  }
+
   return (
     <div>
       {/* Overview */}
       <ScrollAnimation direction="up">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-6 text-ablr-primary">
-            Applied Research and Practice Wing
+          Research and Methodology Wing 
           </h2>
           <div className="w-20 h-1 bg-ablr-primary mb-6"></div>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            The Applied Research and Practice Wing is dedicated to advancing research competence and evidence-based practice. Our programmes focus on developing rigorous research skills, methodological expertise, and the ability to translate research findings into practical applications.
+            The Research and Methodology Wing is dedicated to advancing research competence and evidence-based practice. Our programmes focus on developing rigorous research skills, methodological expertise, and the ability to translate research findings into practical applications.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed">
             We equip researchers, practitioners, and students with the tools and knowledge needed to conduct high-quality research, critically evaluate evidence, and contribute meaningfully to the field of applied behavioural sciences.
@@ -361,11 +348,17 @@ export default function AppliedResearchPractice() {
             </div>
           </div>
           <div className="grid grid-cols-12 gap-6">
-            {highlightedCourses.map((course, index) => (
-              <div key={course.id} className="col-span-12 sm:col-span-6 lg:col-span-4">
-                <CourseCard {...course} />
+            {highlightedCourses.length === 0 ? (
+              <div className="col-span-12 text-center py-8">
+                <p className="text-gray-600">No programmes available at the moment.</p>
               </div>
-            ))}
+            ) : (
+              highlightedCourses.map((course, index) => (
+                <div key={course.id} className="col-span-12 sm:col-span-6 lg:col-span-4">
+                  <CourseCard {...course} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </ScrollAnimation>

@@ -6,24 +6,24 @@ import ScrollAnimation from './ScrollAnimation'
 export default function TwoComplementaryWings() {
   const wings = [
     {
-      title: 'Applied Teaching Wing',
-      description: "The Applied Teaching Wing focuses on practice-oriented training for educators and human-service professionals, including psychologists, psychiatrists, special educators, social workers, counsellors, and others working directly with individuals and communities.",
+      title: 'Practice and Implementation Wing',
+      description: "The Practice and Implementation Wing advances evidence-based practice for psychologists, psychiatrists, public health professionals, teachers, special educators, social workers, counsellors, behavioural scientists and allied health professionals working directly with individuals, communities and institutional systems.",
       features: [
-        'Applied strategies and behavioural frameworks',
-        'Inclusive practices',
+        'Evidence-based clinical and behavioural frameworks',
+        'Inclusive and interdisciplinary practice',
         'System-level problem-solving',
         'Tools for direct implementation in professional settings',
       ],
       bgClass: 'bg-gray-50/50',
     },
     {
-      title: 'Research Teaching Wing',
-      description: "The Research Teaching Wing focuses on building applied research competence, with particular attention to research design, measurement, and methodological decision-making. Training supports students and professionals engaged in academic research, clinical and educational evaluation, policy work, and field-based studies.",
+      title: 'Research and Methodology Wing',
+      description: "The Research and Methodology Wing builds applied research competence for psychology students, doctoral researchers, faculty members, clinicians, public health practitioners and policy professionals engaged in academic research, clinical evaluation and systems-level inquiry.",
       features: [
-        'Research design and methodology',
-        'Measurement and evaluation',
-        'Clinical and educational evaluation',
-        'Policy work and field-based studies',
+        'Research design and advanced methodology',
+        'Measurement, assessment and evaluation',
+        'Clinical, educational and public health research',
+        'Policy analysis and field-based studies',
       ],
       bgClass: 'bg-white',
     },

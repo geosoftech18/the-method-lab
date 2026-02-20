@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Program {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  duration          String
+  startDate         String?
+  endDate           String?
+  nextCohort        String?
+  isSelfPaced       Boolean  @default(false)
+  mode              String   // 'live' or 'pre-recorded'
+  wing              String
+  audience          String
+  brochureUrl       String?
+  description       String?
+  image             String?  // Base64 encoded image
+  whoItsFor         String[]
+  learningObjectives String[]
+  outcomes          String[]
+  faculty           Faculty[]
+  faqs              Faq[]
+  certificate       Certificate?
+  testimonials      Testimonial[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("programs")
+}
+
+model Faculty {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  programId String   @db.ObjectId
+  program   Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  name      String
+  role      String
+  bio       String
+  image     String?  // Base64 encoded image
+
+  @@map("faculty")
+}
+
+model Faq {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  programId String   @db.ObjectId
+  program   Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  question  String
+  answer    String
+
+  @@map("faqs")
+}
+
+model Testimonial {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  programId String   @db.ObjectId
+  program   Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  quote     String
+  author    String
+  role      String
+
+  @@map("testimonials")
+}
+
+model Certificate {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  programId   String   @unique @db.ObjectId
+  program     Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  image       String?  // Base64 encoded image
+
+  @@map("certificates")
+}
+
+model Course {
+  id                        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title                     String
+  tagline                   String?
+  formatLine                String?  // e.g., "Self-Paced | 12 Hours of Content | Lifetime Access | Start Immediately"
+  microTrustLine            String?  // e.g., "Designed for psychologists, supervisors, and mental health leaders."
+  primaryCtaUrl             String?
+  secondaryCtaUrl           String?
+  overview                  String?  // About the Course
+  whoItsFor                 String[]
+  learningObjectives        String[]  // What You Will Gain
+  learningOutcomes          String[]
+  whatsIncluded             String?  // What's Included
+  howItWorks                String?  // How the Course Works
+  certificationDescription  String?  // Certification & Completion
+  price                     Float?
+  earlyAccessPrice          Float?
+  institutionalLicensing    String?
+  bulkPurchaseOption        String?
+  readyToBeginText          String?
+  startImmediatelyText      String?
+  enrolNowUrl               String?
+  downloadSyllabusUrl       String?
+  image                     String?  // Base64 encoded image
+  faculty                   CourseFaculty[]
+  faqs                      CourseFaq[]
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  @@map("courses")
+}
+
+model CourseFaculty {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  courseId  String   @db.ObjectId
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  name      String
+  role      String
+  bio       String
+  image     String?  // Base64 encoded image
+
+  @@map("course_faculty")
+}
+
+model CourseFaq {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  courseId  String   @db.ObjectId
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  question  String
+  answer    String
+
+  @@map("course_faqs")
+}
+
+model Blog {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  content       String   // HTML content from editor
+  excerpt       String?
+  slug          String   @unique
+  tags          String[]
+  status        String   // 'published' or 'draft'
+  featuredImage String?  // Base64 encoded image
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("blogs")
+}
+

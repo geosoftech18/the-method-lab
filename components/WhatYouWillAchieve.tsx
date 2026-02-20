@@ -60,11 +60,11 @@ export default function WhatYouWillAchieve() {
   }, [])
 
   const achievements = [
-    'Design and implement evidence-based interventions.',
-    'Evaluate client outcomes using rigorous methodology.',
-    'Apply ethical and culturally responsive behavioural interventions.',
-    'Integrate research findings into your clinical practice.',
-    'Develop professional competence and leadership in the field.',
+    'Applied Professional Competence: Translate evidence into action with confidence — implementing research-informed strategies across clinical, educational, public health and community settings.',
+    'Methodological Rigour: Design, evaluate and interpret research with clarity, strengthening your ability to conduct scientifically robust and ethically sound inquiry.',
+    'Informed Clinical & Professional Judgement: Strengthen decision-making through structured frameworks grounded in behavioural science, evidence-based practice and systems thinking.',
+    'Measurable Impact: Move beyond theory to implement interventions, evaluations and professional practices that produce observable and defensible outcomes.',
+    'Institutional & Career Advancement: Enhance your professional credibility and contribute meaningfully to institutional standards, faculty development and research excellence.',
   ]
 
   return (

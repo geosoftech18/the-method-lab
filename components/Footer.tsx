@@ -1,5 +1,8 @@
 'use client'
 
+import Link from 'next/link'
+import { GraduationCap, ArrowRight } from 'lucide-react'
+
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -27,28 +30,25 @@ export default function Footer() {
                   About Us
                 </a>
               </li>
+             
+             
               <li>
-                <a href="#news" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  News
-                </a>
-              </li>
-              <li>
-                <a href="#blog" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#programmes" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/programs" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Programmes
                 </a>
               </li>
               <li>
-                <a href="#faculty" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  Faculty
+                <a href="/for-organisations" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                  For Organisations
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/faculty-collaborators" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                  Faculty & Collaborators
+                </a>
+              </li>
+              <li>
+                <a href="/contact-us" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Contact Us
                 </a>
               </li>
@@ -59,18 +59,18 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 sm:mb-6 label-small-caps text-white/90 text-xs sm:text-sm">Programmes</h4>
             <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/programs" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                  All Programmes
+                </a>
+              </li>
+              <li>
+                <a href="/programs/learning" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Applied Behavioural Training
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/programs/research" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Research & Evaluation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  All Programmes
                 </a>
               </li>
             </ul>
@@ -91,6 +91,19 @@ export default function Footer() {
               </li>
               <li>Mumbai, India</li>
             </ul>
+            
+            {/* Work with Us Button */}
+            <div className="mt-6 sm:mt-8">
+              <Link
+                href="/inquiry/teach"
+                className="inline-flex items-center gap-2 bg-white text-ablr-primary px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors duration-300 group w-full sm:w-auto justify-center"
+              >
+                <GraduationCap size={18} />
+                <span>Work with Us</span>
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
+              </Link>
+            </div>
+            
             <div className="mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <div>
                 <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -9,10 +9,26 @@ import { useSearchParams } from 'next/navigation'
 import { ArrowLeft, Send } from 'lucide-react'
 import Link from 'next/link'
 import ScrollAnimation from '@/components/ScrollAnimation'
+import { usePrograms } from '@/contexts/ProgramContext'
 
 export default function ApplyPage() {
   const searchParams = useSearchParams()
   const courseId = searchParams.get('course')
+  const courseNameParam = searchParams.get('courseName')
+  const { programs } = usePrograms()
+  
+  // Get course name from URL param or from cache
+  const getCourseName = () => {
+    if (courseNameParam) {
+      return decodeURIComponent(courseNameParam)
+    }
+    if (courseId) {
+      const course = programs.find(p => p.id === courseId)
+      return course?.title || ''
+    }
+    return ''
+  }
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,9 +36,17 @@ export default function ApplyPage() {
     phone: '',
     organization: '',
     role: '',
-    courseInterest: courseId || '',
+    courseInterest: getCourseName(),
     message: '',
   })
+
+  // Update courseInterest when courseNameParam or programs load
+  useEffect(() => {
+    const courseName = getCourseName()
+    if (courseName) {
+      setFormData(prev => ({ ...prev, courseInterest: courseName }))
+    }
+  }, [courseNameParam, programs, courseId])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -171,12 +195,11 @@ export default function ApplyPage() {
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-ablr-primary focus:outline-none transition-colors"
                   >
                     <option value="">Select a course</option>
-                    <option value="1">Applied Behaviour Analysis Foundations</option>
-                    <option value="2">Advanced Clinical Supervision</option>
-                    <option value="3">Research Methodology Intensive</option>
-                    <option value="4">Ethical Practice in ABA</option>
-                    <option value="5">Data Analysis for Behavioural Research</option>
-                    <option value="6">Organizational Training in ABA</option>
+                    {programs.map((program) => (
+                      <option key={program.id} value={program.title}>
+                        {program.title}
+                      </option>
+                    ))}
                   </select>
                 </div>
 

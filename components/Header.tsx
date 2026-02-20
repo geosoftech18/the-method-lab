@@ -18,7 +18,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center">
-            <a href="#" className="flex flex-col group">
+            <a href="/" className="flex flex-col group">
              <Image src="/logo.png" alt="ABLR" width={150} height={100} />
             </a>
           </div>
@@ -33,7 +33,7 @@ export default function Header() {
               onMouseEnter={() => setProgrammesDropdown(true)}
               onMouseLeave={() => setProgrammesDropdown(false)}
             >
-              <a href="#programmes" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 flex items-center gap-1 underline-animate">
+              <a href="/programs" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 flex items-center gap-1 underline-animate">
                 Programmes
                 <ChevronDown size={14} className={`transition-transform duration-300 ${programmesDropdown ? 'rotate-180' : ''}`} />
               </a>
@@ -50,6 +50,12 @@ export default function Header() {
             </a>
             <a href="/faculty-collaborators" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
               Faculty & Collaborators
+            </a>
+            <a href="/blog" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
+              Blog
+            </a>
+            <a href="/contact-us" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
+              Contact Us
             </a>
       
           </div>
@@ -87,6 +93,8 @@ export default function Header() {
             <a href="/programs/research" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Research and Practice</a>
             <a href="/for-organisations" className="block text-gray-700 hover:text-ablr-primary">For Organisations</a>
             <a href="/faculty-collaborators" className="block text-gray-700 hover:text-ablr-primary">Faculty & Collaborators</a>
+            <a href="/blog" className="block text-gray-700 hover:text-ablr-primary">Blog</a>
+            <a href="/contact-us" className="block text-gray-700 hover:text-ablr-primary">Contact Us</a>
             <a href="/inquiry" className="block text-gray-700 hover:text-ablr-primary">Enquire</a>
             <div className="flex items-center space-x-2 pt-2">
               <a href="/inquiry" className="bg-ablr-primary text-white px-6 py-2 rounded hover:bg-ablr-dark transition font-semibold text-sm flex-1 text-center">

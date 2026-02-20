@@ -20,6 +20,8 @@ import {
   Mail
 } from 'lucide-react'
 import ScrollAnimation from './ScrollAnimation'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function About() {
   const [activeTab, setActiveTab] = useState(0)
@@ -49,23 +51,15 @@ export default function About() {
 
   const leadership = [
     {
-      name: 'Dr. Sarah Mitchell',
-      role: 'Founder & Director',
-      bio: 'Leading expert in Applied Behaviour Analysis with over 20 years of experience in clinical practice and research. Committed to bridging the gap between theory and practice through evidence-based methodologies.',
+      name: 'Dr. Angana Nandy',
+      role: 'developmental psychologist and researcher with international training and experience across academic and applied settings. ',
+      bio: `She holds a PhD in Developmental Psychology from Trinity College Dublin and completed postdoctoral research in early intervention and child development in Taiwan.`,
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
       linkedin: 'https://linkedin.com/in/sarah-mitchell',
       twitter: 'https://twitter.com/sarahmitchell',
       email: 'sarah.mitchell@ablr.org',
     },
-    {
-      name: 'Dr. James Anderson',
-      role: 'Academic Lead',
-      bio: 'Renowned researcher and educator specializing in evidence-based practice and research methodology. Dedicated to advancing the field through rigorous research and innovative teaching approaches.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/james-anderson',
-      twitter: 'https://twitter.com/jamesanderson',
-      email: 'james.anderson@ablr.org',
-    },
+
   ]
 
   return (
@@ -81,11 +75,11 @@ export default function About() {
           <ScrollAnimation direction="up">
             <div className="max-w-4xl mx-auto text-center">
               <p className="label-small-caps text-white/80 mb-4 text-sm sm:text-base">About ABLR</p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 leading-tight">
-                Building Excellence in Applied Practice
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight">
+              Strengthening Applied Practice and Research Systems
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-                A professional training and capacity-building initiative designed to strengthen applied practice and research competence.
+              For behavioural and health sciences professionals and institutions.
               </p>
             </div>
           </ScrollAnimation>
@@ -101,7 +95,7 @@ export default function About() {
           <div className="col-span-12 mb-6 sm:mb-8 lg:mb-0 lg:hidden">
             <ScrollAnimation direction="up">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4 sm:mb-6 text-ablr-primary">
-                About the Center
+                About The Method Lab
               </h2>
               <div className="w-20 h-1 bg-ablr-primary"></div>
             </ScrollAnimation>
@@ -113,18 +107,20 @@ export default function About() {
                 {/* Heading Section - Desktop Only */}
                 <div className="hidden lg:block mb-6 sm:mb-8">
                   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4 sm:mb-6 text-ablr-primary">
-                    About the Center
+                    About The Method Lab
                   </h2>
                   <div className="w-20 h-1 bg-ablr-primary mb-6 sm:mb-8"></div>
                 </div>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                  ABLR Centre (<span className="text-ablr-primary font-semibold">Applied Behavioural Learning and Research</span>) is a professional training and capacity-building initiative by Hopscotch Child Therapy, designed to strengthen applied practice and research competence across the behavioural and social sciences.
+                  The Method Lab (<span className="text-ablr-primary font-semibold">Applied Behavioural Learning and Research</span>) is a global capacity-building initiative dedicated to strengthening applied practice and research competence across the behavioural and health sciences.
                 </p>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                  Our mission is to bridge the gap between theoretical knowledge and real-world professional demands, providing comprehensive training that translates evidence-based research into effective practice.
+                We operate at the intersection of evidence-based practice and rigorous research methodology, equipping behavioural and health sciences professionals, students and institutions with the applied competence required in contemporary clinical, public health, educational and policy environments.
                 </p>
+                <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
+                Our faculty-led model integrates professional development with methodological depth, supporting both individual expertise and institutional standards worldwide.                </p>
 
                 <div className="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
                   <div className="flex items-center gap-2 text-ablr-primary">
@@ -145,11 +141,19 @@ export default function About() {
 
             <div className="col-span-12 lg:col-span-6 order-2 lg:order-2 mb-6 lg:mb-0">
               <ScrollAnimation direction="up" delay={200}>
-                <div className="relative">
-                  <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3"></div>
-                  <div className="relative bg-gradient-to-br from-ablr-primary to-ablr-dark rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] xl:h-[500px] flex items-center justify-center">
-                    <Building2 size={50} className="sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-[120px] xl:h-[120px] text-white/80" strokeWidth={1} />
+                <div className="relative w-full max-w-full">
+                <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3"></div>
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-full w-full">
+                    <Image 
+                      src="/about-image.png" 
+                      alt="About The Method Lab" 
+                      width={600} 
+                      height={500}
+                      className="w-full h-auto max-w-full object-cover"
+                      style={{ maxHeight: '500px' }}
+                    />
                   </div>
+                  <div className="absolute top-2 left-2 right-2 bottom-2 sm:top-3 sm:left-3 sm:right-3 sm:bottom-3 md:top-4 md:left-4 md:right-4 md:bottom-4 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3 -z-10"></div>
                 </div>
               </ScrollAnimation>
             </div>
@@ -187,11 +191,12 @@ export default function About() {
                     </div>
                     
                     <h3 className="text-2xl sm:text-3xl font-serif font-bold mb-4 text-ablr-primary">
-                      The Theory–Practice Gap
-                    </h3>
+                    	Why The Method Lab Was Established                    </h3>
                     
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      While formal training often provides strong conceptual foundations, many educators and practising professionals report limited preparation in translating theory into effective practice, professional judgement, and methodologically sound research.
+                    Across psychology, public health, education and allied disciplines, professionals are increasingly expected to demonstrate evidence-based practice, methodological rigour and systems-level thinking. However, 
+                    structured opportunities for advanced applied training and research competence often remain fragmented or inconsistently integrated into formal education. 
+                    The Method Lab was created to provide a focused, faculty-led platform dedicated to strengthening applied competence and research standards in a coherent and globally accessible format.
                     </p>
                     
                     <p className="text-gray-700 leading-relaxed">
@@ -214,27 +219,20 @@ export default function About() {
                     </div>
                     
                     <h3 className="text-2xl sm:text-3xl font-serif font-bold mb-4 text-ablr-dark">
-                      Why ABLR Was Established
+                    The Theory–Practice Gap
                     </h3>
                     
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      ABLR was established to address this persistent gap between theoretical knowledge and real-world professional demands. Our programs are designed to bridge this divide through:
+                    Within many behavioural and health sciences programmes, theoretical knowledge is robust. Foundational concepts, models and frameworks are thoroughly taught. 
+                    Yet professionals frequently encounter a gap when translating this knowledge into real-world application - whether in clinical decision-making, programme implementation,
+                     institutional evaluation or research design. Bridging this theory–practice gap requires more than additional information. 
+                    </p>
+                    <p className="text-gray-700 leading-relaxed mb-4">
+                    It requires structured training in implementation, methodological judgement and applied problem-solving. The Method Lab addresses this gap by integrating evidence-based practice with rigorous research methodology,
+                     ensuring that theory is not only understood, but competently enacted within complex professional environments.
                     </p>
                     
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="text-ablr-primary mt-1 flex-shrink-0" size={20} />
-                        <span className="text-gray-700">Practical, hands-on training that connects theory to practice</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="text-ablr-primary mt-1 flex-shrink-0" size={20} />
-                        <span className="text-gray-700">Research methodology training for evidence-based practice</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="text-ablr-primary mt-1 flex-shrink-0" size={20} />
-                        <span className="text-gray-700">Professional development that enhances real-world competence</span>
-                      </li>
-                    </ul>
+                    
                   </div>
                 </div>
               </ScrollAnimation>
@@ -268,7 +266,7 @@ export default function About() {
                     Our Vision
                   </h3>
                   <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed">
-                    To be a leading center for excellence in applied behavioural learning and research, where theory seamlessly integrates with practice, and professionals are empowered to make evidence-based decisions that transform lives.
+                  To advance global standards of excellence in applied practice and research across the behavioural and health sciences — where theory and practice are fully integrated, and evidence-based decision-making is foundational to professional and institutional systems.
                   </p>
                 </div>
               </div>
@@ -316,8 +314,8 @@ export default function About() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 text-ablr-dark/90">Evidence-Based Practice</h4>
-                        <p className="text-gray-700 text-sm sm:text-base">All training is rooted in the latest research and evidence, ensuring participants learn methods that are proven to be effective.</p>
+                        <h4 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 text-ablr-dark/90">Evidence Anchored</h4>
+                        <p className="text-gray-700 text-sm sm:text-base">All programmes are grounded in established research, validated frameworks and current scientific literature across the behavioural and health sciences. </p>
                       </div>
                     </div>
                     
@@ -328,8 +326,8 @@ export default function About() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 text-ablr-dark/90">Practical Application</h4>
-                        <p className="text-gray-700 text-sm sm:text-base">We emphasize hands-on learning and real-world application, bridging the gap between theory and practice.</p>
+                        <h4 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 text-ablr-dark/90">Application-Oriented</h4>
+                        <p className="text-gray-700 text-sm sm:text-base"> Learning is structured around real-world implementation. Whether in clinical settings, educational systems, public health environments or research institutions, our training emphasises applied competence and practical execution.</p>
                       </div>
                     </div>
                     
@@ -340,8 +338,8 @@ export default function About() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 text-ablr-dark/90">Collaborative Learning</h4>
-                        <p className="text-gray-700 text-sm sm:text-base">Our programs foster collaboration between practitioners, researchers, and educators to create a rich learning environment.</p>
+                        <h4 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 text-ablr-dark/90">Faculty-Led and Systems-Focused</h4>
+                        <p className="text-gray-700 text-sm sm:text-base">Our model is delivered by experienced scholars and practitioners and designed to strengthen both individual expertise and institutional capacity.</p>
                       </div>
                     </div>
                   </div>
@@ -397,12 +395,16 @@ export default function About() {
                         <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-ablr-primary mb-4">
                           {leadership[0].name}
                         </h3>
-                        <p className="text-ablr-terracotta font-semibold mb-6 text-xl sm:text-2xl">
+                        <p className="text-ablr-terracotta font-semibold mb-6 text-lg sm:text-xl">
                           {leadership[0].role}
                         </p>
-                        <p className="text-gray-700 leading-relaxed text-lg sm:text-xl mb-8 max-w-2xl">
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
                           {leadership[0].bio}
                         </p>
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-8 max-w-2xl">
+                        Her work has focused on bridging research and practice within behavioural and health sciences systems, with particular emphasis on evidence-based professional training, applied competence and research methodology.
+                        </p>
+                       
                       </div>
                       
                       {/* Social Icons */}
@@ -463,11 +465,11 @@ export default function About() {
                 <div className="w-20 h-1 bg-ablr-primary mb-6 sm:mb-8"></div>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                  ABLR Centre is an initiative by <span className="text-ablr-primary font-semibold">Hopscotch Child Therapy</span>, a leading organization dedicated to providing evidence-based therapeutic services and advancing the field of applied behavioural sciences.
+                The Method Lab emerged from the work of Hopscotch Child Therapy, a clinical and training initiative committed to evidence-based practice in child and family mental health.
                 </p>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                  Through this initiative, Hopscotch Child Therapy extends its commitment to excellence beyond direct service provision, investing in the professional development and capacity-building of practitioners, educators, and researchers across the field.
+                While operating independently, The Method Lab builds upon this foundation to deliver global capacity-building in applied practice and research across the behavioural and health sciences.
                 </p>
 
                 <div className="bg-ablr-primary/10 rounded-xl p-4 sm:p-6 border-l-4 border-ablr-primary mb-4 sm:mb-6">
@@ -502,6 +504,46 @@ export default function About() {
                 </div>
               </ScrollAnimation>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section-spacing bg-gradient-to-br from-ablr-primary via-ablr-primary/95 to-ablr-dark text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-ablr-secondary rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <ScrollAnimation direction="up">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 sm:mb-8 leading-tight">
+                Ready to Partner with The Method Lab?
+              </h2>
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
+                Join us in advancing applied practice and research across the behavioural and health sciences.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                <Link
+                  href="/for-organisations"
+                  className="inline-flex items-center gap-3 bg-white text-ablr-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-300 group w-full sm:w-auto justify-center"
+                >
+                  <Users size={24} />
+                  <span>Partner with the Method Lab</span>
+                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+                <Link
+                  href="/programs"
+                  className="inline-flex items-center gap-3 bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors duration-300 group w-full sm:w-auto justify-center"
+                >
+                  <GraduationCap size={24} />
+                  <span>Explore Programmes</span>
+                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </div>
+            </ScrollAnimation>
           </div>
         </div>
       </section>

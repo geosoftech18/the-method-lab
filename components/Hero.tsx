@@ -4,10 +4,12 @@ import { ChevronDown } from 'lucide-react'
 import { CirclePattern } from './DecorativeElements'
 import { useEffect, useState, useRef } from 'react'
 
+import { useRouter } from 'next/navigation'
 export default function Hero() {
+  const router = useRouter()
   const [displayedText, setDisplayedText] = useState('')
-  const staticText = 'Applied Behavioural '
-  const typingText = 'Learning and Research'
+  const staticText = 'The '
+  const typingText = 'Method Lab'
   const [isTyping, setIsTyping] = useState(true)
   const currentIndexRef = useRef(0)
   const isDeletingRef = useRef(false)
@@ -88,21 +90,23 @@ export default function Hero() {
         <p className="text-xs sm:text-sm tracking-wider text-[#a6c3e5] mb-4 sm:mb-6 md:mb-8">
         An Initiative by Hopscotch Child Therapy</p>
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-2xl font-bold mx-auto font-serif mb-6 sm:mb-8 leading-tight">
-          <span>{staticText}</span><br />
+          <span>{staticText}</span>
           <span>
             {displayedText}
             {isTyping && <span className="animate-pulse text-white/80">|</span>}
           </span>
         </h1>
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 text-gray-200 px-4">
-          Strengthening applied practice and research competence across the behavioural and social sciences.
+        Strengthening applied practice and research competence across the behavioural and health sciences. 
         </p>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
-          <button className="bg-ablr-primary text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded hover:bg-ablr-primary/80 transition font-semibold text-sm sm:text-base md:text-lg w-full sm:w-auto">
-            View Programmes
+          <button className="bg-ablr-primary text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded hover:bg-ablr-primary/80 transition font-semibold text-sm sm:text-base md:text-lg w-full sm:w-auto"
+          onClick={() => router.push('/programs')}>
+          Explore Programmes 
           </button>
-          <button className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded hover:bg-white hover:text-ablr-primary transition font-semibold text-sm sm:text-base md:text-lg w-full sm:w-auto">
-          Enquire
+          <button className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded hover:bg-white hover:text-ablr-primary transition font-semibold text-sm sm:text-base md:text-lg w-full sm:w-auto"
+          onClick={() => router.push('/inquiry/organisation')}>
+          Partner with us
           </button>
         </div>
         <div className="mt-12 sm:mt-14 md:mt-16 flex flex-col items-center">

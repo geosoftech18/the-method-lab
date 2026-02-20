@@ -10,7 +10,7 @@ export default function DesignedForEveryStage() {
   const stages = [
     {
       title: 'Students & Early Career Professionals',
-      description: 'A strong foundation to apply relevant science, learn critical thinking, cultivate a scientific-practitioner mindset.',
+      description: 'We build applied competence early — through structured training in evidence-based clinical practice, research methodology and data analysis within the behavioural and health sciences.',
       image: '/students.jpg',
       gradientFrom: '#435C93',
       gradientTo: '#203b77',
@@ -19,7 +19,7 @@ export default function DesignedForEveryStage() {
     },
     {
       title: 'Practicing Professionals',
-      description: 'Current and relevant advanced training, practical tools and resources, and a community of like-minded professionals.',
+      description: 'We deliver advanced training in evidence-based clinical practice, research methodology and data analysis and management systems— supporting continued professional development, refined clinical judgement and methodological excellence across real-world settings.',
       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
       gradientFrom: '#435C93',
       gradientTo: '#203b77',
@@ -28,7 +28,7 @@ export default function DesignedForEveryStage() {
     },
     {
       title: 'Organizations & Institutions',
-      description: 'Partner with ABLR to develop and implement evidence-based practices and professional development programs.',
+      description: 'We partner with educational institutes, healthcare systems and professional bodies to strengthen institutional capacity in evidence-based practice, faculty development and research standards. ',
       image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop',
       gradientFrom: '#435C93',
       gradientTo: '#203b77',
@@ -107,7 +107,7 @@ export default function DesignedForEveryStage() {
                       <h3 className="text-base sm:text-lg font-bold mb-1 leading-tight">
                         {stage.title}
                       </h3>
-                      <p className="text-sm sm:text-base leading-relaxed font-normal">
+                      <p className="text-sm sm:text-base leading-relaxed font-normal line-clamp-3">
                         {stage.description}
                       </p>
                     </div>

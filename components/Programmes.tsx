@@ -14,7 +14,7 @@ export default function Programmes() {
   const sectionRef = useRef<HTMLElement>(null)
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const tabs = ['All', 'Applied Behaviour Analysis', 'Research & Evaluation']
+  const tabs = ['All', 'Applied Courses', 'Research Courses']
 
   const programmes = [
     {
@@ -23,7 +23,7 @@ export default function Programmes() {
       description: 'Foundational programme covering core ABA principles and their application.',
       duration: '8 weeks',
       format: 'Online',
-      category: 'Applied Behaviour Analysis',
+      category: 'Applied Courses',
       image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop',
     },
     {
@@ -32,25 +32,25 @@ export default function Programmes() {
       description: 'Advanced skills for effective supervision and mentorship in ABA.',
       duration: '6 weeks',
       format: 'Online',
-      category: 'Applied Behaviour Analysis',
+      category: 'Applied Courses',
       image: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop',
     },
     {
-      type: 'Research & Evaluation',
+      type: 'Research Courses',
       title: 'Research Methodology Intensive',
       description: 'Deep dive into research design, data analysis, and ethical considerations.',
       duration: '10 weeks',
       format: 'Online',
-      category: 'Research & Evaluation',
+      category: 'Research Courses',
       image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',
     },
     {
-      type: 'Ethical Practice',
+      type: 'Applied Courses',
       title: 'Ethical Practice in ABA',
       description: 'Comprehensive course on ethical decision-making and professional conduct.',
       duration: '4 weeks',
       format: 'Online',
-      category: 'Applied Behaviour Analysis',
+      category: 'Applied Courses',
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
     },
   ]

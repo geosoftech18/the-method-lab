@@ -1,44 +1,24 @@
 'use client'
 
+import { useState, useEffect, useMemo } from 'react'
 import { BookOpen, Target, Users, Clock, ArrowRight, CheckCircle2, Share2, Trophy, Settings, BarChart3, FileText, Lightbulb, ChevronDown } from 'lucide-react'
 import CourseCard from './CourseCard'
 import ScrollAnimation from '../ScrollAnimation'
 import Link from 'next/link'
+import { usePrograms } from '@/contexts/ProgramContext'
 
-const highlightedCourses = [
-  {
-    id: '1',
-    title: 'Applied Behaviour Analysis Foundations',
-    duration: '8 weeks',
-    nextCohort: 'March 2024',
-    mode: 'live' as const,
-    wing: 'Applied Learning and Training' as const,
-    audience: 'professionals' as const,
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop',
-  },
-  {
-    id: '2',
-    title: 'Advanced Clinical Supervision',
-    duration: '6 weeks',
-    nextCohort: 'April 2024',
-    mode: 'live' as const,
-    wing: 'Applied Learning and Training' as const,
-    audience: 'professionals' as const,
-    image: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop',
-  },
-  {
-    id: '4',
-    title: 'Ethical Practice in ABA',
-    duration: '4 weeks',
-    nextCohort: 'May 2024',
-    mode: 'live' as const,
-    wing: 'Applied Learning and Training' as const,
-    audience: 'professionals' as const,
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-  },
-]
+export default function AppliedLearningTraining() {
+  const { programs, loading } = usePrograms()
+  
+  // Filter for Applied Learning and Training or Practice and Implementation wings
+  const highlightedCourses = useMemo(() => {
+    return programs.filter((program) => 
+      program.wing === 'Applied Learning and Training' || 
+      program.wing === 'Practice and Implementation'
+    )
+  }, [programs])
 
-const focusAreas = [
+  const focusAreas = [
   {
     icon: Settings,
     title: 'Applied Behaviour Analysis (ABA)',
@@ -85,18 +65,25 @@ const programFormats = [
   },
 ]
 
-export default function AppliedLearningTraining() {
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600">Loading programmes...</p>
+      </div>
+    )
+  }
+
   return (
     <div>
       {/* Overview */}
       <ScrollAnimation direction="up">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-6 text-ablr-primary">
-            Applied Learning and Training Wing
+          Practice and Implementation Wing 
           </h2>
           <div className="w-20 h-1 bg-ablr-primary mb-6"></div>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            The Applied Learning and Training Wing focuses on building practical competencies and professional skills through structured, evidence-based training programmes. Our programmes are designed to bridge the gap between theoretical knowledge and real-world application.
+            The Practice and Implementation Wing focuses on building practical competencies and professional skills through structured, evidence-based training programmes. Our programmes are designed to bridge the gap between theoretical knowledge and real-world application.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed">
             We provide comprehensive training that empowers professionals to implement evidence-based practices with confidence and competence, ensuring they are well-equipped to make meaningful impacts in their respective fields.

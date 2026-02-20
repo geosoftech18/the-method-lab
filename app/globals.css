@@ -401,4 +401,6 @@ h3 {
   scrollbar-width: none;
 }
 
+/* Sticky Sidebar Fix - Using Tailwind classes directly on grid column */
+
 

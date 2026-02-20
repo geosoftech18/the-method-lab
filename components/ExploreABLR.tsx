@@ -12,12 +12,12 @@ export default function ExploreABLR() {
     },
     {
       icon: MessageCircle,
-      title: 'Enquire Today',
+      title: 'Partner with us',
       description: 'Get your questions answered and start your journey with ABLR.',
     },
     {
       icon: Users,
-      title: 'Collaborate with ABLR',
+      title: 'Work with us',
       description: 'Partner with us for research, training, or programme development.',
     },
   ]

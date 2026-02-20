@@ -9,24 +9,44 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: 'Who can enrol in a programme?',
-      answer: 'ABLR programmes are designed for a wide range of professionals, including students, early career professionals, practicing clinicians, researchers, and organizational leaders in the behavioural sciences.',
+      question: 'Who is The Method Lab designed for?',
+      answer: 'The Method Lab serves behavioural and health sciences professionals, students and institutions — including psychologists, psychiatrists, public health practitioners, educators, social workers, counsellors, behavioural scientists and allied health professionals seeking advanced applied and research competence.',
     },
     {
-      question: 'Are your programmes accredited?',
-      answer: 'Yes, our programmes are designed to meet professional practice and certification requirements. Many of our courses align with professional association standards and continuing education requirements.',
+      question: 'Is The Method Lab focused on research or clinical practice?',
+      answer: 'Both. Our structure integrates evidence-based practice and rigorous research methodology through complementary training wings. Participants strengthen applied competence while developing advanced methodological skill.',
     },
     {
-      question: 'What is the format of programmes?',
-      answer: 'Our programmes are offered in various formats including online courses, intensive training sessions, and hybrid models. Each programme description includes specific format details.',
+      question: 'Are your programmes suitable for early-career professionals?',
+      answer: 'Yes. We offer structured training for students and early-career professionals building foundational competence, as well as advanced programmes for experienced practitioners and faculty members.',
     },
     {
-      question: 'Can I get supervision or mentorship with ABLR?',
-      answer: 'Yes, ABLR offers supervision and mentorship services as part of our Applied Learning & Training Wing. These services are designed to support professionals at various stages of their careers.',
+      question: 'Do you offer institutional or customised training programmes?',
+      answer: 'Yes. We partner with universities, healthcare systems, schools and professional organisations to deliver customised faculty development, research training and applied capacity-building initiatives.',
     },
     {
-      question: 'How do I apply?',
-      answer: 'You can apply by visiting our programmes page, selecting the programme of interest, and following the application process outlined for that specific programme. For general enquiries, please contact us through our contact form.',
+      question: 'Are programmes delivered online or in person?',
+      answer: 'We offer live online programmes, hybrid formats and institutional on-site intensives depending on cohort type and partnership requirements.',
+    },
+    {
+      question: 'Are your programmes internationally accessible?',
+      answer: 'Yes. The Method Lab operates globally, with participants and institutional partners across behavioural and health sciences environments worldwide.',
+    },
+    {
+      question: 'Who delivers the training?',
+      answer: 'All programmes are faculty-led and delivered by experienced scholars and practitioners with expertise in applied psychology, public health, clinical practice and research methodology.',
+    },
+    {
+      question: 'Do participants receive certification?',
+      answer: 'Yes. Participants receive certification of completion reflecting advanced professional training in applied practice or research methodology, depending on programme track.',
+    },
+    {
+      question: ' How are your programmes different from standard continuing education courses?',
+      answer: 'Our programmes integrate applied implementation with methodological rigour. We focus not only on knowledge acquisition but on strengthening professional judgement, research competence and institutional standards.',
+    },
+    {
+      question: 'How can organisations initiate a partnership?',
+      answer: 'Institutions may request a consultation through our “For Organisations” pathway to discuss customised training, faculty development or long-term capacity-building collaborations.',
     },
   ]
 

@@ -57,7 +57,12 @@ export default function BlogAdminPage() {
         const result = await response.json()
 
         if (result.success) {
-          setBlogs(blogs.filter(blog => blog.id !== id))
+          // Invalidate cache and refresh
+          invalidateBlogs()
+          fetchBlogs(true, { 
+            status: filterStatus === 'all' ? undefined : filterStatus,
+            search: searchQuery || undefined
+          })
           alert('Blog post deleted successfully!')
         } else {
           alert('Failed to delete blog post: ' + result.error)

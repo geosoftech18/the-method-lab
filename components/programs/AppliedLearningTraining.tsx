@@ -22,44 +22,44 @@ export default function AppliedLearningTraining() {
   {
     icon: Settings,
     title: 'Applied Behaviour Analysis (ABA)',
-    description: 'Comprehensive training in evidence-based behavioural interventions and analysis techniques.',
+    description: 'Evidence-based clinical and behavioural frameworks for real-world application.',
   },
   {
     icon: BarChart3,
     title: 'Clinical Supervision',
-    description: 'Advanced supervision methodologies and professional development frameworks.',
+    description: 'Inclusive and interdisciplinary practice across educational, clinical and community settings.',
   },
   {
     icon: FileText,
     title: 'Ethical Practice',
-    description: 'Ethical guidelines, professional standards, and responsible practice principles.',
+    description: 'Structured decision-making and systems-level problem-solving in complex environments.',
   },
   {
     icon: Lightbulb,
     title: 'Professional Development',
-    description: 'Continuous learning and skill enhancement for career advancement and excellence.',
+    description: 'Implementation tools and applied strategies for measurable professional impact.',
   },
 ]
 
 const programFormats = [
   {
     icon: Clock,
-    title: 'Live Sessions',
-    description: 'Interactive real-time training with expert faculty and structured learning experiences.',
+    title: 'Live Cohort Programmes ',
+    description: 'Structured, faculty-led training delivered in interactive online or hybrid formats. ',
     color: 'ablr-primary',
     accentColor: 'ablr-terracotta',
   },
   {
     icon: Users,
-    title: 'Cohort-Based',
-    description: 'Learn alongside peers in structured cohorts with collaborative learning opportunities.',
+    title: 'Self-Paced Learning ',
+    description: 'Professionally designed modules enabling flexible, independent progression through applied frameworks and implementation-focused content.',
     color: 'ablr-terracotta',
     accentColor: 'ablr-primary',
   },
   {
     icon: BookOpen,
-    title: 'Practical Application',
-    description: 'Hands-on exercises and real-world case studies to enhance your professional skills.',
+    title: 'Institutional Programmes ',
+    description: 'Customised training initiatives for universities, schools, healthcare systems and professional organisations.',
     color: 'ablr-dark',
     accentColor: 'ablr-primary',
   },
@@ -83,10 +83,13 @@ const programFormats = [
           </h2>
           <div className="w-20 h-1 bg-ablr-primary mb-6"></div>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            The Practice and Implementation Wing focuses on building practical competencies and professional skills through structured, evidence-based training programmes. Our programmes are designed to bridge the gap between theoretical knowledge and real-world application.
+          The Practice & Implementation Wing is dedicated to strengthening evidence-based professional practice across behavioural and health sciences settings.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed">
-            We provide comprehensive training that empowers professionals to implement evidence-based practices with confidence and competence, ensuring they are well-equipped to make meaningful impacts in their respective fields.
+          This wing supports psychologists, psychiatrists, public health practitioners, teachers, special educators, social workers, counsellors and allied professionals working directly within clinical, educational and community systems.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+          Through structured, faculty-led training, participants develop applied competence, refined professional judgement and implementation-ready frameworks designed for real-world environments. Our approach emphasises practical execution, interdisciplinary collaboration and sustained professional standards across diverse institutional contexts.
           </p>
         </div>
       </ScrollAnimation>
@@ -145,21 +148,21 @@ const programFormats = [
             <div className="col-span-12 sm:col-span-6 md:col-span-4">
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center card-elevated h-full">
                 <Users size={48} className="text-ablr-primary mx-auto mb-4" strokeWidth={1.5} />
-                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Practitioners</h4>
+                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Clinical & Mental Health Professionals</h4>
                 <p className="text-gray-700 text-sm">Clinical professionals seeking to enhance their practice</p>
               </div>
             </div>
             <div className="col-span-12 sm:col-span-6 md:col-span-4">
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center card-elevated h-full">
                 <BookOpen size={48} className="text-ablr-primary mx-auto mb-4" strokeWidth={1.5} />
-                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Educators</h4>
+                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Education & School-Based Practitioners</h4>
                 <p className="text-gray-700 text-sm">Teachers and trainers looking to improve their methods</p>
               </div>
             </div>
             <div className="col-span-12 sm:col-span-6 md:col-span-4">
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center card-elevated h-full">
                 <Target size={48} className="text-ablr-primary mx-auto mb-4" strokeWidth={1.5} />
-                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Supervisors</h4>
+                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Public Health & Community Practitioners</h4>
                 <p className="text-gray-700 text-sm">Clinical supervisors and mentors</p>
               </div>
             </div>
@@ -374,10 +377,10 @@ const programFormats = [
               <ArrowRight size={20} />
             </Link>
             <Link
-              href="/contact"
+              href="/inquiry"
               className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors inline-flex items-center justify-center gap-2"
             >
-              <span>Enquire About a Course</span>
+              <span>Enquire About a Programme</span>
             </Link>
           </div>
         </div>

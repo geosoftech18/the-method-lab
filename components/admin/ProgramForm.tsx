@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAdmin } from '@/contexts/AdminContext'
 import { Save, Plus, Trash2, Upload, X } from 'lucide-react'
 
 interface ProgramData {
@@ -50,6 +51,7 @@ interface ProgramFormProps {
 
 export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
   const router = useRouter()
+  const { faculty, fetchFaculty } = useAdmin()
   const [formData, setFormData] = useState<ProgramData>({
     title: '',
     duration: '',
@@ -77,6 +79,10 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [certificateImagePreview, setCertificateImagePreview] = useState<string | null>(null)
   const [facultyImagePreviews, setFacultyImagePreviews] = useState<{ [key: number]: string }>({})
+
+  useEffect(() => {
+    fetchFaculty(true)
+  }, [fetchFaculty])
 
   useEffect(() => {
     if (program) {
@@ -291,8 +297,7 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
             >
               <option value="Applied Learning and Training">Applied Learning and Training</option>
               <option value="Applied Research and Practice">Applied Research and Practice</option>
-              <option value="Practice and Implementation">Practice and Implementation</option>
-              <option value="Research and Methodology">Research and Methodology</option>
+             
             </select>
           </div>
 
@@ -323,7 +328,7 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
             >
               <option value="live">Live</option>
-              <option value="pre-recorded">Pre-recorded</option>
+            
             </select>
           </div>
 
@@ -365,7 +370,7 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
             />
           </div>
 
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <input
               type="checkbox"
               checked={formData.isSelfPaced || false}
@@ -375,7 +380,7 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
             <label className="ml-2 text-sm font-semibold text-gray-700">
               Self-paced
             </label>
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -549,57 +554,63 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
       {/* Faculty */}
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <h2 className="text-xl font-serif font-bold text-ablr-primary mb-6">Faculty</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            value={currentFaculty.name}
-            onChange={(e) => setCurrentFaculty({ ...currentFaculty, name: e.target.value })}
-            placeholder="Faculty Name"
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
-          />
-          <input
-            type="text"
-            value={currentFaculty.role}
-            onChange={(e) => setCurrentFaculty({ ...currentFaculty, role: e.target.value })}
-            placeholder="Role/Title"
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) {
-                const reader = new FileReader()
-                reader.onloadend = () => {
-                  setCurrentFaculty({ ...currentFaculty, image: reader.result as string })
+        <div className="space-y-4 mb-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Select Faculty from Database
+            </label>
+            <select
+              value=""
+              onChange={(e) => {
+                const selectedFacultyId = e.target.value
+                if (selectedFacultyId) {
+                  const selectedFaculty = faculty.find((f) => f.id === selectedFacultyId)
+                  if (selectedFaculty) {
+                    setCurrentFaculty({
+                      name: selectedFaculty.name,
+                      role: selectedFaculty.role,
+                      bio: selectedFaculty.bio,
+                      image: selectedFaculty.image || '',
+                    })
+                  }
                 }
-                reader.readAsDataURL(file)
-              }
-            }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-ablr-primary file:text-white hover:file:bg-ablr-dark file:cursor-pointer"
-          />
-          {currentFaculty.image && (
-            <div className="mt-2">
-              <img
-                src={currentFaculty.image}
-                alt="Faculty preview"
-                className="w-20 h-20 object-cover rounded-lg border border-gray-300"
-              />
+              }}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
+            >
+              <option value="">-- Select a faculty member --</option>
+              {faculty.map((member) => (
+                <option key={member.id} value={member.id}>
+                  {member.name} - {member.role}
+                </option>
+              ))}
+            </select>
+          </div>
+          {currentFaculty.name && (
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <div className="flex items-start gap-4">
+                {currentFaculty.image && (
+                  <img
+                    src={currentFaculty.image}
+                    alt={currentFaculty.name}
+                    className="w-20 h-20 object-cover rounded-lg border border-gray-300"
+                  />
+                )}
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900">{currentFaculty.name}</h4>
+                  <p className="text-sm text-gray-600">{currentFaculty.role}</p>
+                  {currentFaculty.bio && (
+                    <p className="text-sm text-gray-700 mt-2">{currentFaculty.bio}</p>
+                  )}
+                </div>
+              </div>
             </div>
           )}
         </div>
-        <textarea
-          value={currentFaculty.bio}
-          onChange={(e) => setCurrentFaculty({ ...currentFaculty, bio: e.target.value })}
-          placeholder="Bio"
-          rows={3}
-          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
-        />
         <button
           type="button"
           onClick={handleFacultyAdd}
-          className="px-4 py-2 bg-ablr-primary text-white rounded-lg hover:bg-ablr-dark transition-colors"
+          disabled={!currentFaculty.name.trim() || !currentFaculty.role.trim()}
+          className="px-4 py-2 bg-ablr-primary text-white rounded-lg hover:bg-ablr-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Plus size={20} className="inline mr-2" />
           Add Faculty

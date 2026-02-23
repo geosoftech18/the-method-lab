@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAdmin } from '@/contexts/AdminContext'
 import { Save, Plus, Trash2, Upload, X } from 'lucide-react'
 
 interface CourseData {
@@ -39,6 +40,7 @@ interface CourseFormProps {
 
 export default function CourseForm({ course, isEdit }: CourseFormProps) {
   const router = useRouter()
+  const { faculty, fetchFaculty } = useAdmin()
   const [formData, setFormData] = useState<CourseData>({
     title: '',
     whoItsFor: [],
@@ -55,6 +57,10 @@ export default function CourseForm({ course, isEdit }: CourseFormProps) {
   const [currentFAQ, setCurrentFAQ] = useState({ question: '', answer: '' })
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [facultyImagePreviews, setFacultyImagePreviews] = useState<{ [key: number]: string }>({})
+
+  useEffect(() => {
+    fetchFaculty(true)
+  }, [fetchFaculty])
 
   useEffect(() => {
     if (course) {
@@ -504,72 +510,61 @@ export default function CourseForm({ course, isEdit }: CourseFormProps) {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <h2 className="text-xl font-serif font-bold text-ablr-primary mb-6">About Faculty</h2>
         <div className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              value={currentFaculty.name}
-              onChange={(e) => setCurrentFaculty({ ...currentFaculty, name: e.target.value })}
-              placeholder="Faculty Name *"
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
-            />
-            <input
-              type="text"
-              value={currentFaculty.role}
-              onChange={(e) => setCurrentFaculty({ ...currentFaculty, role: e.target.value })}
-              placeholder="Role *"
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
-            />
-          </div>
-          <textarea
-            value={currentFaculty.bio}
-            onChange={(e) => setCurrentFaculty({ ...currentFaculty, bio: e.target.value })}
-            placeholder="Bio"
-            rows={3}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
-          />
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Faculty Image
+              Select Faculty from Database
             </label>
-            {currentFaculty.image ? (
-              <div className="relative inline-block">
-                <img src={currentFaculty.image} alt="Preview" className="w-24 h-24 object-cover rounded-lg border-2 border-gray-200" />
-                <button
-                  type="button"
-                  onClick={() => setCurrentFaculty({ ...currentFaculty, image: '' })}
-                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors shadow-lg"
-                >
-                  <X size={14} />
-                </button>
-              </div>
-            ) : (
-              <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-ablr-primary transition-colors">
-                <div className="flex flex-col items-center justify-center">
-                  <Upload size={20} className="text-ablr-primary mb-1" />
-                  <p className="text-xs text-gray-600">Upload Image</p>
-                </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0]
-                    if (file) {
-                      const reader = new FileReader()
-                      reader.onloadend = () => {
-                        setCurrentFaculty({ ...currentFaculty, image: reader.result as string })
-                      }
-                      reader.readAsDataURL(file)
-                    }
-                  }}
-                  className="hidden"
-                />
-              </label>
-            )}
+            <select
+              value=""
+              onChange={(e) => {
+                const selectedFacultyId = e.target.value
+                if (selectedFacultyId) {
+                  const selectedFaculty = faculty.find((f) => f.id === selectedFacultyId)
+                  if (selectedFaculty) {
+                    setCurrentFaculty({
+                      name: selectedFaculty.name,
+                      role: selectedFaculty.role,
+                      bio: selectedFaculty.bio,
+                      image: selectedFaculty.image || '',
+                    })
+                  }
+                }
+              }}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
+            >
+              <option value="">-- Select a faculty member --</option>
+              {faculty.map((member) => (
+                <option key={member.id} value={member.id}>
+                  {member.name} - {member.role}
+                </option>
+              ))}
+            </select>
           </div>
+          {currentFaculty.name && (
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <div className="flex items-start gap-4">
+                {currentFaculty.image && (
+                  <img
+                    src={currentFaculty.image}
+                    alt={currentFaculty.name}
+                    className="w-20 h-20 object-cover rounded-lg border border-gray-300"
+                  />
+                )}
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900">{currentFaculty.name}</h4>
+                  <p className="text-sm text-gray-600">{currentFaculty.role}</p>
+                  {currentFaculty.bio && (
+                    <p className="text-sm text-gray-700 mt-2">{currentFaculty.bio}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
           <button
             type="button"
             onClick={handleFacultyAdd}
-            className="px-4 py-2 bg-ablr-primary text-white rounded-lg hover:bg-ablr-dark transition-colors flex items-center gap-2"
+            disabled={!currentFaculty.name.trim() || !currentFaculty.role.trim()}
+            className="px-4 py-2 bg-ablr-primary text-white rounded-lg hover:bg-ablr-dark transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Plus size={20} />
             Add Faculty Member

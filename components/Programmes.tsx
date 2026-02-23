@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import ScrollAnimation from './ScrollAnimation'
+import { useRouter } from 'next/navigation'
 
 export default function Programmes() {
   const [activeTab, setActiveTab] = useState('All')
@@ -16,6 +17,7 @@ export default function Programmes() {
 
   const tabs = ['All', 'Applied Courses', 'Research Courses']
 
+  const router = useRouter()
   const programmes = [
     {
       type: 'Intensive Training',
@@ -365,7 +367,8 @@ export default function Programmes() {
         </div>
         
         <div className="text-center">
-          <button className="magnetic-button bg-ablr-dark text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-sm hover:bg-ablr-dark/95 transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl w-full sm:w-auto">
+          <button className="magnetic-button bg-ablr-dark text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-sm hover:bg-ablr-dark/95 transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl w-full sm:w-auto"
+          onClick={() => router.push('/programs')}>
             View All Programmes
           </button>
         </div>

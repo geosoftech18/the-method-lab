@@ -18,18 +18,48 @@ export default function TeachPage() {
   })
   const [resume, setResume] = useState<File | null>(null)
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData, resume)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', phone: '', message: '' })
-      setResume(null)
-    }, 3000)
+    setError('')
+    setLoading(true)
+
+    try {
+      const response = await fetch('/api/inquiry/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'teach',
+          formData: {
+            ...formData,
+            resume: resume ? resume.name : 'No resume uploaded',
+          },
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitted(true)
+        setTimeout(() => {
+          setSubmitted(false)
+          setFormData({ name: '', email: '', phone: '', message: '' })
+          setResume(null)
+        }, 5000)
+      } else {
+        setError(result.error || 'Failed to submit form. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err)
+      setError('An error occurred. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -77,7 +107,7 @@ export default function TeachPage() {
                 <div>
                   <p className="label-small-caps text-ablr-dark/70 mb-2 text-sm">Teaching Enquiry</p>
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-ablr-brown leading-tight">
-                    Collaborate or Teach with ABLR
+                    Collaborate or Teach with The Method Lab
                   </h1>
                 </div>
               </div>
@@ -99,10 +129,15 @@ export default function TeachPage() {
                   <div className="text-center py-12">
                     <CheckCircle2 size={64} className="text-green-500 mx-auto mb-4" />
                     <h3 className="text-2xl font-serif font-bold mb-2 text-ablr-brown">Enquiry Submitted!</h3>
-                    <p className="text-gray-700">We'll review your application and get back to you soon.</p>
+                    <p className="text-gray-700">We'll review your application and get back to you soon. Check your email for confirmation.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {error && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p className="text-sm text-red-600">{error}</p>
+                      </div>
+                    )}
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
                         Name <span className="text-red-500">*</span>
@@ -163,7 +198,7 @@ export default function TeachPage() {
                         required
                         rows={6}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-ablr-brown focus:outline-none transition-colors duration-300 resize-none"
-                        placeholder="Tell us about your expertise, experience, and how you'd like to collaborate with ABLR"
+                        placeholder="Tell us about your expertise, experience, and how you'd like to collaborate with The Method Lab"
                       />
                     </div>
 
@@ -207,9 +242,10 @@ export default function TeachPage() {
 
                     <button
                       type="submit"
-                      className="w-full bg-ablr-brown text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-brown/90 transition-colors duration-300"
+                      disabled={loading}
+                      className="w-full bg-ablr-brown text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-brown/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Submit Enquiry
+                      {loading ? 'Submitting...' : 'Submit Enquiry'}
                     </button>
                   </form>
                 )}

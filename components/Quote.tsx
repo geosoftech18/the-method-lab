@@ -27,7 +27,7 @@ export default function Quote() {
             {/* Thin line below */}
             <div className="w-16 sm:w-20 md:w-24 h-px bg-ablr-dark/20 mx-auto mb-6 sm:mb-7 md:mb-8"></div>
             
-            <p className="text-base sm:text-lg text-ablr-dark/85 label-small-caps relative z-20 px-4">ABLR Training Principle</p>
+            <p className="text-base sm:text-lg text-ablr-dark/85 label-small-caps relative z-20 px-4">The Method Lab Training Principle</p>
           </div>
         </ScrollAnimation>
       </div>

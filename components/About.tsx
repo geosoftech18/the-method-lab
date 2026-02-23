@@ -52,11 +52,11 @@ export default function About() {
   const leadership = [
     {
       name: 'Dr. Angana Nandy',
-      role: 'developmental psychologist and researcher with international training and experience across academic and applied settings. ',
+      role: 'Developmental psychologist and researcher with international training and experience across academic and applied settings. ',
       bio: `She holds a PhD in Developmental Psychology from Trinity College Dublin and completed postdoctoral research in early intervention and child development in Taiwan.`,
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
       linkedin: 'https://linkedin.com/in/sarah-mitchell',
-      twitter: 'https://twitter.com/sarahmitchell',
+      
       email: 'sarah.mitchell@ablr.org',
     },
 
@@ -74,7 +74,7 @@ export default function About() {
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
           <ScrollAnimation direction="up">
             <div className="max-w-4xl mx-auto text-center">
-              <p className="label-small-caps text-white/80 mb-4 text-sm sm:text-base">About ABLR</p>
+              <p className="label-small-caps text-white/80 mb-4 text-sm sm:text-base">About The Method Lab</p>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight">
               Strengthening Applied Practice and Research Systems
               </h1>
@@ -113,7 +113,7 @@ export default function About() {
                 </div>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                  The Method Lab (<span className="text-ablr-primary font-semibold">Applied Behavioural Learning and Research</span>) is a global capacity-building initiative dedicated to strengthening applied practice and research competence across the behavioural and health sciences.
+                  The Method Lab  is a global capacity-building initiative dedicated to strengthening applied practice and research competence across the behavioural and health sciences.
                 </p>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
@@ -173,7 +173,7 @@ export default function About() {
                <span className="text-ablr-dark/90">Background </span>& Rationale
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg">
-                Understanding the foundation and purpose behind ABLR's establishment
+                Understanding the foundation and purpose behind The Method Lab's establishment
               </p>
             </ScrollAnimation>
           </div>
@@ -303,7 +303,7 @@ export default function About() {
                     Our Approach
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6">
-                    ABLR's approach is grounded in three core principles that guide all our programs and initiatives:
+                    The Method Lab's approach is grounded in three core principles that guide all our programs and initiatives:
                   </p>
                   
                   <div className="space-y-4 sm:space-y-6">
@@ -368,7 +368,7 @@ export default function About() {
                 Founder & Academic Leadership
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg">
-                Meet the visionary leaders driving ABLR's mission forward
+                Meet the visionary leaders driving The Method Lab's mission forward
               </p>
             </ScrollAnimation>
           </div>
@@ -401,6 +401,9 @@ export default function About() {
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
                           {leadership[0].bio}
                         </p>
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
+                        In addition to her academic work, she is the founder of Hopscotch Child Therapy, a clinical and training initiative dedicated to strengthening applied standards within child and family mental health. The Method Lab was established to extend this commitment globally — integrating professional practice and methodological rigour through structured, faculty-led capacity building.
+                        </p>
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-8 max-w-2xl">
                         Her work has focused on bridging research and practice within behavioural and health sciences systems, with particular emphasis on evidence-based professional training, applied competence and research methodology.
                         </p>
@@ -420,17 +423,7 @@ export default function About() {
                             <Linkedin size={22} className="group-hover:scale-110 transition-transform" />
                           </a>
                         )}
-                        {leadership[0].twitter && (
-                          <a
-                            href={leadership[0].twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-12 h-12 rounded-full bg-gradient-to-br from-ablr-terracotta to-ablr-terracotta/80 hover:from-ablr-terracotta/90 hover:to-ablr-terracotta/70 text-white flex items-center justify-center transition-all duration-300 group shadow-lg hover:shadow-xl"
-                            aria-label="Twitter"
-                          >
-                            <Twitter size={22} className="group-hover:scale-110 transition-transform" />
-                          </a>
-                        )}
+                      
                         {leadership[0].email && (
                           <a
                             href={`mailto:${leadership[0].email}`}

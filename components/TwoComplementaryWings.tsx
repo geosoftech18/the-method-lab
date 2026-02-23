@@ -15,6 +15,7 @@ export default function TwoComplementaryWings() {
         'Tools for direct implementation in professional settings',
       ],
       bgClass: 'bg-gray-50/50',
+      link: '/programs/learning',
     },
     {
       title: 'Research and Methodology Wing',
@@ -26,6 +27,7 @@ export default function TwoComplementaryWings() {
         'Policy analysis and field-based studies',
       ],
       bgClass: 'bg-white',
+      link: '/programs/research',
     },
   ]
 
@@ -91,7 +93,7 @@ export default function TwoComplementaryWings() {
                 </ul>
                 
                 {/* Learn More link */}
-                <a href="#" className="inline-flex items-center gap-2 sm:gap-3 text-ablr-dark/80 font-semibold underline-animate group/link text-sm sm:text-base">
+                <a href={wing.link} className="inline-flex items-center gap-2 sm:gap-3 text-ablr-dark/80 font-semibold underline-animate group/link text-sm sm:text-base">
                   <span>Learn More</span>
                   <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] group-hover/link:translate-x-1 transition-transform duration-300" />
                 </a>

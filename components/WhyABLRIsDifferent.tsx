@@ -235,7 +235,7 @@ export default function WhyABLRIsDifferent() {
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <p className="label-small-caps text-ablr-dark/70 mb-3 sm:mb-4 text-xs sm:text-sm">WHAT SETS US APART</p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary mb-4 sm:mb-6">
-            Why ABLR is Different
+            Why Method Lab is Different
           </h2>
         </div>
         

@@ -27,7 +27,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center space-x-10">
            
             <a href="/" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">Home</a>
-            <a href="/about" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">About</a>
+            <a href="/about" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">About Us</a>
             <div 
               className="relative"
               onMouseEnter={() => setProgrammesDropdown(true)}
@@ -40,8 +40,8 @@ export default function Header() {
               {programmesDropdown && (
                 <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200/50 rounded-lg shadow-lg py-2 min-w-[280px] z-50 card-elevated">
                   <a href="/programs" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">All Programmes</a>
-                  <a href="/programs/learning" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Applied Learning and Training Wing</a>
-                  <a href="/programs/research" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Applied Research and Practice Wing</a>
+                  <a href="/programs/learning" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Practice and Implementation Wing</a>
+                  <a href="/programs/research" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Research and Methodology Wing</a>
                 </div>
               )}
             </div>
@@ -87,7 +87,7 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden mt-4 space-y-4 pb-4 border-t border-gray-200 pt-4">
             <a href="/" className="block text-gray-700 hover:text-ablr-primary">Home</a>
-            <a href="/about" className="block text-gray-700 hover:text-ablr-primary">About</a>
+            <a href="/about" className="block text-gray-700 hover:text-ablr-primary">About Us</a>
             <a href="/programs" className="block text-gray-700 hover:text-ablr-primary">All Programmes</a>
             <a href="/programs/learning" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Learning and Training</a>
             <a href="/programs/research" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Research and Practice</a>

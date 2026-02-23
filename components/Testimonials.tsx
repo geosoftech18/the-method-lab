@@ -4,7 +4,17 @@ import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import ScrollAnimation from './ScrollAnimation'
 
+interface Testimonial {
+  name: string
+  title: string
+  image: string
+  rating: number
+  quote: string
+}
+
 export default function Testimonials() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [desktopPageIndex, setDesktopPageIndex] = useState(0)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -15,50 +25,35 @@ export default function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null)
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const testimonials = [
-    {
-      name: 'Max Patrick',
-      title: 'Entrepreneur',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-      rating: 4.5,
-      quote: 'In the fast-paced world of tech, it\'s crucial to have a creative partner who can keep up with our innovative ideas. ABLR not only kept up but exceeded our expectations. They transformed our learning approach with their fresh perspective and evidence-based methodology.',
-    },
-    {
-      name: 'Job Gadhzi',
-      title: 'CEO Glow Co',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-      rating: 5.0,
-      quote: 'The programmes at ABLR have been transformative for our team. The practical approach and rigorous methodology have significantly improved our professional practice. Highly recommend their training programmes.',
-    },
-    {
-      name: 'Thomas Gala',
-      title: 'Founder Zentech Wellness',
-      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
-      rating: 4.5,
-      quote: 'In the fast-paced world of tech, it\'s crucial to have a creative partner who can keep up with our innovative ideas. Kelola not only kept up but exceeded our expectations. They transformed our marketing campaigns with their fresh perspective and bold designs.',
-    },
-    {
-      name: 'Casandra Mo',
-      title: 'Entrepreneur',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-      rating: 4.8,
-      quote: 'ABLR\'s Applied Behaviour Analysis Foundations programme provided exactly what we needed. The instructors are knowledgeable, the content is practical, and the learning format is flexible. Excellent experience overall.',
-    },
-    {
-      name: 'Sarah Johnson',
-      title: 'Clinical Director',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-      rating: 5.0,
-      quote: 'The advanced clinical supervision training has elevated our practice standards. The evidence-based approach and real-world applications make this programme stand out. Our team has benefited tremendously.',
-    },
-    {
-      name: 'Michael Chen',
-      title: 'Research Lead',
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
-      rating: 4.7,
-      quote: 'The Research Methodology Intensive programme exceeded all expectations. The depth of content and practical applications have been invaluable for our research projects. Highly professional and well-structured.',
-    },
-  ]
+  // Fetch testimonials from database
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/testimonials')
+        const result = await response.json()
+        
+        if (result.success && result.data) {
+          // Map database fields to UI format
+          const mappedTestimonials: Testimonial[] = result.data.map((item: any) => ({
+            name: item.name,
+            title: item.designation,
+            image: item.image || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop', // Fallback image
+            rating: item.rating || 5, // Default to 5 if not provided
+            quote: item.testimonial,
+          }))
+          setTestimonials(mappedTestimonials)
+        }
+      } catch (error) {
+        console.error('Error fetching testimonials:', error)
+        // Keep empty array on error
+        setTestimonials([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTestimonials()
+  }, [])
 
   // Detect mobile screen
   useEffect(() => {
@@ -219,6 +214,30 @@ export default function Testimonials() {
       }
     }
   }, [])
+
+  // Don't render if loading or no testimonials
+  if (loading) {
+    return (
+      <section className="section-spacing bg-white relative overflow-hidden">
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+          <div className="mb-10 sm:mb-12 md:mb-16">
+            <p className="label-small-caps text-ablr-dark/70 mb-2 text-xs sm:text-sm">Testimonials</p>
+            <div className="w-16 sm:w-20 h-px bg-ablr-dark/20 mb-4"></div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary">
+              — Our Happy Clients Say
+            </h2>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-gray-500">Loading testimonials...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (testimonials.length === 0) {
+    return null // Don't render section if no testimonials
+  }
 
   return (
     <section ref={sectionRef} className="section-spacing bg-white relative overflow-hidden">

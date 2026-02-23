@@ -22,44 +22,44 @@ export default function AppliedResearchPractice() {
   {
     icon: Settings,
     title: 'Applied Behaviour Analysis (ABA)',
-    description: 'Comprehensive training in evidence-based behavioural interventions and analysis techniques.',
+    description: 'Research design and applied methodology across clinical, educational and public health contexts.',
   },
   {
     icon: BarChart3,
     title: 'Clinical Supervision',
-    description: 'Advanced supervision methodologies and professional development frameworks.',
+    description: 'Measurement development, assessment strategy and evaluation frameworks.',
   },
   {
     icon: FileText,
     title: 'Ethical Practice',
-    description: 'Ethical guidelines, professional standards, and responsible practice principles.',
+    description: 'Quantitative analysis and data-informed decision-making.',
   },
   {
     icon: Lightbulb,
     title: 'Professional Development',
-    description: 'Continuous learning and skill enhancement for career advancement and excellence.',
+    description: 'Programme evaluation, implementation research and policy-relevant inquiry.',
   },
 ]
 
 const programFormats = [
   {
     icon: Clock,
-    title: 'Live Sessions',
-    description: 'Interactive real-time training with expert faculty and structured learning experiences.',
+    title: 'Live Research Cohorts ',
+    description: 'Faculty-led, structured programmes delivered in scheduled cohorts focused on applied research design, measurement and methodological rigour.',
     color: 'ablr-primary',
     accentColor: 'ablr-terracotta',
   },
   {
     icon: Users,
-    title: 'Cohort-Based',
-    description: 'Learn alongside peers in structured cohorts with collaborative learning opportunities.',
+    title: 'Self-Paced Research Modules',
+    description: ' Flexible, professionally designed learning pathways covering research methodology, quantitative methods and evaluation frameworks.',
     color: 'ablr-terracotta',
     accentColor: 'ablr-primary',
   },
   {
     icon: BookOpen,
-    title: 'Practical Application',
-    description: 'Hands-on exercises and real-world case studies to enhance your professional skills.',
+    title: 'Institutional Research Programmes ',
+    description: 'Customised research training and faculty development initiatives for universities, healthcare systems and research organisations.',
     color: 'ablr-dark',
     accentColor: 'ablr-primary',
   },
@@ -83,10 +83,13 @@ const programFormats = [
           </h2>
           <div className="w-20 h-1 bg-ablr-primary mb-6"></div>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            The Research and Methodology Wing is dedicated to advancing research competence and evidence-based practice. Our programmes focus on developing rigorous research skills, methodological expertise, and the ability to translate research findings into practical applications.
+          The Research & Methodology Wing is dedicated to strengthening applied research competence across the behavioural and health sciences.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed">
-            We equip researchers, practitioners, and students with the tools and knowledge needed to conduct high-quality research, critically evaluate evidence, and contribute meaningfully to the field of applied behavioural sciences.
+          This wing supports students, doctoral researchers, faculty members, clinicians and public health professionals engaged in academic research, programme evaluation and systems-level inquiry.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+          Through structured, faculty-led training, participants develop expertise in research design, measurement, data interpretation and methodological decision-making — ensuring scientific rigour across clinical, educational and policy environments.
           </p>
         </div>
       </ScrollAnimation>
@@ -145,22 +148,22 @@ const programFormats = [
             <div className="col-span-12 sm:col-span-6 md:col-span-4">
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center card-elevated h-full">
                 <FlaskConical size={48} className="text-ablr-primary mx-auto mb-4" strokeWidth={1.5} />
-                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Researchers</h4>
-                <p className="text-gray-700 text-sm">Academic and practice-based researchers</p>
+                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Clinical & Mental Health Professionals</h4>
+                <p className="text-gray-700 text-sm">Clinical professionals seeking to enhance their research skills</p>
               </div>
             </div>
             <div className="col-span-12 sm:col-span-6 md:col-span-4">
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center card-elevated h-full">
                 <BookOpen size={48} className="text-ablr-primary mx-auto mb-4" strokeWidth={1.5} />
-                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Students</h4>
-                <p className="text-gray-700 text-sm">Graduate students and doctoral candidates</p>
+                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Education & School-Based Practitioners</h4>
+                <p className="text-gray-700 text-sm">Teachers and trainers looking to improve their methods</p>
               </div>
             </div>
             <div className="col-span-12 sm:col-span-6 md:col-span-4">
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center card-elevated h-full">
                 <Users size={48} className="text-ablr-primary mx-auto mb-4" strokeWidth={1.5} />
-                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Practitioners</h4>
-                <p className="text-gray-700 text-sm">Professionals seeking research skills</p>
+                <h4 className="font-bold text-lg mb-2 text-ablr-primary">Public Health & Community Practitioners</h4>
+                <p className="text-gray-700 text-sm">Clinical supervisors and mentors looking to strengthen their research capabilities</p>
               </div>
             </div>
           </div>
@@ -381,10 +384,10 @@ const programFormats = [
               <ArrowRight size={20} />
             </Link>
             <Link
-              href="/contact"
+              href="/inquiry"
               className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors inline-flex items-center justify-center gap-2"
             >
-              <span>Enquire About a Course</span>
+              <span>Enquire About a Programme</span>
             </Link>
           </div>
         </div>

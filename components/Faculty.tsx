@@ -4,61 +4,48 @@ import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Linkedin } from 'lucide-react'
 import ScrollAnimation from './ScrollAnimation'
 
+interface FacultyMember {
+  name: string
+  title: string
+  image: string
+  linkedin: string
+}
+
 export default function Faculty() {
+  const [faculty, setFaculty] = useState<FacultyMember[]>([])
+  const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
-  const faculty = [
-    {
-      name: 'Dr. Ananya Mehta',
-      title: 'Director of Clinical Training',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/ananya-mehta',
-    },
-    {
-      name: 'Dr. John Smith',
-      title: 'Senior Research Fellow',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/john-smith',
-    },
-    {
-      name: 'Dr. Emily Martinez',
-      title: 'Lead Faculty',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/emily-martinez',
-    },
-    {
-      name: 'Dr. Michael Chen',
-      title: 'Research Methodology ',
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/michael-chen',
-    },
-    {
-      name: 'Dr. Sarah Johnson',
-      title: 'Clinical Director',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/sarah-johnson',
-    },
-    {
-      name: 'Dr. David Williams',
-      title: 'Senior Faculty',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/david-williams',
-    },
-    {
-      name: 'Dr. Lisa Anderson',
-      title: 'Lead Researcher',
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/lisa-anderson',
-    },
-    {
-      name: 'Dr. Robert Taylor',
-      title: 'Clinical Supervisor',
-      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/robert-taylor',
-    },
-  ]
+  // Fetch faculty from database
+  useEffect(() => {
+    const fetchFaculty = async () => {
+      try {
+        const response = await fetch('/api/faculty')
+        const result = await response.json()
+        
+        if (result.success && result.data) {
+          // Map database fields to UI format
+          const mappedFaculty: FacultyMember[] = result.data.map((item: any) => ({
+            name: item.name,
+            title: item.role,
+            image: item.image || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop', // Fallback image
+            linkedin: item.linkedinUrl || '#', // Fallback to # if no LinkedIn URL
+          }))
+          setFaculty(mappedFaculty)
+        }
+      } catch (error) {
+        console.error('Error fetching faculty:', error)
+        // Keep empty array on error
+        setFaculty([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchFaculty()
+  }, [])
 
   // Always show 4 cards on desktop, responsive on smaller screens
   const getCardsPerView = () => {
@@ -86,10 +73,10 @@ export default function Faculty() {
 
   // Reset currentIndex if it's out of bounds when cardsPerView changes
   useEffect(() => {
-    if (currentIndex > maxIndex) {
+    if (faculty.length > 0 && currentIndex > maxIndex) {
       setCurrentIndex(maxIndex)
     }
-  }, [cardsPerView, maxIndex, currentIndex])
+  }, [cardsPerView, maxIndex, currentIndex, faculty.length])
 
   const next = () => {
     setIsTransitioning(true)
@@ -111,6 +98,29 @@ export default function Faculty() {
       })
       setIsTransitioning(false)
     }, 300)
+  }
+
+  // Don't render if loading or no faculty
+  if (loading) {
+    return (
+      <section id="faculty" className="section-spacing bg-[#F6F7F8] relative overflow-hidden">
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <p className="label-small-caps text-ablr-dark/70 mb-3 sm:mb-4 text-xs sm:text-sm">Faculty</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary mb-4 sm:mb-6">
+              Faculty & Collaborators
+            </h2>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-gray-500">Loading faculty...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (faculty.length === 0) {
+    return null // Don't render section if no faculty
   }
 
   return (
@@ -161,24 +171,26 @@ export default function Faculty() {
                       ></div>
                       
                       {/* LinkedIn Link Overlay - Appears on Hover */}
-                      <div 
-                        className={`absolute inset-0 bg-ablr-primary/90 flex items-center justify-center transition-all duration-300 z-20 ${
-                          hoveredIndex === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                        }`}
-                      >
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full h-full group/link"
-                          onClick={(e) => e.stopPropagation()}
+                      {member.linkedin && member.linkedin !== '#' && (
+                        <div 
+                          className={`absolute inset-0 bg-ablr-primary/90 flex items-center justify-center transition-all duration-300 z-20 ${
+                            hoveredIndex === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                          }`}
                         >
-                          <Linkedin 
-                            size={48} 
-                            className="sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] text-white group-hover/link:scale-110 transition-transform duration-300" 
-                          />
-                        </a>
-                      </div>
+                          <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center w-full h-full group/link"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Linkedin 
+                              size={48} 
+                              className="sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] text-white group-hover/link:scale-110 transition-transform duration-300" 
+                            />
+                          </a>
+                        </div>
+                      )}
                       
                       {/* Name and Designation at Bottom */}
                       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10">

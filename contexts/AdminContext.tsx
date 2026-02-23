@@ -35,6 +35,27 @@ interface BlogPost {
   updatedAt?: string
 }
 
+interface FacultyMember {
+  id: string
+  name: string
+  role: string
+  bio: string
+  image: string | null
+  createdAt: string
+  updatedAt?: string
+}
+
+interface TestimonialMember {
+  id: string
+  name: string
+  designation: string
+  image: string | null
+  testimonial: string
+  rating: number
+  createdAt: string
+  updatedAt?: string
+}
+
 interface AdminContextType {
   // Programs
   programs: Program[]
@@ -53,6 +74,18 @@ interface AdminContextType {
   blogsLoading: boolean
   fetchBlogs: (force?: boolean, filters?: { status?: string; search?: string }) => Promise<void>
   invalidateBlogs: () => void
+  
+  // Faculty
+  faculty: FacultyMember[]
+  facultyLoading: boolean
+  fetchFaculty: (force?: boolean, filters?: { search?: string }) => Promise<void>
+  invalidateFaculty: () => void
+  
+  // Testimonials
+  testimonials: TestimonialMember[]
+  testimonialsLoading: boolean
+  fetchTestimonials: (force?: boolean, filters?: { search?: string }) => Promise<void>
+  invalidateTestimonials: () => void
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined)
@@ -70,6 +103,16 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [blogsLoading, setBlogsLoading] = useState(false)
   const [blogsCacheTime, setBlogsCacheTime] = useState<number | null>(null)
   const [blogsFilters, setBlogsFilters] = useState<{ status?: string; search?: string }>({})
+  
+  const [faculty, setFaculty] = useState<FacultyMember[]>([])
+  const [facultyLoading, setFacultyLoading] = useState(false)
+  const [facultyCacheTime, setFacultyCacheTime] = useState<number | null>(null)
+  const [facultyFilters, setFacultyFilters] = useState<{ search?: string }>({})
+  
+  const [testimonials, setTestimonials] = useState<TestimonialMember[]>([])
+  const [testimonialsLoading, setTestimonialsLoading] = useState(false)
+  const [testimonialsCacheTime, setTestimonialsCacheTime] = useState<number | null>(null)
+  const [testimonialsFilters, setTestimonialsFilters] = useState<{ search?: string }>({})
 
   const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
@@ -169,6 +212,40 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     }
   }, [blogsCacheTime, blogs.length, blogsFilters])
 
+  // Fetch Faculty
+  const fetchFaculty = useCallback(async (force = false, filters = {}) => {
+    const filtersKey = JSON.stringify(filters)
+    const currentFiltersKey = JSON.stringify(facultyFilters)
+    
+    // Use cache if valid, not forcing refresh, and filters haven't changed
+    if (!force && isCacheValid(facultyCacheTime) && faculty.length > 0 && filtersKey === currentFiltersKey) {
+      return
+    }
+
+    setFacultyLoading(true)
+    try {
+      const params = new URLSearchParams()
+      if (filters.search) {
+        params.append('search', filters.search)
+      }
+
+      const response = await fetch(`/api/faculty?${params.toString()}`)
+      const result = await response.json()
+
+      if (result.success) {
+        setFaculty(result.data)
+        setFacultyCacheTime(Date.now())
+        setFacultyFilters(filters)
+      } else {
+        console.error('Error loading faculty:', result.error)
+      }
+    } catch (error) {
+      console.error('Error fetching faculty:', error)
+    } finally {
+      setFacultyLoading(false)
+    }
+  }, [facultyCacheTime, faculty.length, facultyFilters])
+
   // Invalidate caches
   const invalidatePrograms = useCallback(() => {
     setProgramsCacheTime(null)
@@ -182,11 +259,59 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     setBlogsCacheTime(null)
   }, [])
 
+  const invalidateFaculty = useCallback(() => {
+    setFacultyCacheTime(null)
+  }, [])
+
+  // Fetch Testimonials
+  const fetchTestimonials = useCallback(async (force = false, filters = {}) => {
+    const filtersKey = JSON.stringify(filters)
+    const currentFiltersKey = JSON.stringify(testimonialsFilters)
+    
+    // Use cache if valid, not forcing refresh, and filters haven't changed
+    if (!force && isCacheValid(testimonialsCacheTime) && testimonials.length > 0 && filtersKey === currentFiltersKey) {
+      setTestimonialsLoading(false)
+      return
+    }
+
+    setTestimonialsLoading(true)
+    try {
+      const params = new URLSearchParams()
+      if (filters.search) {
+        params.append('search', filters.search)
+      }
+
+      const url = params.toString() ? `/api/testimonials?${params.toString()}` : '/api/testimonials'
+      const response = await fetch(url)
+      const result = await response.json()
+
+      if (result.success) {
+        setTestimonials(result.data || [])
+        setTestimonialsCacheTime(Date.now())
+        setTestimonialsFilters(filters)
+      } else {
+        console.error('Error loading testimonials:', result.error)
+        setTestimonials([])
+      }
+    } catch (error) {
+      console.error('Error fetching testimonials:', error)
+      setTestimonials([])
+    } finally {
+      setTestimonialsLoading(false)
+    }
+  }, [testimonialsCacheTime, testimonials.length, testimonialsFilters])
+
+  const invalidateTestimonials = useCallback(() => {
+    setTestimonialsCacheTime(null)
+  }, [])
+
   // Pre-fetch data on mount
   useEffect(() => {
     fetchPrograms()
     fetchCourses()
     fetchBlogs()
+    fetchFaculty()
+    fetchTestimonials()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // Only run on mount
 
@@ -205,6 +330,14 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         blogsLoading,
         fetchBlogs,
         invalidateBlogs,
+        faculty,
+        facultyLoading,
+        fetchFaculty,
+        invalidateFaculty,
+        testimonials,
+        testimonialsLoading,
+        fetchTestimonials,
+        invalidateTestimonials,
       }}
     >
       {children}

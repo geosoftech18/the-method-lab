@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { AdminProvider } from '@/contexts/AdminContext'
-import { LayoutDashboard, BookOpen, Settings, LogOut, FileText } from 'lucide-react'
+import { LayoutDashboard, BookOpen, Settings, LogOut, FileText, Users, MessageSquare, Loader } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,14 +14,100 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const router = useRouter()
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const [isChecking, setIsChecking] = useState(true)
+
+  // Check authentication status (skip check for login page)
+  useEffect(() => {
+    // Always allow login page to be visible
+    if (pathname === '/admin/login') {
+      setIsChecking(false)
+      setIsAuthenticated(false) // Set to false so login page shows
+      return
+    }
+
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/admin/auth/check')
+        const result = await response.json()
+        setIsAuthenticated(result.authenticated)
+        
+        if (!result.authenticated) {
+          router.push('/admin/login')
+        }
+      } catch (error) {
+        console.error('Error checking authentication:', error)
+        setIsAuthenticated(false)
+        router.push('/admin/login')
+      } finally {
+        setIsChecking(false)
+      }
+    }
+
+    checkAuth()
+  }, [pathname, router])
 
   const navItems = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/programs', label: 'Programs', icon: BookOpen },
     { href: '/admin/courses', label: 'Courses', icon: BookOpen },
     { href: '/admin/blog', label: 'Blog', icon: FileText },
+    { href: '/admin/faculty', label: 'Faculty', icon: Users },
+    { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
   ]
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return
+    
+    setIsLoggingOut(true)
+    try {
+      const response = await fetch('/api/admin/auth/logout', {
+        method: 'POST',
+      })
+      
+      if (response.ok) {
+        router.push('/admin/login')
+        router.refresh()
+      } else {
+        console.error('Logout failed')
+        // Still redirect to login even if API call fails
+        router.push('/admin/login')
+        router.refresh()
+      }
+    } catch (error) {
+      console.error('Error logging out:', error)
+      // Still redirect to login even if API call fails
+      router.push('/admin/login')
+      router.refresh()
+    } finally {
+      setIsLoggingOut(false)
+    }
+  }
+
+  // Always show login page without layout
+  if (pathname === '/admin/login') {
+    return <>{children}</>
+  }
+
+  // Show loading state while checking authentication (only for non-login pages)
+  if (isChecking) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader className="w-12 h-12 text-ablr-primary animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't show admin layout if not authenticated (middleware will redirect, but this is a safety check)
+  if (!isAuthenticated) {
+    return null
+  }
 
   return (
     <AdminProvider>
@@ -53,9 +140,13 @@ export default function AdminLayout({
             </nav>
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200">
-            <button className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors w-full">
+            <button 
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               <LogOut size={20} />
-              <span className="font-medium">Logout</span>
+              <span className="font-medium">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
             </button>
           </div>
         </aside>

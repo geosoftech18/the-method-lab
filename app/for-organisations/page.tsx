@@ -8,6 +8,21 @@ import ScrollAnimation from '@/components/ScrollAnimation'
 import { Building2, Users, Target, ArrowRight, CheckCircle2, Sparkles, Network, GraduationCap, Award, Quote, Calendar, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Testimonials from '@/components/Testimonials'
+import { Linkedin, Mail } from 'lucide-react'
+
+
+
+const leadership = [
+  {
+    name: 'Dr. Angana Nandy',
+    role: 'Developmental psychologist and researcher with international training and experience across academic and applied settings. ',
+    bio: `She holds a PhD in Developmental Psychology from Trinity College Dublin and completed postdoctoral research in early intervention and child development in Taiwan.`,
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
+    linkedin: 'https://linkedin.com/in/sarah-mitchell',
+    
+    email: 'sarah.mitchell@ablr.org',
+  },
+]
 export default function ForOrganisationsPage() {
   return (
     <main className="min-h-screen">
@@ -98,7 +113,7 @@ export default function ForOrganisationsPage() {
                 <div className="bg-gradient-to-br from-ablr-primary/10 to-ablr-terracotta/10 p-6 sm:p-8 rounded-xl border-l-4 border-ablr-primary">
                   <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-ablr-dark">The Solution</h3>
                   <p className="text-gray-700 leading-relaxed">
-                    ABLR addresses these challenges through structured, skills-focused programmes that bridge theory and practice. We work with institutions to build sustainable capacity that endures beyond individual training sessions, creating lasting organizational change through evidence-based methodologies and continuous support.
+                    The Method Lab addresses these challenges through structured, skills-focused programmes that bridge theory and practice. We work with institutions to build sustainable capacity that endures beyond individual training sessions, creating lasting organizational change through evidence-based methodologies and continuous support.
                   </p>
                 </div>
               </ScrollAnimation>
@@ -119,80 +134,80 @@ export default function ForOrganisationsPage() {
             </ScrollAnimation>
           </div>
 
-          <div className="grid grid-cols-12 gap-6 sm:gap-8">
-            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <ScrollAnimation direction="up">
-                <div className="bg-white p-8 h-full relative border-2 border-ablr-primary/20 rounded-xl hover:border-ablr-primary transition-colors">
+          <div className="grid grid-cols-12 gap-6 sm:gap-8 items-stretch">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+              <ScrollAnimation direction="up" className="flex-1 flex flex-col">
+                <div className="bg-white p-8 h-full relative border-2 border-ablr-primary/20 rounded-xl hover:border-ablr-primary transition-colors flex flex-col">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-primary/20 rounded-bl-full"></div>
                   <Building2 size={48} className="text-ablr-primary mb-6 relative z-10" strokeWidth={1.5} />
                   <h3 className="text-2xl font-serif font-bold mb-4 text-ablr-primary relative z-10">Educational Institutions</h3>
-                  <p className="text-gray-700 leading-relaxed relative z-10">
+                  <p className="text-gray-700 leading-relaxed relative z-10 flex-grow">
                     Schools, colleges, and universities seeking to enhance their faculty's expertise and student outcomes.
                   </p>
                 </div>
               </ScrollAnimation>
             </div>
 
-            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <ScrollAnimation direction="up" delay={100}>
-                <div className="bg-white p-8 h-full relative border-2 border-ablr-dark/20 rounded-xl hover:border-ablr-dark transition-colors">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+              <ScrollAnimation direction="up" delay={100} className="flex-1 flex flex-col">
+                <div className="bg-white p-8 h-full relative border-2 border-ablr-dark/20 rounded-xl hover:border-ablr-dark transition-colors flex flex-col">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-dark/20 rounded-bl-full"></div>
                   <Users size={48} className="text-ablr-dark mb-6 relative z-10" strokeWidth={1.5} />
                   <h3 className="text-2xl font-serif font-bold mb-4 text-ablr-dark relative z-10">Healthcare Organizations</h3>
-                  <p className="text-gray-700 leading-relaxed relative z-10">
+                  <p className="text-gray-700 leading-relaxed relative z-10 flex-grow">
                     Hospitals, clinics, and healthcare systems looking to strengthen their clinical practice and research capacity.
                   </p>
                 </div>
               </ScrollAnimation>
             </div>
 
-            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <ScrollAnimation direction="up" delay={200}>
-                <div className="bg-white p-8 h-full relative border-2 border-ablr-primary/20 rounded-xl hover:border-ablr-primary transition-colors">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+              <ScrollAnimation direction="up" delay={200} className="flex-1 flex flex-col">
+                <div className="bg-white p-8 h-full relative border-2 border-ablr-primary/20 rounded-xl hover:border-ablr-primary transition-colors flex flex-col">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-primary/20 rounded-bl-full"></div>
                   <Target size={48} className="text-ablr-primary mb-6 relative z-10" strokeWidth={1.5} />
                   <h3 className="text-2xl font-serif font-bold mb-4 text-ablr-primary relative z-10">Corporate Entities</h3>
-                  <p className="text-gray-700 leading-relaxed relative z-10">
+                  <p className="text-gray-700 leading-relaxed relative z-10 flex-grow">
                     Businesses and organizations committed to evidence-based practices and professional development.
                   </p>
                 </div>
               </ScrollAnimation>
             </div>
 
-            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <ScrollAnimation direction="up" delay={300}>
-                <div className="bg-white p-8 h-full relative border-2 border-ablr-terracotta/20 rounded-xl hover:border-ablr-terracotta transition-colors">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+              <ScrollAnimation direction="up" delay={300} className="flex-1 flex flex-col">
+                <div className="bg-white p-8 h-full relative border-2 border-ablr-terracotta/20 rounded-xl hover:border-ablr-terracotta transition-colors flex flex-col">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-terracotta/20 rounded-bl-full"></div>
                   <Heart size={48} className="text-ablr-terracotta mb-6 relative z-10" strokeWidth={1.5} />
                   <h3 className="text-2xl font-serif font-bold mb-4 text-ablr-terracotta relative z-10">Non-Profit and Development Organisations
                   </h3>
-                  <p className="text-gray-700 leading-relaxed relative z-10">
+                  <p className="text-gray-700 leading-relaxed relative z-10 flex-grow">
                   Professional bodies and mission-driven organisations committed to advancing training, standards and evidence-based systems.
                   </p>
                 </div>
               </ScrollAnimation>
             </div>
 
-            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <ScrollAnimation direction="up" delay={400}>
-                <div className="bg-white p-8 h-full relative border-2 border-ablr-primary/20 rounded-xl hover:border-ablr-primary transition-colors">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+              <ScrollAnimation direction="up" delay={400} className="flex-1 flex flex-col">
+                <div className="bg-white p-8 h-full relative border-2 border-ablr-primary/20 rounded-xl hover:border-ablr-primary transition-colors flex flex-col">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-primary/20 rounded-bl-full"></div>
                   <Building2 size={48} className="text-ablr-primary mb-6 relative z-10" strokeWidth={1.5} />
                   <h3 className="text-2xl font-serif font-bold mb-4 text-ablr-primary relative z-10">Government & Public Sector Bodies</h3>
-                  <p className="text-gray-700 leading-relaxed relative z-10">
+                  <p className="text-gray-700 leading-relaxed relative z-10 flex-grow">
                   Health, education and policy agencies building research capacity and systems-level professional standards.
                   </p>
                 </div>
               </ScrollAnimation>
             </div>
 
-            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <ScrollAnimation direction="up" delay={400}>
-                <div className="bg-white p-8 h-full relative border-2 border-ablr-dark/20 rounded-xl hover:border-ablr-dark transition-colors">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+              <ScrollAnimation direction="up" delay={400} className="flex-1 flex flex-col">
+                <div className="bg-white p-8 h-full relative border-2 border-ablr-dark/20 rounded-xl hover:border-ablr-dark transition-colors flex flex-col">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-dark/20 rounded-bl-full"></div>
                   <Building2 size={48} className="text-ablr-dark mb-6 relative z-10" strokeWidth={1.5} />
                   <h3 className="text-2xl font-serif font-bold mb-4 text-ablr-dark relative z-10">Research Organisations & Think Tanks</h3>
-                  <p className="text-gray-700 leading-relaxed relative z-10">
+                  <p className="text-gray-700 leading-relaxed relative z-10 flex-grow">
                   Research institutes, think tanks and evaluation agencies strengthening methodological rigour and applied research design.
                   </p>
                 </div>
@@ -219,11 +234,11 @@ export default function ForOrganisationsPage() {
             </ScrollAnimation>
           </div>
 
-          <div className="grid grid-cols-12 gap-6 sm:gap-8 md:gap-12">
+          <div className="grid grid-cols-12 gap-6 sm:gap-8 md:gap-12 items-stretch">
             {/* Institutional Training */}
-            <div className="col-span-12 lg:col-span-6">
-              <ScrollAnimation direction="up">
-                <div className="bg-white rounded-xl p-8 h-full card-elevated">
+            <div className="col-span-12 lg:col-span-6 flex">
+              <ScrollAnimation direction="up" className="flex-1 flex flex-col">
+                <div className="bg-white rounded-xl p-8 h-full card-elevated flex flex-col">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 bg-ablr-primary/10 rounded-full flex items-center justify-center">
                       <GraduationCap size={32} className="text-ablr-primary" />
@@ -233,7 +248,7 @@ export default function ForOrganisationsPage() {
                   <p className="text-gray-700 mb-6 leading-relaxed">
                     We design and deliver structured training programmes that align with your organization's goals, addressing specific skill gaps and building capacity across teams.
                   </p>
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 flex-grow">
                     <li className="flex items-start gap-3">
                       <CheckCircle2 size={20} className="text-ablr-primary flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Customized curriculum tailored to your needs</span>
@@ -252,9 +267,9 @@ export default function ForOrganisationsPage() {
             </div>
 
             {/* Research & Evaluation Support */}
-            <div className="col-span-12 lg:col-span-6">
-              <ScrollAnimation direction="up" delay={100}>
-                <div className="bg-white rounded-xl p-8 h-full card-elevated">
+            <div className="col-span-12 lg:col-span-6 flex">
+              <ScrollAnimation direction="up" delay={100} className="flex-1 flex flex-col">
+                <div className="bg-white rounded-xl p-8 h-full card-elevated flex flex-col">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 bg-ablr-dark/10 rounded-full flex items-center justify-center">
                       <Sparkles size={32} className="text-ablr-dark" />
@@ -264,7 +279,7 @@ export default function ForOrganisationsPage() {
                   <p className="text-gray-700 mb-6 leading-relaxed">
                     Strengthen your organization's research capacity with comprehensive support services, from study design to data analysis and reporting.
                   </p>
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 flex-grow">
                     <li className="flex items-start gap-3">
                       <CheckCircle2 size={20} className="text-ablr-dark flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Research design & methodology guidance</span>
@@ -461,13 +476,84 @@ export default function ForOrganisationsPage() {
                 Why Partner With Us
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-ablr-primary">
-                The ABLR Advantage
+                The Method Lab Advantage
               </h2>
             </ScrollAnimation>
           </div>
 
           {/* Founder Profile */}
-          <div className="mb-16">
+          {/* Founder & Academic Leadership */}
+      <section className="section-spacing bg-gradient-to-br from-ablr-terracotta/10 via-ablr-terracotta/5 to-transparent relative overflow-hidden">
+        <div className="container max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+         
+
+          <div className="max-w-5xl mx-auto">
+            <ScrollAnimation direction="up" delay={200}>
+              {leadership[0] && (
+                <div className="bg-white rounded-2xl overflow-visible card-elevated relative">
+                  <div className="flex flex-col md:flex-row md:items-stretch">
+                    {/* Left Side - Orange Square with Image (Overlapping) */}
+                    <div className="relative md:w-[350px] md:h-[350px] w-full h-[300px] mt-10 md:flex-shrink-0 md:-ml-8 md:z-10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-ablr-terracotta via-ablr-terracotta/95 to-ablr-terracotta/85 rounded-2xl shadow-2xl overflow-hidden">
+                        <img
+                          src={leadership[0].image}
+                          alt={leadership[0].name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Right Side - Content */}
+                    <div className="flex-1 p-8 sm:p-10 md:p-12 md:pl-16 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-ablr-primary mb-4">
+                          {leadership[0].name}
+                        </h3>
+                        <p className="text-ablr-terracotta font-semibold mb-6 text-lg sm:text-xl">
+                          {leadership[0].role}
+                        </p>
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
+                          {leadership[0].bio}
+                        </p>
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-8 max-w-2xl">
+                        Her work has focused on bridging research and practice within behavioural and health sciences systems, with particular emphasis on evidence-based professional training, applied competence and research methodology.
+                        </p>
+                       
+                      </div>
+                      
+                      {/* Social Icons */}
+                      <div className="flex items-center gap-5 pt-6 border-t border-gray-200">
+                        {leadership[0].linkedin && (
+                          <a
+                            href={leadership[0].linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full bg-gradient-to-br from-ablr-terracotta to-ablr-terracotta/80 hover:from-ablr-terracotta/90 hover:to-ablr-terracotta/70 text-white flex items-center justify-center transition-all duration-300 group shadow-lg hover:shadow-xl"
+                            aria-label="LinkedIn"
+                          >
+                            <Linkedin size={22} className="group-hover:scale-110 transition-transform" />
+                          </a>
+                        )}
+                      
+                        {leadership[0].email && (
+                          <a
+                            href={`mailto:${leadership[0].email}`}
+                            className="w-12 h-12 rounded-full bg-gradient-to-br from-ablr-terracotta to-ablr-terracotta/80 hover:from-ablr-terracotta/90 hover:to-ablr-terracotta/70 text-white flex items-center justify-center transition-all duration-300 group shadow-lg hover:shadow-xl"
+                            aria-label="Email"
+                          >
+                            <Mail size={22} className="group-hover:scale-110 transition-transform" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </ScrollAnimation>
+          </div>
+        </div>
+      </section>
+          {/* <div className="mb-16">
             <ScrollAnimation direction="up">
               <div className="bg-gradient-to-br from-ablr-primary/5 to-ablr-terracotta/5 rounded-2xl p-8 sm:p-12">
                 <div className="grid grid-cols-12 gap-8 items-center">
@@ -492,7 +578,7 @@ export default function ForOrganisationsPage() {
                 </div>
               </div>
             </ScrollAnimation>
-          </div>
+          </div> */}
 
           {/* Faculty Highlights */}
           <div className="mb-16">

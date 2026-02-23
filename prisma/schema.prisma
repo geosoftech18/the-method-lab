@@ -150,3 +150,29 @@ model Blog {
   @@map("blogs")
 }
 
+model FacultyMember {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  role        String
+  bio         String
+  image       String?  // Base64 encoded image
+  linkedinUrl String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("faculty_members")
+}
+
+model TestimonialMember {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  designation  String
+  image        String?  // Base64 encoded image
+  testimonial  String
+  rating       Int      // Rating out of 5 (1-5)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("testimonial_members")
+}
+

@@ -50,7 +50,7 @@ export default function BlogPage() {
   return (
     <>
 
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-ablr-primary/10 via-white to-ablr-primary/10 p-4 md:p-8">
     <Header />
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -59,18 +59,18 @@ export default function BlogPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-emerald-700 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-ablr-primary mb-4">
              Blog Posts
           </h1>
           <p className="text-gray-600 text-lg">
-            Discover amazing content about E-Waste Recycling and Sustainability
+            Discover amazing content about The Method Lab
           </p>
         </motion.div>
 
         {/* Blog Posts Grid */}
         {loading ? (
           <div className="text-center py-16">
-            <div className="w-16 h-16 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4" />
+            <div className="w-16 h-16 border-4 border-ablr-primary/20 border-t-ablr-primary rounded-full animate-spin mx-auto mb-4" />
             <p className="text-gray-600">Loading blog posts...</p>
           </div>
         ) : (
@@ -93,15 +93,15 @@ export default function BlogPage() {
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-48 bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
-                      <FileText className="w-16 h-16 text-emerald-400" />
+                    <div className="w-full h-48 bg-gradient-to-br from-ablr-primary/10 to-ablr-primary/20 flex items-center justify-center">
+                      <FileText className="w-16 h-16 text-ablr-primary" />
                     </div>
                   )}
                   <div className="absolute top-3 right-3">
                     <span 
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
                         post.status === 'published' 
-                          ? 'bg-green-100 text-green-700 border border-green-300' 
+                          ? 'bg-ablr-secondary/70 text-white border border-ablr-secondary/30' 
                           : 'bg-yellow-100 text-yellow-700 border border-yellow-300'
                       }`}
                     >
@@ -111,7 +111,7 @@ export default function BlogPage() {
                 </div>
 
                 <div className="p-4 pb-3">
-                  <h3 className="text-gray-800 text-lg font-semibold line-clamp-2 group-hover:text-emerald-600 transition-colors mb-2">
+                  <h3 className="text-gray-800 text-lg font-semibold line-clamp-2 group-hover:text-ablr-primary transition-colors mb-2">
                     {post.title}
                   </h3>
                 </div>
@@ -127,7 +127,7 @@ export default function BlogPage() {
                     {post.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs px-2 py-1 rounded-full flex items-center"
+                        className="bg-ablr-secondary/70 text-white border border-ablr-secondary/30 text-xs px-2 py-1 rounded-full flex items-center"
                       >
                         <Tag className="w-3 h-3 mr-1" />
                         {tag}
@@ -144,7 +144,7 @@ export default function BlogPage() {
                     
                     <Link href={`/blog/${post.slug}`}>
                       <button
-                        className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 p-1 h-auto rounded transition-colors"
+                        className="text-ablr-primary hover:text-ablr-dark hover:bg-ablr-secondary/10 p-1 h-auto rounded transition-colors"
                       >
                         <ArrowRight className="w-4 h-4" />
                       </button>

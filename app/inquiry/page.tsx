@@ -39,7 +39,7 @@ export default function InquiryPage() {
     },
     {
       id: 'teach',
-      title: 'Collaborate or Teach with ABLR',
+      title: 'Collaborate or Teach with The Method Lab',
       description: 'Join our community of experts and contribute to advancing applied practice.',
       icon: Users,
       link: '/inquiry/teach',
@@ -68,7 +68,7 @@ export default function InquiryPage() {
                 <span className="text-ablr-dark">Page</span>
               </h1>
               <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-3xl">
-                ABLR programmes are designed for different stages and needs. Use the options below to apply, enquire, or explore collaboration.
+                The Method Lab programmes are designed for different stages and needs. Use the options below to apply, enquire, or explore collaboration.
               </p>
             </ScrollAnimation>
           </div>
@@ -78,21 +78,21 @@ export default function InquiryPage() {
       {/* Inquiry Tiles */}
       <section className="section-spacing bg-[#F6F7F8]">
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid grid-cols-12 gap-6">
+          <div className="grid grid-cols-12 gap-6 items-stretch">
             {inquiryTiles.map((tile, index) => (
-              <div key={tile.id} className="col-span-12 sm:col-span-6 lg:col-span-3">
-                <ScrollAnimation direction="up" delay={index * 100}>
-                  <Link href={tile.link}>
-                    <div className={`bg-gradient-to-br ${tile.color} ${tile.hoverColor} text-white rounded-2xl p-8 h-full relative overflow-hidden group transition-all duration-500 card-elevated cursor-pointer`}>
+              <div key={tile.id} className="col-span-12 sm:col-span-6 lg:col-span-3 flex">
+                <ScrollAnimation direction="up" delay={index * 100} className="flex-1 flex flex-col">
+                  <Link href={tile.link} className="flex-1 flex flex-col">
+                    <div className={`bg-gradient-to-br ${tile.color} ${tile.hoverColor} text-white rounded-2xl p-8 h-full relative overflow-hidden group transition-all duration-500 card-elevated cursor-pointer flex flex-col`}>
                       <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full group-hover:bg-white/20 transition-colors duration-500"></div>
-                      <div className="relative z-10">
+                      <div className="relative z-10 flex flex-col flex-grow">
                         <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-white/30 transition-colors duration-500">
                           <tile.icon size={32} className="text-white" strokeWidth={1.5} />
                         </div>
                         <h3 className="text-2xl font-serif font-bold mb-4">
                           {tile.title}
                         </h3>
-                        <p className="text-white/90 mb-6 leading-relaxed">
+                        <p className="text-white/90 mb-6 leading-relaxed flex-grow">
                           {tile.description}
                         </p>
                         <div className="flex items-center gap-2 text-white font-semibold group-hover:gap-4 transition-all duration-300">

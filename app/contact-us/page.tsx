@@ -17,16 +17,43 @@ export default function ContactUsPage() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-    }, 3000)
+    setError('')
+    setLoading(true)
+
+    try {
+      const response = await fetch('/api/inquiry/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'contact',
+          formData,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitted(true)
+        setTimeout(() => {
+          setSubmitted(false)
+          setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+        }, 5000)
+      } else {
+        setError(result.error || 'Failed to submit form. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err)
+      setError('An error occurred. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -209,10 +236,15 @@ export default function ContactUsPage() {
                     <div className="text-center py-12">
                       <CheckCircle2 size={64} className="text-green-500 mx-auto mb-4" />
                       <h3 className="text-2xl font-serif font-bold mb-2 text-ablr-primary">Message Sent!</h3>
-                      <p className="text-gray-700">We'll get back to you soon.</p>
+                      <p className="text-gray-700">We'll get back to you soon. Check your email for confirmation.</p>
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {error && (
+                        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                          <p className="text-sm text-red-600">{error}</p>
+                        </div>
+                      )}
                       <div className="grid grid-cols-12 gap-6">
                         <div className="col-span-12 sm:col-span-6">
                           <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -303,10 +335,11 @@ export default function ContactUsPage() {
 
                       <button
                         type="submit"
-                        className="w-full bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 flex items-center justify-center gap-2 group"
+                        disabled={loading}
+                        className="w-full bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <span>Send Message</span>
-                        <Send size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
+                        <span>{loading ? 'Sending...' : 'Send Message'}</span>
+                        {!loading && <Send size={20} className="group-hover:translate-x-1 transition-transform duration-300" />}
                       </button>
                     </form>
                   )}

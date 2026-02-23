@@ -9,16 +9,19 @@ export default function ExploreABLR() {
       icon: Monitor,
       title: 'View Programmes',
       description: 'Explore our comprehensive range of learning and research programmes.',
+      link: '/programs',
     },
     {
       icon: MessageCircle,
       title: 'Partner with us',
-      description: 'Get your questions answered and start your journey with ABLR.',
+      description: 'Get your questions answered and start your journey with Method Lab.',
+      link: '/for-organisations',
     },
     {
       icon: Users,
       title: 'Work with us',
       description: 'Partner with us for research, training, or programme development.',
+      link: '/faculty-collaborators',
     },
   ]
 
@@ -28,7 +31,7 @@ export default function ExploreABLR() {
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <p className="label-small-caps text-ablr-dark/70 mb-3 sm:mb-4 text-xs sm:text-sm">Get Started</p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary mb-4 sm:mb-6">
-            Explore ABLR
+            Explore The Method Lab
           </h2>
         </div>
         
@@ -58,7 +61,7 @@ export default function ExploreABLR() {
                     {option.description}
                   </p>
                   
-                  <a href="#" className="inline-flex items-center gap-2 sm:gap-3 text-ablr-primary font-semibold underline-animate group/link text-sm sm:text-base mt-auto flex-shrink-0">
+                  <a href={option.link} className="inline-flex items-center gap-2 sm:gap-3 text-ablr-primary font-semibold underline-animate group/link text-sm sm:text-base mt-auto flex-shrink-0">
                     <span>Learn More</span>
                     <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] group-hover/link:translate-x-1 transition-transform duration-300" />
                   </a>

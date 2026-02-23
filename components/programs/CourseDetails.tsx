@@ -560,7 +560,7 @@ function ContactPromptSection() {
 
             <div className="pt-8 border-t border-gray-200">
               <p className="text-sm text-gray-600">
-                An initiative by <span className="font-semibold text-ablr-primary">The Method Lab</span> — Advancing evidence-based practice and research excellence.
+              An initiative of Hopscotch Child Therapy — Advancing evidence-based practice and research excellence.
               </p>
             </div>
           </ScrollAnimation>

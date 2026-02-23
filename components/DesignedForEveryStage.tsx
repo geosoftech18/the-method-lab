@@ -16,6 +16,7 @@ export default function DesignedForEveryStage() {
       gradientTo: '#203b77',
       skewTransform: 'skew(19deg, -9deg)',
       gradientDirection: '0deg',
+      link: '/programs/learning',
     },
     {
       title: 'Practicing Professionals',
@@ -25,6 +26,7 @@ export default function DesignedForEveryStage() {
       gradientTo: '#203b77',
       skewTransform: 'skew(19deg, -9deg)',
       gradientDirection: '-20deg',
+      link: '/programs',
     },
     {
       title: 'Organizations & Institutions',
@@ -34,6 +36,7 @@ export default function DesignedForEveryStage() {
       gradientTo: '#203b77',
       skewTransform: 'skew(19deg, -9deg)',
       gradientDirection: '0deg',
+      link: '/for-organisations',
     },
   ]
 
@@ -126,7 +129,7 @@ export default function DesignedForEveryStage() {
                       }}
                     >
                       <a
-                        href="#"
+                        href={stage.link}
                         className="inline-flex items-center gap-2 text-white text-base font-semibold hover:gap-3 transition-all duration-200"
                       >
                         <span>Learn More</span>

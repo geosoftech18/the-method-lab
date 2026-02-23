@@ -17,12 +17,12 @@ export default function Newsletter() {
     <section className="section-spacing bg-white relative overflow-hidden">
       <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <ScrollAnimation direction="up">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center">
             <p className="label-small-caps text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm">Stay Connected</p>
             
             {/* Elegant serif headline */}
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-ablr-primary mb-4 sm:mb-6 md:mb-8">
-              Receive updates from ABLR
+              Receive updates from The Method Lab
             </h2>
             
             <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-8 sm:mb-10 md:mb-12 leading-relaxed px-4">

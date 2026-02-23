@@ -231,7 +231,25 @@ export default function CourseDetailPage() {
       <Header />
 
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="relative bg-gradient-to-br from-ablr-primary via-ablr-primary/95 to-ablr-dark text-white py-16 md:py-24 overflow-hidden">
+      <section ref={heroSectionRef} className="relative text-white py-16 md:py-24 overflow-hidden">
+        {/* Background Image */}
+        {course.image ? (
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${course.image})`,
+            }}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-ablr-primary via-ablr-primary/95 to-ablr-dark"></div>
+        )}
+        
+        {/* Gradient Overlay - Only show if image exists */}
+        {course.image && (
+          <div className="absolute inset-0 bg-gradient-to-br from-ablr-primary/90 via-ablr-primary/85 to-ablr-dark/90"></div>
+        )}
+        
+        {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-ablr-secondary rounded-full blur-3xl"></div>
@@ -567,7 +585,7 @@ export default function CourseDetailPage() {
                     className="w-full sm:w-auto px-8 py-4 bg-white text-ablr-primary rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-300 group inline-flex items-center justify-center gap-2"
                   >
                     <CheckCircle2 size={24} />
-                    <span>Apply Now</span>
+                    <span>Enroll Now</span>
                     <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
                   </Link>
                 )}
@@ -577,7 +595,7 @@ export default function CourseDetailPage() {
                     className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors duration-300 inline-flex items-center justify-center gap-2"
                   >
                     <Download size={20} />
-                    <span>Request Brochure</span>
+                    <span>Download Syllabus</span>
                   </Link>
                 )}
                

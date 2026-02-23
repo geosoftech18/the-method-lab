@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -9,9 +9,11 @@ import ScrollToTop from '@/components/ScrollToTop'
 import ScrollAnimation from '@/components/ScrollAnimation'
 import { GraduationCap, ArrowLeft, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
+import { usePrograms } from '@/contexts/ProgramContext'
 
 export default function ApplyPage() {
   const searchParams = useSearchParams()
+  const { programs, courses, loading } = usePrograms()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,59 +21,98 @@ export default function ApplyPage() {
     role: '',
   })
   const [submitted, setSubmitted] = useState(false)
-  const [programmeOptions, setProgrammeOptions] = useState<string[]>([])
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const baseProgrammes = [
-    'Applied Learning and Training Programme',
-    'Applied Research and Practice Programme',
-    'Clinical Training Programme',
-    'Research Methodology Course',
-    'Professional Development Workshop',
-  ]
+  // Combine programs and courses into a single list
+  const programmeOptions = useMemo(() => {
+    const allProgrammes: string[] = []
+    
+    // Add live programs
+    programs.forEach(program => {
+      if (program.title && !allProgrammes.includes(program.title)) {
+        allProgrammes.push(program.title)
+      }
+    })
+    
+    // Add pre-recorded courses
+    courses.forEach(course => {
+      if (course.title && !allProgrammes.includes(course.title)) {
+        allProgrammes.push(course.title)
+      }
+    })
+    
+    // Sort alphabetically
+    return allProgrammes.sort()
+  }, [programs, courses])
 
-  // Pre-select course from URL parameters and update options
+  // Pre-select course from URL parameters
   useEffect(() => {
+    if (loading || programmeOptions.length === 0) return
+    
     const courseName = searchParams.get('courseName')
     
     if (courseName) {
       const decodedCourseName = decodeURIComponent(courseName)
-      // Check if the course name exists in the programmes list
-      const matchingProgramme = baseProgrammes.find(prog => 
-        prog.toLowerCase() === decodedCourseName.toLowerCase() ||
-        decodedCourseName.toLowerCase().includes(prog.toLowerCase()) ||
-        prog.toLowerCase().includes(decodedCourseName.toLowerCase())
+      
+      // Try to find exact match first
+      let matchingProgramme = programmeOptions.find(prog => 
+        prog.toLowerCase() === decodedCourseName.toLowerCase()
       )
       
-      // If found, use the matching programme; otherwise, use the course name directly
-      const selectedProgramme = matchingProgramme || decodedCourseName
-      
-      // Update programme options - add course name if it's not in the base list
-      if (decodedCourseName && !baseProgrammes.includes(decodedCourseName)) {
-        setProgrammeOptions([...baseProgrammes, decodedCourseName])
-      } else {
-        setProgrammeOptions(baseProgrammes)
+      // If no exact match, try fuzzy matching
+      if (!matchingProgramme) {
+        matchingProgramme = programmeOptions.find(prog => 
+          decodedCourseName.toLowerCase().includes(prog.toLowerCase()) ||
+          prog.toLowerCase().includes(decodedCourseName.toLowerCase())
+        )
       }
+      
+      // Use matching programme or the decoded course name
+      const selectedProgramme = matchingProgramme || decodedCourseName
       
       // Pre-select the programme
       setFormData(prev => ({
         ...prev,
         programme: selectedProgramme
       }))
-    } else {
-      // No course name in URL, just use base programmes
-      setProgrammeOptions(baseProgrammes)
     }
-  }, [searchParams])
+  }, [searchParams, programmeOptions, loading])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', programme: '', role: '' })
-    }, 3000)
+    setError('')
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('/api/inquiry/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'apply',
+          formData,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitted(true)
+        setTimeout(() => {
+          setSubmitted(false)
+          setFormData({ name: '', email: '', programme: '', role: '' })
+        }, 5000)
+      } else {
+        setError(result.error || 'Failed to submit form. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err)
+      setError('An error occurred. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -128,10 +169,15 @@ export default function ApplyPage() {
                   <div className="text-center py-12">
                     <CheckCircle2 size={64} className="text-green-500 mx-auto mb-4" />
                     <h3 className="text-2xl font-serif font-bold mb-2 text-ablr-primary">Application Request Submitted!</h3>
-                    <p className="text-gray-700">We'll send you the application form shortly.</p>
+                    <p className="text-gray-700">We'll send you the application form shortly. Check your email for confirmation.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {error && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p className="text-sm text-red-600">{error}</p>
+                      </div>
+                    )}
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
                         Name <span className="text-red-500">*</span>
@@ -168,21 +214,27 @@ export default function ApplyPage() {
                       <label htmlFor="programme" className="block text-sm font-semibold text-gray-700 mb-2">
                         Programme of Interest <span className="text-red-500">*</span>
                       </label>
-                      <select
-                        id="programme"
-                        name="programme"
-                        value={formData.programme}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-ablr-primary focus:outline-none transition-colors duration-300 bg-white"
-                      >
-                        <option value="">Select a programme</option>
-                        {programmeOptions.map((prog, index) => (
-                          <option key={index} value={prog}>
-                            {prog}
-                          </option>
-                        ))}
-                      </select>
+                      {loading ? (
+                        <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg bg-gray-50 text-gray-500">
+                          Loading programmes...
+                        </div>
+                      ) : (
+                        <select
+                          id="programme"
+                          name="programme"
+                          value={formData.programme}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-ablr-primary focus:outline-none transition-colors duration-300 bg-white"
+                        >
+                          <option value="">Select a programme</option>
+                          {programmeOptions.map((prog, index) => (
+                            <option key={index} value={prog}>
+                              {prog}
+                            </option>
+                          ))}
+                        </select>
+                      )}
                     </div>
 
                     <div>
@@ -203,9 +255,10 @@ export default function ApplyPage() {
 
                     <button
                       type="submit"
-                      className="w-full bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300"
+                      disabled={submitting}
+                      className="w-full bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Request Application Form
+                      {submitting ? 'Submitting...' : 'Request Application Form'}
                     </button>
                   </form>
                 )}

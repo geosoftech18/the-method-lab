@@ -163,7 +163,7 @@ export default function FacultyCollaboratorsPage() {
                 Our Approach
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4 sm:mb-6 text-ablr-primary leading-tight">
-                How ABLR Approaches Faculty
+                How The Method Lab Approaches Faculty
               </h2>
               <div className="w-24 h-1 bg-ablr-primary mb-4 sm:mb-6"></div>
             </ScrollAnimation>
@@ -178,13 +178,13 @@ export default function FacultyCollaboratorsPage() {
                     Our Approach
                   </span>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4 sm:mb-6 text-ablr-primary leading-tight">
-                    How ABLR Approaches Faculty
+                    How The Method Lab Approaches Faculty
                   </h2>
                   <div className="w-24 h-1 bg-ablr-primary mb-4 sm:mb-6"></div>
                 </div>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed">
-                  At ABLR, we believe that exceptional faculty are the cornerstone of transformative learning experiences. Our approach to faculty engagement is built on principles of respect, collaboration, and mutual growth.
+                  At The Method Lab, we believe that exceptional faculty are the cornerstone of transformative learning experiences. Our approach to faculty engagement is built on principles of respect, collaboration, and mutual growth.
                 </p>
                 
                 <div className="space-y-4 sm:space-y-6">
@@ -247,7 +247,7 @@ export default function FacultyCollaboratorsPage() {
               </h2>
               <div className="w-24 h-1 bg-ablr-primary mb-8"></div>
               <p className="text-xl text-gray-700">
-                Meet our distinguished faculty members who bring decades of combined experience and expertise to ABLR programmes.
+                Meet our distinguished faculty members who bring decades of combined experience and expertise to The Method Lab programmes.
               </p>
             </ScrollAnimation>
           </div>
@@ -319,7 +319,7 @@ export default function FacultyCollaboratorsPage() {
                             </a>
                           )}
                           
-                          {faculty.profileUrl && (
+                          {/* {faculty.profileUrl && (
                             <Link
                               href={faculty.profileUrl}
                               className="ml-auto flex items-center gap-2 bg-ablr-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-ablr-dark transition-colors duration-300 group/profile"
@@ -327,7 +327,7 @@ export default function FacultyCollaboratorsPage() {
                               <span>View Profile</span>
                               <ExternalLink size={16} className="group-hover/profile:translate-x-1 group-hover/profile:-translate-y-1 transition-transform duration-300" />
                             </Link>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </div>
@@ -356,20 +356,20 @@ export default function FacultyCollaboratorsPage() {
             </ScrollAnimation>
           </div>
 
-          <div className="grid grid-cols-12 gap-6">
+          <div className="grid grid-cols-12 gap-6 items-stretch">
             {engagementTypes.map((type, index) => (
-              <div key={index} className="col-span-12 sm:col-span-6 lg:col-span-3">
-                <ScrollAnimation direction="up" delay={index * 100}>
-                  <div className="bg-white p-8 h-full relative overflow-hidden group">
+              <div key={index} className="col-span-12 sm:col-span-6 lg:col-span-3 flex">
+                <ScrollAnimation direction="up" delay={index * 100} className="flex-1 flex flex-col">
+                  <div className="bg-white p-8 h-full relative overflow-hidden group flex flex-col">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-ablr-primary/30 rounded-bl-full group-hover:bg-ablr-primary/10 transition-colors duration-500"></div>
-                    <div className="relative z-10">
+                    <div className="relative z-10 flex flex-col flex-grow">
                       <div className="w-16 h-16 bg-ablr-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-ablr-primary/20 transition-colors duration-500">
                         <type.icon size={32} className="text-ablr-primary" strokeWidth={1.5} />
                       </div>
                       <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-ablr-primary">
                         {type.title}
                       </h3>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-gray-700 leading-relaxed flex-grow">
                         {type.description}
                       </p>
                     </div>
@@ -391,18 +391,18 @@ export default function FacultyCollaboratorsPage() {
               </h2>
               <div className="w-24 h-1 bg-ablr-primary mb-8"></div>
               <p className="text-xl text-gray-700">
-                ABLR partners with a diverse range of organizations and institutions committed to advancing applied practice and research.
+                The Method Lab partners with a diverse range of organizations and institutions committed to advancing applied practice and research.
               </p>
             </ScrollAnimation>
           </div>
 
-          <div className="grid grid-cols-12 gap-6">
+          <div className="grid grid-cols-12 gap-6 items-stretch">
             {collaborators.map((collab, index) => (
-              <div key={index} className="col-span-12 md:col-span-6 lg:col-span-4">
-                <ScrollAnimation direction="up" delay={index * 100}>
-                  <div className="bg-[#F6F7F8] p-8 rounded-xl h-full relative overflow-hidden group hover:bg-ablr-primary/5 transition-colors duration-500">
+              <div key={index} className="col-span-12 md:col-span-6 lg:col-span-4 flex">
+                <ScrollAnimation direction="up" delay={index * 100} className="flex-1 flex flex-col">
+                  <div className="bg-[#F6F7F8] p-8 rounded-xl h-full relative overflow-hidden group hover:bg-ablr-primary/5 transition-colors duration-500 flex flex-col">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-ablr-primary group-hover:w-2 transition-all duration-500"></div>
-                    <div className="pl-6">
+                    <div className="pl-6 flex flex-col flex-grow">
                       <div className="flex items-start gap-4 mb-4">
                         <div className="w-12 h-12 bg-ablr-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                           <collab.icon size={24} className="text-ablr-primary" strokeWidth={1.5} />
@@ -413,7 +413,7 @@ export default function FacultyCollaboratorsPage() {
                           </h3>
                         </div>
                       </div>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-gray-700 leading-relaxed flex-grow">
                         {collab.description}
                       </p>
                     </div>

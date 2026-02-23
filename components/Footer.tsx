@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { GraduationCap, ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -16,7 +17,7 @@ export default function Footer() {
       <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-12 gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-12 md:mb-16">
           <div className="col-span-12 md:col-span-3">
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold mb-4 sm:mb-6">ABLR</h3>
+            <Image src="/white-footer-logo.png" alt="Method Lab Logo" width={250} height={250} />
             <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
               Applied Behavioural Learning and Research Centre
             </p>
@@ -48,6 +49,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/blog" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                  Blog
+                </a>
+              </li>
+              <li>
                 <a href="/contact-us" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Contact Us
                 </a>
@@ -65,12 +71,12 @@ export default function Footer() {
               </li>
               <li>
                 <a href="/programs/learning" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  Applied Behavioural Training
+                Practice and Implementation Wing
                 </a>
               </li>
               <li>
                 <a href="/programs/research" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  Research & Evaluation
+                Research and Methodology Wing
                 </a>
               </li>
             </ul>
@@ -106,27 +112,23 @@ export default function Footer() {
             
             <div className="mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <div>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/privacy-policy" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Privacy Policy
                 </a>
               </div>
               <div>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                <a href="/terms-of-service" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Terms of Service
                 </a>
               </div>
-              <div>
-                <a href="#" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  Accessibility
-                </a>
-              </div>
+              
             </div>
           </div>
           
         </div>
         
         <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs sm:text-sm text-white/60 text-center sm:text-left">© 2023 ABLR. All rights reserved.</p>
+          <p className="text-xs sm:text-sm text-white/60 text-center sm:text-left">© {new Date().getFullYear()} The Method Lab. All rights reserved.</p>
         </div>
       </div>
     </footer>

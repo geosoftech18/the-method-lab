@@ -3,10 +3,10 @@
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import ScrollAnimation from './ScrollAnimation'
-
+import { useRouter } from 'next/navigation'
 export default function WhatIsABLR() {
   const [expanded, setExpanded] = useState(false)
-
+  const router = useRouter()
   return (
     <section className="section-spacing bg-white relative overflow-hidden">
       {/* Subtle background overlay */}
@@ -53,7 +53,7 @@ export default function WhatIsABLR() {
               with the applied competence required in contemporary clinical, public health and research environments.
               </p>
               
-              {expanded && (
+              {/* {expanded && (
                 <div className="space-y-4 sm:space-y-6">
                   <p className="text-sm sm:text-base md:text-lg text-ablr-olive leading-relaxed max-w-full sm:max-w-[95%]">
                     ABLR responds to this gap through structured, skills-focused programmes that are rigorous, practical, and grounded in evidence. ABLR's programmes are faculty-led and developed in collaboration with researchers and practitioners from diverse professional and cultural contexts.
@@ -62,11 +62,11 @@ export default function WhatIsABLR() {
                     Instruction is delivered in structured modular formats, with delivery models adapted to the aims and requirements of each programme. Across both wings, ABLR prioritises clarity, rigour, and relevance. Its focus is not on broad survey instruction, but on strengthening professional judgement, supporting ethical and methodologically sound work, and improving practice quality in real-world human contexts.
                   </p>
                 </div>
-              )}
+              )} */}
               
               {/* Animated Read More link */}
               <button 
-                onClick={() => setExpanded(!expanded)}
+                onClick={() => router.push('/about')}
                 className="mt-4 sm:mt-6 md:mt-8 text-ablr-primary font-semibold flex items-center gap-2 sm:gap-3 group underline-animate text-sm sm:text-base"
               >
                 <span>{expanded ? 'Read Less' : 'Read More'}</span>

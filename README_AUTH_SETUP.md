@@ -52,3 +52,5 @@ BREVO_SENDER_EMAIL=your_verified_sender_email@domain.com
 - Session cookies are HTTP-only and secure in production
 - Only authorized email can receive codes
 
+
+

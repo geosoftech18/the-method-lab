@@ -112,10 +112,10 @@ export default function AdminLoginPage() {
 
       if (result.success) {
         setMessage('Login successful! Redirecting...')
+        // Use window.location for full page reload to ensure cookie is available
         setTimeout(() => {
-          router.push('/admin')
-          router.refresh()
-        }, 1000)
+          window.location.href = '/admin'
+        }, 500)
       } else {
         setError(result.error || 'Invalid verification code')
       }

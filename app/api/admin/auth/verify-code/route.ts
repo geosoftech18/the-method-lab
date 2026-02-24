@@ -65,9 +65,12 @@ export async function POST(request: NextRequest) {
     const sessionToken = Buffer.from(`${email}:${Date.now()}`).toString('base64')
     const cookieStore = await cookies()
     
+    // Determine if we're in production (check for HTTPS or production environment)
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production'
+    
     cookieStore.set('admin_session', sessionToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isProduction, // Use HTTPS in production
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 7, // 7 days
       path: '/',
@@ -76,10 +79,21 @@ export async function POST(request: NextRequest) {
     // Remove used code
     verificationCodes.delete(email.toLowerCase())
 
-    return NextResponse.json({ 
+    const response = NextResponse.json({ 
       success: true, 
       message: 'Login successful' 
     })
+    
+    // Also set cookie in response headers to ensure it's available immediately
+    response.cookies.set('admin_session', sessionToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/',
+    })
+    
+    return response
   } catch (error: any) {
     console.error('Error verifying code:', error)
     return NextResponse.json(

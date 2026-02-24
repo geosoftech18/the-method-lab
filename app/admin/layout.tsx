@@ -28,21 +28,42 @@ export default function AdminLayout({
       return
     }
 
-    const checkAuth = async () => {
+    const checkAuth = async (retryCount = 0) => {
       try {
-        const response = await fetch('/api/admin/auth/check')
+        const response = await fetch('/api/admin/auth/check', {
+          credentials: 'include', // Include cookies in the request
+          cache: 'no-store', // Don't cache the auth check
+        })
         const result = await response.json()
+        
+        // If not authenticated and we haven't retried, wait a bit and retry once
+        // This handles cases where cookie might not be immediately available after login
+        if (!result.authenticated && retryCount === 0) {
+          setTimeout(() => {
+            checkAuth(1)
+          }, 500)
+          return
+        }
+        
         setIsAuthenticated(result.authenticated)
+        setIsChecking(false)
         
         if (!result.authenticated) {
-          router.push('/admin/login')
+          // Use window.location for full redirect to ensure middleware handles it
+          window.location.href = '/admin/login'
         }
       } catch (error) {
         console.error('Error checking authentication:', error)
+        // Retry once on error as well
+        if (retryCount === 0) {
+          setTimeout(() => {
+            checkAuth(1)
+          }, 500)
+          return
+        }
         setIsAuthenticated(false)
-        router.push('/admin/login')
-      } finally {
         setIsChecking(false)
+        window.location.href = '/admin/login'
       }
     }
 
@@ -105,7 +126,8 @@ export default function AdminLayout({
   }
 
   // Don't show admin layout if not authenticated (middleware will redirect, but this is a safety check)
-  if (!isAuthenticated) {
+  // Only return null if we've finished checking and confirmed not authenticated
+  if (isChecking === false && isAuthenticated === false) {
     return null
   }
 

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { AdminProvider } from '@/contexts/AdminContext'
 import { LayoutDashboard, BookOpen, Settings, LogOut, FileText, Users, MessageSquare, Loader } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,57 +18,30 @@ export default function AdminLayout({
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [isChecking, setIsChecking] = useState(true)
+  const hasCheckedRef = useRef(false)
 
   // Check authentication status (skip check for login page)
   useEffect(() => {
     // Always allow login page to be visible
     if (pathname === '/admin/login') {
       setIsChecking(false)
-      setIsAuthenticated(false) // Set to false so login page shows
+      setIsAuthenticated(false)
+      hasCheckedRef.current = false // Reset so we check after login
       return
     }
 
-    const checkAuth = async (retryCount = 0) => {
-      try {
-        const response = await fetch('/api/admin/auth/check', {
-          credentials: 'include', // Include cookies in the request
-          cache: 'no-store', // Don't cache the auth check
-        })
-        const result = await response.json()
-        
-        // If not authenticated and we haven't retried, wait a bit and retry once
-        // This handles cases where cookie might not be immediately available after login
-        if (!result.authenticated && retryCount === 0) {
-          setTimeout(() => {
-            checkAuth(1)
-          }, 500)
-          return
-        }
-        
-        setIsAuthenticated(result.authenticated)
-        setIsChecking(false)
-        
-        if (!result.authenticated) {
-          // Use window.location for full redirect to ensure middleware handles it
-          window.location.href = '/admin/login'
-        }
-      } catch (error) {
-        console.error('Error checking authentication:', error)
-        // Retry once on error as well
-        if (retryCount === 0) {
-          setTimeout(() => {
-            checkAuth(1)
-          }, 500)
-          return
-        }
-        setIsAuthenticated(false)
-        setIsChecking(false)
-        window.location.href = '/admin/login'
-      }
+    // If we get here, middleware has already verified the session exists
+    // So we can assume authenticated - no need to check again
+    if (hasCheckedRef.current) {
+      return // Already set, skip
     }
 
-    checkAuth()
-  }, [pathname, router])
+    hasCheckedRef.current = true
+    
+    // Trust middleware - if we're here, we're authenticated
+    setIsAuthenticated(true)
+    setIsChecking(false)
+  }, [pathname]) // Only re-run when pathname changes
 
   const navItems = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },

@@ -1,16 +1,65 @@
 'use client'
 
-import { BookOpen, Users, Award, TrendingUp } from 'lucide-react'
+import { BookOpen, FileText, GraduationCap } from 'lucide-react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export const dynamic = 'force-dynamic'
 
+interface Stats {
+  programs: number
+  courses: number
+  blogs: number
+}
+
 export default function AdminDashboard() {
-  const stats = [
-    { label: 'Total Programs', value: '12', icon: BookOpen, color: 'text-ablr-primary' },
-    { label: 'Active Students', value: '245', icon: Users, color: 'text-ablr-dark' },
-    { label: 'Certificates Issued', value: '189', icon: Award, color: 'text-ablr-terracotta' },
-    { label: 'Growth Rate', value: '+23%', icon: TrendingUp, color: 'text-green-600' },
+  const [stats, setStats] = useState<Stats>({ programs: 0, courses: 0, blogs: 0 })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('/api/admin/stats', {
+          credentials: 'include',
+          cache: 'no-store',
+        })
+        const result = await response.json()
+        
+        if (result.success) {
+          setStats(result.data)
+        }
+      } catch (error) {
+        console.error('Error fetching stats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStats()
+  }, [])
+
+  const statsCards = [
+    { 
+      label: 'Total Programs', 
+      value: loading ? '...' : stats.programs.toString(), 
+      icon: BookOpen, 
+      color: 'text-ablr-primary',
+      bgColor: 'bg-ablr-primary/10'
+    },
+    { 
+      label: 'Total Courses', 
+      value: loading ? '...' : stats.courses.toString(), 
+      icon: GraduationCap, 
+      color: 'text-ablr-dark',
+      bgColor: 'bg-ablr-dark/10'
+    },
+    { 
+      label: 'Total Blogs', 
+      value: loading ? '...' : stats.blogs.toString(), 
+      icon: FileText, 
+      color: 'text-ablr-terracotta',
+      bgColor: 'bg-ablr-terracotta/10'
+    },
   ]
 
   return (
@@ -23,13 +72,13 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {stats.map((stat, index) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {statsCards.map((stat, index) => {
           const Icon = stat.icon
           return (
             <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 rounded-lg bg-${stat.color.replace('text-', '')}/10`}>
+                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
                   <Icon size={24} className={stat.color} />
                 </div>
               </div>

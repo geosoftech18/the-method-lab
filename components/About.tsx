@@ -54,8 +54,8 @@ export default function About() {
       name: 'Dr. Angana Nandy',
       role: 'Developmental psychologist and researcher with international training and experience across academic and applied settings. ',
       bio: `She holds a PhD in Developmental Psychology from Trinity College Dublin and completed postdoctoral research in early intervention and child development in Taiwan.`,
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-      linkedin: 'https://linkedin.com/in/sarah-mitchell',
+      image: '/founder-image.jpg',
+      linkedin: 'https://www.linkedin.com/in/dr-angana-nandy-28546350?utm_source=share_via&utm_content=profile&utm_medium=member_android',
       
       email: 'sarah.mitchell@ablr.org',
     },

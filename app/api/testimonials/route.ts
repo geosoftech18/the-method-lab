@@ -27,10 +27,14 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json({ success: true, data: testimonials })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching testimonials:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch testimonials' },
+      { 
+        success: false, 
+        error: error.message || 'Failed to fetch testimonials',
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }
@@ -72,7 +76,11 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Error creating testimonial:', error)
     return NextResponse.json(
-      { success: false, error: error.message || 'Failed to create testimonial' },
+      { 
+        success: false, 
+        error: error.message || 'Failed to create testimonial',
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }

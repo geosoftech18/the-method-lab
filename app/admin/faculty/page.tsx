@@ -20,6 +20,7 @@ export default function FacultyList() {
       try {
         const response = await fetch(`/api/faculty/${id}`, {
           method: 'DELETE',
+          credentials: 'include',
         })
         const result = await response.json()
 

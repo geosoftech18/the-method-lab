@@ -50,7 +50,7 @@ export default function AdminLayout({
     { href: '/admin/blog', label: 'Blog', icon: FileText },
     { href: '/admin/faculty', label: 'Faculty', icon: Users },
     { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
-    { href: '/admin/settings', label: 'Settings', icon: Settings },
+  
   ]
 
   const handleLogout = async () => {

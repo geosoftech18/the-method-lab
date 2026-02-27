@@ -27,10 +27,14 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json({ success: true, data: faculty })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching faculty:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch faculty' },
+      { 
+        success: false, 
+        error: error.message || 'Failed to fetch faculty',
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }
@@ -63,7 +67,11 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Error creating faculty:', error)
     return NextResponse.json(
-      { success: false, error: error.message || 'Failed to create faculty member' },
+      { 
+        success: false, 
+        error: error.message || 'Failed to create faculty member',
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }

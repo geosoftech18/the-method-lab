@@ -295,8 +295,8 @@ export default function ProgramForm({ program, isEdit }: ProgramFormProps) {
               onChange={(e) => handleInputChange('wing', e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
             >
-              <option value="Applied Learning and Training">Applied Learning and Training</option>
-              <option value="Applied Research and Practice">Applied Research and Practice</option>
+              <option value="Practice and Implementation Wing">Practice and Implementation Wing</option>
+              <option value="Research and Methodology Wing">Research and Methodology Wing</option>
              
             </select>
           </div>

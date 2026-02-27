@@ -41,6 +41,7 @@ interface FacultyMember {
   role: string
   bio: string
   image: string | null
+  linkedinUrl?: string | null
   createdAt: string
   updatedAt?: string
 }
@@ -229,18 +230,29 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         params.append('search', filters.search)
       }
 
-      const response = await fetch(`/api/faculty?${params.toString()}`)
+      const url = params.toString() ? `/api/faculty?${params.toString()}` : '/api/faculty'
+      const response = await fetch(url, {
+        credentials: 'include',
+        cache: 'no-store',
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const result = await response.json()
 
       if (result.success) {
-        setFaculty(result.data)
+        setFaculty(result.data || [])
         setFacultyCacheTime(Date.now())
         setFacultyFilters(filters)
       } else {
         console.error('Error loading faculty:', result.error)
+        setFaculty([])
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching faculty:', error)
+      setFaculty([])
     } finally {
       setFacultyLoading(false)
     }
@@ -282,7 +294,15 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       }
 
       const url = params.toString() ? `/api/testimonials?${params.toString()}` : '/api/testimonials'
-      const response = await fetch(url)
+      const response = await fetch(url, {
+        credentials: 'include',
+        cache: 'no-store',
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const result = await response.json()
 
       if (result.success) {
@@ -293,7 +313,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         console.error('Error loading testimonials:', result.error)
         setTestimonials([])
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching testimonials:', error)
       setTestimonials([])
     } finally {

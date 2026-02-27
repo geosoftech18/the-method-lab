@@ -30,6 +30,7 @@ export default function TestimonialsList() {
       try {
         const response = await fetch(`/api/testimonials/${id}`, {
           method: 'DELETE',
+          credentials: 'include',
         })
         const result = await response.json()
 

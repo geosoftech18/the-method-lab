@@ -24,7 +24,9 @@ function FacultyFormContent() {
     if (isEditing && editId) {
       const loadFaculty = async () => {
         try {
-          const response = await fetch(`/api/faculty/${editId}`)
+          const response = await fetch(`/api/faculty/${editId}`, {
+            credentials: 'include',
+          })
           const result = await response.json()
           
           if (result.success && result.data) {
@@ -97,6 +99,7 @@ function FacultyFormContent() {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(facultyData),
         })
       } else {
@@ -105,6 +108,7 @@ function FacultyFormContent() {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(facultyData),
         })
       }

@@ -24,7 +24,9 @@ function TestimonialFormContent() {
     if (isEditing && editId) {
       const loadTestimonial = async () => {
         try {
-          const response = await fetch(`/api/testimonials/${editId}`)
+          const response = await fetch(`/api/testimonials/${editId}`, {
+            credentials: 'include',
+          })
           const result = await response.json()
           
           if (result.success && result.data) {
@@ -102,6 +104,7 @@ function TestimonialFormContent() {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(testimonialData),
         })
       } else {
@@ -110,6 +113,7 @@ function TestimonialFormContent() {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(testimonialData),
         })
       }

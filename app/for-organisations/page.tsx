@@ -17,8 +17,8 @@ const leadership = [
     name: 'Dr. Angana Nandy',
     role: 'Developmental psychologist and researcher with international training and experience across academic and applied settings. ',
     bio: `She holds a PhD in Developmental Psychology from Trinity College Dublin and completed postdoctoral research in early intervention and child development in Taiwan.`,
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-    linkedin: 'https://linkedin.com/in/sarah-mitchell',
+    image: '/founder-image.jpg',
+    linkedin: 'https://www.linkedin.com/in/dr-angana-nandy-28546350?utm_source=share_via&utm_content=profile&utm_medium=member_android',
     
     email: 'sarah.mitchell@ablr.org',
   },
@@ -515,10 +515,13 @@ export default function ForOrganisationsPage() {
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
                           {leadership[0].bio}
                         </p>
+                       
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
+                        In addition to her academic work, she is the founder of Hopscotch Child Therapy, a clinical and training initiative dedicated to strengthening applied standards within child and family mental health. The Method Lab was established to extend this commitment globally — integrating professional practice and methodological rigour through structured, faculty-led capacity building.
+                        </p>
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-8 max-w-2xl">
                         Her work has focused on bridging research and practice within behavioural and health sciences systems, with particular emphasis on evidence-based professional training, applied competence and research methodology.
                         </p>
-                       
                       </div>
                       
                       {/* Social Icons */}

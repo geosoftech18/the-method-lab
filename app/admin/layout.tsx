@@ -46,7 +46,7 @@ export default function AdminLayout({
   const navItems = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/programs', label: 'Programs', icon: BookOpen },
-    { href: '/admin/courses', label: 'Courses', icon: BookOpen },
+    { href: '/admin/courses', label: 'Self-Paced', icon: BookOpen },
     { href: '/admin/blog', label: 'Blog', icon: FileText },
     { href: '/admin/faculty', label: 'Faculty', icon: Users },
     { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },

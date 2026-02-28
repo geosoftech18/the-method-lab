@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -8,59 +9,59 @@ import ScrollAnimation from '@/components/ScrollAnimation'
 import { GraduationCap, Users, Award, BookOpen, ArrowRight, CheckCircle2, UserCheck, Briefcase, Linkedin, ExternalLink, Building2 } from 'lucide-react'
 import Link from 'next/link'
 
+interface FacultyMember {
+  id: string
+  name: string
+  role: string
+  bio: string
+  image: string | null
+  linkedinUrl: string | null
+}
+
+interface FacultyDisplay {
+  name: string
+  role: string
+  type: string
+  image: string
+  summary: string
+  tags?: string[]
+  linkedin: string | null
+}
+
 export default function FacultyCollaboratorsPage() {
-  const currentFaculty = [
-    {
-      name: 'Dr. Ananya Mehta',
-      role: 'Director of Clinical Training',
-      type: 'Current Faculty',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-      summary: '15+ years in clinical child psychology, specialized in trauma-informed care and early intervention strategies.',
-      tags: ['Trauma', 'Early Intervention', 'Child Development', 'Clinical Practice'],
-      linkedin: '#',
-      profileUrl: '#',
-    },
-    {
-      name: 'Dr. John Smith',
-      role: 'Senior Research Fellow',
-      type: 'Current Faculty',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-      summary: '12+ years in behavioral research, expert in quantitative methodology and program evaluation.',
-      tags: ['Research Methodology', 'Program Evaluation', 'Data Analysis', 'Statistics'],
-      linkedin: '#',
-      profileUrl: '#',
-    },
-    {
-      name: 'Dr. Emily Martinez',
-      role: 'Lead Faculty',
-      type: 'Current Faculty',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-      summary: '18+ years in applied behavior analysis, focused on autism spectrum disorders and family support.',
-      tags: ['ABA', 'Autism', 'Family Support', 'Behavior Intervention'],
-      linkedin: '#',
-      profileUrl: '#',
-    },
-    {
-      name: 'Dr. Michael Chen',
-      role: 'Research Methodology Specialist',
-      type: 'Advisory Faculty',
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
-      summary: '20+ years in research design, specialized in mixed-methods research and evidence synthesis.',
-      tags: ['Research Design', 'Mixed Methods', 'Evidence Synthesis', 'Academic Research'],
-      linkedin: '#',
-      profileUrl: '#',
-    },
-    {
-      name: 'Dr. Sarah Johnson',
-      role: 'Clinical Director',
-      type: 'Advisory Faculty',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
-      summary: '16+ years in clinical practice, expert in developmental disabilities and parent training programs.',
-      tags: ['Developmental Disabilities', 'Parent Training', 'Clinical Supervision', 'Intervention Design'],
-      linkedin: '#',
-      profileUrl: '#',
-    },
-  ]
+  const [currentFaculty, setCurrentFaculty] = useState<FacultyDisplay[]>([])
+  const [facultyLoading, setFacultyLoading] = useState(true)
+
+  // Fetch faculty from database
+  useEffect(() => {
+    const fetchFaculty = async () => {
+      try {
+        const response = await fetch('/api/faculty')
+        const result = await response.json()
+        
+        if (result.success && result.data) {
+          // Map database fields to UI format
+          const mappedFaculty: FacultyDisplay[] = result.data.map((item: FacultyMember) => ({
+            name: item.name,
+            role: item.role,
+            type: 'Current Faculty', // Default type since not in database
+            image: item.image || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop', // Fallback image
+            summary: item.bio, // Use bio as summary
+            tags: undefined, // Tags not in database, so not shown
+            linkedin: item.linkedinUrl || null,
+          }))
+          setCurrentFaculty(mappedFaculty)
+        }
+      } catch (error) {
+        console.error('Error fetching faculty:', error)
+        setCurrentFaculty([])
+      } finally {
+        setFacultyLoading(false)
+      }
+    }
+
+    fetchFaculty()
+  }, [])
 
   const engagementTypes = [
     {
@@ -252,90 +253,94 @@ export default function FacultyCollaboratorsPage() {
             </ScrollAnimation>
           </div>
 
-          <div className="grid grid-cols-12 gap-6">
-            {currentFaculty.map((faculty, index) => (
-              <div key={index} className="col-span-12 sm:col-span-6 lg:col-span-4">
-                <ScrollAnimation direction="up" delay={index * 100}>
-                  <div className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden card-elevated group hover:border-ablr-primary transition-all duration-500 flex flex-col h-full">
-                    <div className="relative h-64 overflow-hidden flex-shrink-0">
-                      <img
-                        src={faculty.image}
-                        alt={faculty.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          faculty.type === 'Current Faculty' 
-                            ? 'bg-ablr-primary text-white' 
-                            : 'bg-ablr-dark text-white'
-                        }`}>
-                          {faculty.type}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6 flex flex-col flex-1 transition-all duration-500 min-h-[120px] group-hover:min-h-[320px]">
-                      <h3 className="text-xl sm:text-2xl font-serif font-bold mb-2 text-ablr-primary">
-                        {faculty.name}
-                      </h3>
-                      <p className="text-ablr-dark font-semibold mb-4">
-                        {faculty.role}
-                      </p>
-                      
-                      {/* Description - Always Visible */}
-                      <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                        {faculty.summary}
-                      </p>
-                      
-                      {/* Tags and Links - Visible on Hover */}
-                      <div className="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-[500px] transition-all duration-500 flex-1 flex flex-col overflow-hidden">
-                        {/* Tags */}
-                        {faculty.tags && faculty.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {faculty.tags.map((tag, tagIndex) => (
-                              <span
-                                key={tagIndex}
-                                className="px-3 py-1 bg-ablr-primary/10 text-ablr-primary text-xs font-semibold rounded-full"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                        
-                        {/* Links */}
-                        <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-200">
-                          {faculty.linkedin && (
-                            <a
-                              href={faculty.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-2 text-ablr-primary hover:text-ablr-dark transition-colors duration-300 group/link"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <Linkedin size={20} className="group-hover/link:scale-110 transition-transform duration-300" />
-                              <span className="text-sm font-semibold">LinkedIn</span>
-                            </a>
-                          )}
-                          
-                          {/* {faculty.profileUrl && (
-                            <Link
-                              href={faculty.profileUrl}
-                              className="ml-auto flex items-center gap-2 bg-ablr-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-ablr-dark transition-colors duration-300 group/profile"
-                            >
-                              <span>View Profile</span>
-                              <ExternalLink size={16} className="group-hover/profile:translate-x-1 group-hover/profile:-translate-y-1 transition-transform duration-300" />
-                            </Link>
-                          )} */}
+          {facultyLoading ? (
+            <div className="text-center py-16">
+              <p className="text-gray-600 text-lg">Loading faculty...</p>
+            </div>
+          ) : currentFaculty.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-gray-600 text-lg">No faculty members available at the moment.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-12 gap-6">
+              {currentFaculty.map((faculty, index) => (
+                <div key={faculty.name + index} className="col-span-12 sm:col-span-6 lg:col-span-3">
+                  <ScrollAnimation direction="up" delay={index * 100}>
+                    <div className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden card-elevated group hover:border-ablr-primary transition-all duration-500 flex flex-col h-full">
+                      <div className="relative h-64 overflow-hidden flex-shrink-0">
+                        <img
+                          src={faculty.image}
+                          alt={faculty.name}
+                          className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"
+                          style={{ objectPosition: 'center 20%' }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            faculty.type === 'Current Faculty' 
+                              ? 'bg-ablr-primary text-white' 
+                              : 'bg-ablr-dark text-white'
+                          }`}>
+                            {faculty.type}
+                          </span>
                         </div>
                       </div>
+                      
+                      <div className="p-6 flex flex-col flex-1 transition-all duration-500 min-h-[120px] group-hover:min-h-[220px]">
+                        <h3 className="text-xl sm:text-2xl font-serif font-bold mb-2 text-ablr-primary">
+                          {faculty.name}
+                        </h3>
+                        <p className="text-ablr-dark font-semibold mb-4">
+                          {faculty.role}
+                        </p>
+                        
+                        {/* Description - Always Visible */}
+                        <p className="text-sm text-gray-700 mb-4 leading-relaxed">
+                          {faculty.summary}
+                        </p>
+                        
+                        {/* Tags and Links - Visible on Hover */}
+                        {(faculty.tags && faculty.tags.length > 0) || faculty.linkedin ? (
+                          <div className="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-[200px] transition-all duration-500 flex-1 flex flex-col overflow-hidden">
+                            {/* Tags */}
+                            {faculty.tags && faculty.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-2 mb-4">
+                                {faculty.tags.map((tag, tagIndex) => (
+                                  <span
+                                    key={tagIndex}
+                                    className="px-3 py-1 bg-ablr-primary/10 text-ablr-primary text-xs font-semibold rounded-full"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                            
+                            {/* Links */}
+                            {faculty.linkedin && (
+                              <div className={`flex items-center gap-3 ${faculty.tags && faculty.tags.length > 0 ? 'mt-auto pt-4 border-t border-gray-200' : 'mt-0 pt-0'}`}>
+                                <a
+                                  href={faculty.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 text-ablr-primary hover:text-ablr-dark transition-colors duration-300 group/link"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <Linkedin size={20} className="group-hover/link:scale-110 transition-transform duration-300" />
+                                  <span className="text-sm font-semibold">LinkedIn</span>
+                                </a>
+                              </div>
+                            )}
+                          </div>
+                        ) : null}
+                        
+                      </div>
                     </div>
-                  </div>
-                </ScrollAnimation>
-              </div>
-            ))}
-          </div>
+                  </ScrollAnimation>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

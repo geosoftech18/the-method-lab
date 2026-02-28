@@ -8,15 +8,55 @@ import Link from 'next/link'
 import { usePrograms } from '@/contexts/ProgramContext'
 
 export default function AppliedResearchPractice() {
-  const { programs, loading } = usePrograms()
+  const { programs, courses: dbCourses, loading } = usePrograms()
   
-  // Filter for Applied Research and Practice or Research and Methodology wings
+  // Filter for Research and Methodology Wing - both live programs and self-paced courses
   const highlightedCourses = useMemo(() => {
-    return programs.filter((program) => 
-      program.wing === 'Applied Research and Practice' || 
-      program.wing === 'Research and Methodology'
-    )
-  }, [programs])
+    // Live programs
+    const livePrograms = programs
+      .filter((program) => 
+        (program.wing === 'Applied Research and Practice' || 
+         program.wing === 'Research and Methodology Wing') &&
+        program.mode === 'live' &&
+        !program.isSelfPaced
+      )
+      .map((program) => ({
+        id: program.id,
+        title: program.title,
+        description: program.description,
+        duration: program.duration,
+        nextCohort: program.nextCohort,
+        startDate: program.startDate,
+        endDate: program.endDate,
+        isSelfPaced: program.isSelfPaced,
+        mode: program.mode,
+        wing: program.wing,
+        audience: program.audience,
+        image: program.image,
+        isCourse: false,
+      }))
+    
+    // Self-paced courses
+    const selfPacedCourses = dbCourses
+      .filter((course) => course.wing === 'Research and Methodology Wing')
+      .map((course) => ({
+        id: course.id,
+        title: course.title,
+        description: course.overview,
+        duration: course.formatLine || 'Self-paced',
+        nextCohort: undefined,
+        startDate: undefined,
+        endDate: undefined,
+        isSelfPaced: true,
+        mode: 'pre-recorded' as const,
+        wing: course.wing || '',
+        audience: 'professionals' as const,
+        image: course.image,
+        isCourse: true,
+      }))
+    
+    return [...livePrograms, ...selfPacedCourses]
+  }, [programs, dbCourses])
 
   const focusAreas = [
   {

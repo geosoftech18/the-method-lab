@@ -12,54 +12,42 @@ export default function AllProgrammes() {
   const { programs, courses: dbCourses, loading } = usePrograms()
   const [filters, setFilters] = useState({
     audience: [] as string[],
-    mode: [] as string[],
+  
     wing: [] as string[]
   })
 
-  // Transform programs and courses to match CourseCard interface
+  // Transform programs to match CourseCard interface - only live programs, no pre-recorded or self-paced
   const courses = useMemo(() => {
-    const programCourses = programs.map((program) => ({
-      id: program.id,
-      title: program.title,
-      description: program.description,
-      duration: program.duration,
-      nextCohort: program.nextCohort,
-      startDate: program.startDate,
-      endDate: program.endDate,
-      isSelfPaced: program.isSelfPaced,
-      mode: program.mode,
-      wing: program.wing,
-      audience: program.audience,
-      image: program.image,
-      isCourse: false,
-    }))
+    // Only include live programs that are not self-paced
+    const programCourses = programs
+      .filter(program => program.mode === 'live' && !program.isSelfPaced)
+      .map((program) => ({
+        id: program.id,
+        title: program.title,
+        description: program.description,
+        duration: program.duration,
+        nextCohort: program.nextCohort,
+        startDate: program.startDate,
+        endDate: program.endDate,
+        isSelfPaced: program.isSelfPaced,
+        mode: program.mode,
+        wing: program.wing,
+        audience: program.audience,
+        image: program.image,
+        isCourse: false,
+      }))
     
-    const preRecordedCourses = dbCourses.map((course) => ({
-      id: course.id,
-      title: course.title,
-      description: course.overview,
-      duration: course.formatLine || '',
-      nextCohort: undefined,
-      startDate: undefined,
-      endDate: undefined,
-      isSelfPaced: true,
-      mode: 'pre-recorded' as const,
-      wing: '',
-      audience: 'professionals' as const,
-      image: course.image,
-      isCourse: true,
-    }))
-    
-    return [...programCourses, ...preRecordedCourses]
-  }, [programs, dbCourses])
+    // Don't include pre-recorded courses
+    return programCourses
+  }, [programs])
 
   const filteredCourses = useMemo(() => {
     return courses.filter(course => {
       const audienceMatch = filters.audience.length === 0 || filters.audience.includes(course.audience)
-      const modeMatch = filters.mode.length === 0 || filters.mode.includes(course.mode)
+      
       const wingMatch = filters.wing.length === 0 || filters.wing.includes(course.wing)
       
-      return audienceMatch && modeMatch && wingMatch
+      return audienceMatch  && wingMatch
     })
   }, [filters, courses])
 
@@ -104,7 +92,7 @@ export default function AllProgrammes() {
             <div className="text-center py-16">
               <p className="text-gray-600 text-lg mb-4">No programmes match your filters</p>
               <button
-                onClick={() => setFilters({ audience: [], mode: [], wing: [] })}
+                onClick={() => setFilters({ audience: [], wing: [] })}
                 className="text-ablr-primary font-semibold hover:underline"
               >
                 Clear all filters

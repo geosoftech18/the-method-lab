@@ -20,8 +20,8 @@ export default function ProgramFilters({ onFilterChange }: ProgramFiltersProps) 
   })
 
   const audienceOptions = ['students', 'professionals', 'organisations']
-  const modeOptions = ['live', 'pre-recorded']
-  const wingOptions = ['Applied Learning and Training', 'Applied Research and Practice']
+
+  const wingOptions = ['Practice and Implementation Wing', 'Research and Methodology Wing']
 
   const handleFilterToggle = (category: 'audience' | 'mode' | 'wing', value: string) => {
     setFilters(prev => {
@@ -97,25 +97,7 @@ export default function ProgramFilters({ onFilterChange }: ProgramFiltersProps) 
             </div>
           </div>
 
-          {/* Mode Filter */}
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-3">Mode</h4>
-            <div className="flex flex-wrap gap-3">
-              {modeOptions.map(option => (
-                <button
-                  key={option}
-                  onClick={() => handleFilterToggle('mode', option)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                    filters.mode.includes(option)
-                      ? 'bg-ablr-primary text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {option === 'pre-recorded' ? 'Pre-recorded' : 'Live'}
-                </button>
-              ))}
-            </div>
-          </div>
+         
 
           {/* Wing Filter */}
           <div>

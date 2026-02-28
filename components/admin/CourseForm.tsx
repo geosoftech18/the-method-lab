@@ -14,6 +14,7 @@ interface CourseData {
   primaryCtaUrl?: string
   secondaryCtaUrl?: string
   overview?: string
+  wing?: string
   whoItsFor?: string[]
   learningObjectives?: string[]
   learningOutcomes?: string[]
@@ -43,6 +44,7 @@ export default function CourseForm({ course, isEdit }: CourseFormProps) {
   const { faculty, fetchFaculty } = useAdmin()
   const [formData, setFormData] = useState<CourseData>({
     title: '',
+    wing: 'Practice and Implementation Wing',
     whoItsFor: [],
     learningObjectives: [],
     learningOutcomes: [],
@@ -66,6 +68,7 @@ export default function CourseForm({ course, isEdit }: CourseFormProps) {
     if (course) {
       setFormData({
         ...course,
+        wing: course.wing || 'Practice and Implementation Wing',
         faqs: course.faqs || [],
         faculty: course.faculty || [],
         whoItsFor: course.whoItsFor || [],
@@ -258,6 +261,21 @@ export default function CourseForm({ course, isEdit }: CourseFormProps) {
               placeholder="e.g., Designed for psychologists, supervisors, and mental health leaders."
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Wing *
+            </label>
+            <select
+              required
+              value={formData.wing || ''}
+              onChange={(e) => handleInputChange('wing', e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ablr-primary focus:border-transparent"
+            >
+              <option value="Practice and Implementation Wing">Practice and Implementation Wing</option>
+              <option value="Research and Methodology Wing">Research and Methodology Wing</option>
+            </select>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

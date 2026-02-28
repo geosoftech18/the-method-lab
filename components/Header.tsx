@@ -45,6 +45,9 @@ export default function Header() {
                 </div>
               )}
             </div>
+            <a href="/courses" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
+             Self-Paced
+            </a>
             <a href="/for-organisations" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
               For Organisations
             </a>
@@ -91,6 +94,7 @@ export default function Header() {
             <a href="/programs" className="block text-gray-700 hover:text-ablr-primary">All Programmes</a>
             <a href="/programs/learning" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Learning and Training</a>
             <a href="/programs/research" className="block text-gray-700 hover:text-ablr-primary pl-4">Applied Research and Practice</a>
+            <a href="/courses" className="block text-gray-700 hover:text-ablr-primary">Self-Paced</a>
             <a href="/for-organisations" className="block text-gray-700 hover:text-ablr-primary">For Organisations</a>
             <a href="/faculty-collaborators" className="block text-gray-700 hover:text-ablr-primary">Faculty & Collaborators</a>
             <a href="/blog" className="block text-gray-700 hover:text-ablr-primary">Blog</a>

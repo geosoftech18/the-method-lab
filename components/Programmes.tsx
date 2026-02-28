@@ -1,9 +1,23 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { ArrowRight } from 'lucide-react'
 import ScrollAnimation from './ScrollAnimation'
 import { useRouter } from 'next/navigation'
+import { usePrograms } from '@/contexts/ProgramContext'
+import Link from 'next/link'
+
+interface ProgrammeItem {
+  id: string
+  type: string
+  title: string
+  description: string
+  duration: string
+  format: string
+  category: string
+  image?: string
+  detailUrl: string
+}
 
 export default function Programmes() {
   const [activeTab, setActiveTab] = useState('All')
@@ -16,50 +30,66 @@ export default function Programmes() {
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const tabs = ['All', 'Applied Courses', 'Research Courses']
-
   const router = useRouter()
-  const programmes = [
-    {
-      type: 'Intensive Training',
-      title: 'Applied Behaviour Analysis Foundations',
-      description: 'Foundational programme covering core ABA principles and their application.',
-      duration: '8 weeks',
-      format: 'Online',
-      category: 'Applied Courses',
-      image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop',
-    },
-    {
-      type: 'Advanced Clinical',
-      title: 'Advanced Clinical Supervision',
-      description: 'Advanced skills for effective supervision and mentorship in ABA.',
-      duration: '6 weeks',
-      format: 'Online',
-      category: 'Applied Courses',
-      image: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop',
-    },
-    {
-      type: 'Research Courses',
-      title: 'Research Methodology Intensive',
-      description: 'Deep dive into research design, data analysis, and ethical considerations.',
-      duration: '10 weeks',
-      format: 'Online',
-      category: 'Research Courses',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',
-    },
-    {
-      type: 'Applied Courses',
-      title: 'Ethical Practice in ABA',
-      description: 'Comprehensive course on ethical decision-making and professional conduct.',
-      duration: '4 weeks',
-      format: 'Online',
-      category: 'Applied Courses',
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-    },
-  ]
+  const { programs, courses: dbCourses, loading } = usePrograms()
 
-  const filteredProgrammes = activeTab === 'All' 
-    ? programmes 
-    : programmes.filter(p => p.category === activeTab)
+  // Transform programs and courses to ProgrammeItem format
+  const programmes = useMemo(() => {
+    const programmeItems: ProgrammeItem[] = []
+
+    // Add live programs
+    programs
+      .filter(program => program.mode === 'live' && !program.isSelfPaced)
+      .forEach((program) => {
+        const category = program.wing === 'Practice and Implementation Wing' 
+          ? 'Applied Courses' 
+          : program.wing === 'Research and Methodology Wing'
+          ? 'Research Courses'
+          : 'Applied Courses' // Default fallback
+        
+        programmeItems.push({
+          id: program.id,
+          type: 'Live Programme',
+          title: program.title,
+          description: program.description || '',
+          duration: program.duration,
+          format: 'Live',
+          category,
+          image: program.image || undefined,
+          detailUrl: `/programs/course/${program.id}`,
+        })
+      })
+
+    // Add self-paced courses
+    dbCourses.forEach((course: any) => {
+      const category = course.wing === 'Practice and Implementation Wing'
+        ? 'Applied Courses'
+        : course.wing === 'Research and Methodology Wing'
+        ? 'Research Courses'
+        : 'Applied Courses' // Default fallback
+      
+      programmeItems.push({
+        id: course.id,
+        type: 'Self-Paced Course',
+        title: course.title,
+        description: course.overview || '',
+        duration: course.formatLine || 'Self-paced',
+        format: 'Self-Paced',
+        category,
+        image: course.image || undefined,
+        detailUrl: `/courses/${course.id}`,
+      })
+    })
+
+    return programmeItems
+  }, [programs, dbCourses])
+
+  const filteredProgrammes = useMemo(() => {
+    if (activeTab === 'All') {
+      return programmes
+    }
+    return programmes.filter(p => p.category === activeTab)
+  }, [activeTab, programmes])
 
   // Detect mobile screen
   useEffect(() => {
@@ -229,18 +259,27 @@ export default function Programmes() {
         </div>
         
         {/* Cards - Carousel on mobile, Grid on desktop */}
-        <div className="relative">
-          {/* Mobile: Horizontal scroll with snap */}
-          <div 
-            ref={scrollContainerRef}
-            onScroll={handleScroll}
-            className="md:hidden overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4"
-            style={{ 
-              WebkitOverflowScrolling: 'touch'
-            }}
-          >
-            <div className="flex gap-4">
-              {filteredProgrammes.map((programme, index) => (
+        {loading ? (
+          <div className="text-center py-16">
+            <p className="text-gray-600 text-lg">Loading programmes...</p>
+          </div>
+        ) : filteredProgrammes.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-gray-600 text-lg">No programmes available at the moment.</p>
+          </div>
+        ) : (
+          <div className="relative">
+            {/* Mobile: Horizontal scroll with snap */}
+            <div 
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="md:hidden overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4"
+              style={{ 
+                WebkitOverflowScrolling: 'touch'
+              }}
+            >
+              <div className="flex gap-4">
+                {filteredProgrammes.map((programme, index) => (
                 <div 
                   key={index}
                   data-card-index={index}
@@ -249,16 +288,18 @@ export default function Programmes() {
                   <ScrollAnimation direction="up" delay={index * 100}>
                     <div className="group card-elevated bg-ablr-dark rounded-lg p-6 h-[350px] relative overflow-hidden flex flex-col mx-auto">
                       {/* Background Image */}
-                      <div 
-                        className="absolute inset-0 hidden group-hover:block bg-cover bg-center"
-                        style={{ backgroundImage: `url(${programme.image})` }}
-                      ></div>
+                      {programme.image && (
+                        <div 
+                          className="absolute inset-0 hidden group-hover:block bg-cover bg-center"
+                          style={{ backgroundImage: `url(${programme.image})` }}
+                        ></div>
+                      )}
                       
                       {/* Gradient Overlay for text readability */}
                       <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-500 bg-gradient-to-br from-ablr-dark via-ablr-dark/85 to-ablr-secondary/5"></div>
                       
                       {/* Content */}
-                      <div className="relative z-10 flex flex-col h-full">
+                      <div className="relative z-10 flex flex-col h-full min-h-0">
                         {/* Top category badge */}
                         <div className="label-small-caps text-white/90 mb-3 text-xs">{programme.type}</div>
                         
@@ -271,7 +312,7 @@ export default function Programmes() {
                         <div className="w-10 h-px bg-white/30 mb-4"></div>
                         
                         {/* Description - flex-1 to take available space */}
-                        <p className="text-white/90 mb-4 text-sm leading-relaxed flex-1">
+                        <p className="text-white/90 mb-4 text-sm leading-relaxed flex-1 min-h-0 line-clamp-3 overflow-hidden">
                           {programme.description}
                         </p>
                         
@@ -283,10 +324,10 @@ export default function Programmes() {
                         </div>
                         
                         {/* CTA arrow animated */}
-                        <a href="#" className="inline-flex items-center gap-2 text-white font-semibold underline-animate group/link text-sm mt-auto">
+                        <Link href={programme.detailUrl} className="inline-flex items-center gap-2 text-white font-semibold underline-animate group/link text-sm mt-auto">
                           <span>View Details</span>
                           <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform duration-300" />
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </ScrollAnimation>
@@ -302,16 +343,18 @@ export default function Programmes() {
                 <ScrollAnimation direction="up" delay={index * 100}>
                   <div className="group card-elevated rounded-lg p-6 sm:p-8 h-[380px] md:h-[400px] relative overflow-hidden flex flex-col">
                     {/* Background Image */}
-                    <div 
-                      className="absolute inset-0 hidden group-hover:block bg-cover bg-center"
-                      style={{ backgroundImage: `url(${programme.image})` }}
-                    ></div>
+                    {programme.image && (
+                      <div 
+                        className="absolute inset-0 hidden group-hover:block bg-cover bg-center"
+                        style={{ backgroundImage: `url(${programme.image})` }}
+                      ></div>
+                    )}
                     
                     {/* Gradient Overlay for text readability */}
                     <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-500 bg-gradient-to-br from-ablr-dark via-ablr-dark/90 to-ablr-dark"></div>
                     
                     {/* Content */}
-                    <div className="relative z-10 flex flex-col h-full">
+                    <div className="relative z-10 flex flex-col h-full min-h-0">
                       {/* Top category badge */}
                       <div className="label-small-caps text-white/90 mb-3 sm:mb-4 text-xs sm:text-sm">{programme.type}</div>
                       
@@ -324,7 +367,7 @@ export default function Programmes() {
                       <div className="w-10 sm:w-12 h-px bg-white/30 mb-4 sm:mb-6"></div>
                       
                       {/* Description - flex-1 to take available space */}
-                      <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed flex-1">
+                      <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed flex-1 min-h-0 line-clamp-3 overflow-hidden">
                         {programme.description}
                       </p>
                       
@@ -336,10 +379,10 @@ export default function Programmes() {
                       </div>
                       
                       {/* CTA arrow animated */}
-                      <a href="#" className="inline-flex items-center gap-2 sm:gap-3 text-white font-semibold underline-animate group/link text-sm sm:text-base mt-auto">
+                      <Link href={programme.detailUrl} className="inline-flex items-center gap-2 sm:gap-3 text-white font-semibold underline-animate group/link text-sm sm:text-base mt-auto">
                         <span>View Details</span>
                         <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] group-hover/link:translate-x-1 transition-transform duration-300" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </ScrollAnimation>
@@ -347,24 +390,25 @@ export default function Programmes() {
             ))}
           </div>
 
-          {/* Mobile: Dot Pagination */}
-          {filteredProgrammes.length > 0 && (
-            <div className="md:hidden flex justify-center items-center gap-2 my-4">
-              {filteredProgrammes.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleDotClick(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentIndex 
-                      ? 'bg-ablr-dark/80 w-8' 
-                      : 'bg-gray-300 w-2 hover:bg-gray-400'
-                  }`}
-                  aria-label={`Go to programme ${index + 1}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+            {/* Mobile: Dot Pagination */}
+            {filteredProgrammes.length > 0 && (
+              <div className="md:hidden flex justify-center items-center gap-2 my-4">
+                {filteredProgrammes.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleDotClick(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === currentIndex 
+                        ? 'bg-ablr-dark/80 w-8' 
+                        : 'bg-gray-300 w-2 hover:bg-gray-400'
+                    }`}
+                    aria-label={`Go to programme ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         
         <div className="text-center">
           <button className="magnetic-button bg-ablr-dark text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-sm hover:bg-ablr-dark/95 transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl w-full sm:w-auto"

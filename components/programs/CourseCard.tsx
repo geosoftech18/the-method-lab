@@ -45,8 +45,8 @@ export default function CourseCard({
     }
   }
   // Determine colors based on wing
-  const isLearningWing = wing === 'Applied Learning and Training'
-  const isPracticeWing = wing === 'Practice and Implementation'
+  const isLearningWing = wing === 'Practice and Implementation Wing'
+  const isPracticeWing = wing === 'Research and Methodology Wing'
   
   // Color classes for different wings
   const wingColorClasses = isLearningWing ? {

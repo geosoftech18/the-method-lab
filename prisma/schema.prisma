@@ -90,6 +90,7 @@ model Course {
   primaryCtaUrl             String?
   secondaryCtaUrl           String?
   overview                  String?  // About the Course
+  wing                      String?  // Practice and Implementation Wing or Research and Methodology Wing
   whoItsFor                 String[]
   learningObjectives        String[]  // What You Will Gain
   learningOutcomes          String[]
@@ -99,7 +100,7 @@ model Course {
   price                     Float?
   earlyAccessPrice          Float?
   institutionalLicensing    String?
-  bulkPurchaseOption        String?
+  bulkPurchaseOption         String?
   readyToBeginText          String?
   startImmediatelyText      String?
   enrolNowUrl               String?

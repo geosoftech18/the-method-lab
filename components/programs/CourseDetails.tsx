@@ -478,7 +478,11 @@ function RelatedProgrammesSection({ currentCourseId }: { currentCourseId: string
 
   const relatedCourses = useMemo(() => {
     return programs
-      .filter((c: any) => c.id !== currentCourseId)
+      .filter((c: any) => 
+        c.id !== currentCourseId &&
+        c.mode === 'live' &&
+        !c.isSelfPaced
+      )
       .slice(0, 3)
       .map((program: any) => ({
         id: program.id,

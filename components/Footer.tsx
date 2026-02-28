@@ -34,6 +34,12 @@ export default function Footer() {
              
              
               <li>
+                <a href="/courses" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                Self-Paced
+                </a>
+              </li>
+             
+              <li>
                 <a href="/programs" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                   Programmes
                 </a>
@@ -70,10 +76,16 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/courses" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
+                Self-Paced
+                </a>
+              </li>
+              <li>
                 <a href="/programs/learning" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                 Practice and Implementation Wing
                 </a>
               </li>
+            
               <li>
                 <a href="/programs/research" className="text-white/70 hover:text-white transition-colors duration-300 underline-animate inline-block">
                 Research and Methodology Wing

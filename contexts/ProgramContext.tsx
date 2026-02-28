@@ -50,6 +50,7 @@ interface Course {
   primaryCtaUrl?: string
   secondaryCtaUrl?: string
   overview?: string
+  wing?: string
   whoItsFor?: string[]
   learningObjectives?: string[]
   learningOutcomes?: string[]

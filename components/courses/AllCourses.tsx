@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import CourseCard from '../programs/CourseCard'
+import ProgramFilters from '../programs/ProgramFilters'
 import ScrollAnimation from '../ScrollAnimation'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -10,12 +11,13 @@ import { usePrograms } from '@/contexts/ProgramContext'
 export default function AllCourses() {
   const { courses: dbCourses, loading } = usePrograms()
   const [filters, setFilters] = useState({
-    mode: [] as string[]
+    audience: [] as string[],
+    wing: [] as string[]
   })
 
   // Transform courses to match CourseCard interface
   const courses = useMemo(() => {
-    return dbCourses.map((course) => ({
+    return dbCourses.map((course: any) => ({
       id: course.id,
       title: course.title,
       description: course.overview,
@@ -25,7 +27,7 @@ export default function AllCourses() {
       endDate: undefined,
       isSelfPaced: true,
       mode: 'pre-recorded' as const,
-      wing: '',
+      wing: course.wing || '',
       audience: 'professionals' as const,
       image: course.image,
       isCourse: true,
@@ -34,8 +36,9 @@ export default function AllCourses() {
 
   const filteredCourses = useMemo(() => {
     return courses.filter(course => {
-      const modeMatch = filters.mode.length === 0 || filters.mode.includes(course.mode)
-      return modeMatch
+      const audienceMatch = filters.audience.length === 0 || filters.audience.includes(course.audience)
+      const wingMatch = filters.wing.length === 0 || filters.wing.includes(course.wing)
+      return audienceMatch && wingMatch
     })
   }, [filters, courses])
 
@@ -44,7 +47,7 @@ export default function AllCourses() {
       <div className="mb-8">
         <ScrollAnimation direction="up">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4 text-ablr-primary">
-            All Courses
+            All Self-Paced
           </h2>
           <p className="text-gray-600 text-lg">
             Browse our collection of professional training courses and pre-recorded learning programs
@@ -52,55 +55,7 @@ export default function AllCourses() {
         </ScrollAnimation>
       </div>
 
-      {/* Filters */}
-      <div className="mb-8">
-        <ScrollAnimation direction="up">
-          <div className="flex flex-wrap gap-4">
-            <button
-              onClick={() => {
-                setFilters(prev => ({
-                  ...prev,
-                  mode: prev.mode.includes('pre-recorded')
-                    ? prev.mode.filter(m => m !== 'pre-recorded')
-                    : [...prev.mode, 'pre-recorded']
-                }))
-              }}
-              className={`px-6 py-2 rounded-lg font-semibold transition-colors ${
-                filters.mode.includes('pre-recorded')
-                  ? 'bg-ablr-primary text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Pre-recorded
-            </button>
-            {/* <button
-              onClick={() => {
-                setFilters(prev => ({
-                  ...prev,
-                  mode: prev.mode.includes('live')
-                    ? prev.mode.filter(m => m !== 'live')
-                    : [...prev.mode, 'live']
-                }))
-              }}
-              className={`px-6 py-2 rounded-lg font-semibold transition-colors ${
-                filters.mode.includes('live')
-                  ? 'bg-ablr-primary text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Live
-            </button> */}
-            {(filters.mode.length > 0) && (
-              <button
-                onClick={() => setFilters({ mode: [] })}
-                className="px-6 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
-              >
-                Clear Filters
-              </button>
-            )}
-          </div>
-        </ScrollAnimation>
-      </div>
+      <ProgramFilters onFilterChange={setFilters} />
 
       {loading ? (
         <div className="text-center py-16">
@@ -128,7 +83,7 @@ export default function AllCourses() {
             <div className="text-center py-16">
               <p className="text-gray-600 text-lg mb-4">No courses match your filters</p>
               <button
-                onClick={() => setFilters({ mode: [] })}
+                onClick={() => setFilters({ audience: [], wing: [] })}
                 className="text-ablr-primary font-semibold hover:underline"
               >
                 Clear all filters

@@ -6,6 +6,8 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollAnimation from '@/components/ScrollAnimation'
 
+export const dynamic = 'force-dynamic'
+
 export default function TermsOfServicePage() {
   return (
     <main className="min-h-screen">

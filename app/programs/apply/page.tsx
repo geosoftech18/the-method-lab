@@ -11,6 +11,8 @@ import Link from 'next/link'
 import ScrollAnimation from '@/components/ScrollAnimation'
 import { usePrograms } from '@/contexts/ProgramContext'
 
+export const dynamic = 'force-dynamic'
+
 export default function ApplyPage() {
   const searchParams = useSearchParams()
   const courseId = searchParams.get('course')

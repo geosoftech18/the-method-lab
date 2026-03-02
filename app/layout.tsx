@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { ProgramProvider } from '@/contexts/ProgramContext'
+import { Providers } from '@/components/Providers'
 
 export const metadata: Metadata = {
   title: 'Applied Behavioural Learning and Research | ABLR',
@@ -13,6 +13,9 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
+// Disable static generation for all pages to prevent React context issues
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: {
@@ -21,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ProgramProvider>
+        <Providers>
           {children}
-        </ProgramProvider>
+        </Providers>
       </body>
     </html>
   )

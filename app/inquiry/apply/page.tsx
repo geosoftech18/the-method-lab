@@ -11,6 +11,8 @@ import { GraduationCap, ArrowLeft, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 import { usePrograms } from '@/contexts/ProgramContext'
 
+export const dynamic = 'force-dynamic'
+
 export default function ApplyPage() {
   const searchParams = useSearchParams()
   const { programs, courses, loading } = usePrograms()

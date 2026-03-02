@@ -17,6 +17,8 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ScrollAnimation from '@/components/ScrollAnimation'
 import ScrollToTop from '@/components/ScrollToTop'
 
+export const dynamic = 'force-dynamic'
+
 export default function Home() {
   return (
     <main className="min-h-screen">

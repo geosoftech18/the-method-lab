@@ -10,6 +10,8 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { usePrograms } from '@/contexts/ProgramContext'
 
+export const dynamic = 'force-dynamic'
+
 export default function CoursePage() {
   const params = useParams()
   const id = params.id as string

@@ -6,6 +6,8 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
 import AllProgrammes from '@/components/programs/AllProgrammes'
 
+export const dynamic = 'force-dynamic'
+
 export default function ProgramsPage() {
   return (
     <main className="min-h-screen">

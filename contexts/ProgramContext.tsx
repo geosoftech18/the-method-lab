@@ -175,7 +175,17 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
 export function usePrograms() {
   const context = useContext(ProgramContext)
   if (context === undefined) {
-    throw new Error('usePrograms must be used within a ProgramProvider')
+    // Return default values when context is not available (during SSR or outside provider)
+    return {
+      programs: [],
+      courses: [],
+      loading: true,
+      error: null,
+      refreshPrograms: async () => {},
+      refreshCourses: async () => {},
+      getProgramById: () => undefined,
+      getCourseById: () => undefined,
+    }
   }
   return context
 }

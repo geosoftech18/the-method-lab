@@ -6,6 +6,8 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
 import AppliedLearningTraining from '@/components/programs/AppliedLearningTraining'
 
+export const dynamic = 'force-dynamic'
+
 export default function LearningPage() {
   return (
     <main className="min-h-screen">

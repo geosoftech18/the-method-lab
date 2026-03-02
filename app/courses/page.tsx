@@ -6,6 +6,8 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
 import AllCourses from '@/components/courses/AllCourses'
 
+export const dynamic = 'force-dynamic'
+
 export default function CoursesPage() {
   return (
     <main className="min-h-screen">

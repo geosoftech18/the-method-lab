@@ -140,7 +140,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs sm:text-sm text-white/60 text-center sm:text-left">© {new Date().getFullYear()} The Method Lab. All rights reserved.</p>
+          <p className="text-xs sm:text-sm text-white/60 text-center sm:text-left">© {new Date().getFullYear()} The Method Lab. All rights reserved. Developed by <a href="https://geosoftech.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors duration-300 underline-animate inline-block">GEO Softech</a></p>
         </div>
       </div>
     </footer>

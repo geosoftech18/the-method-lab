@@ -6,6 +6,8 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
 import AppliedResearchPractice from '@/components/programs/AppliedResearchPractice'
 
+export const dynamic = 'force-dynamic'
+
 export default function ResearchPage() {
   return (
     <main className="min-h-screen">

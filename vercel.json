@@ -1,4 +1,2 @@
-{
-  "buildCommand": "prisma generate && next build"
-}
+{}
 

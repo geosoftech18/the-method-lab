@@ -170,7 +170,7 @@ const programFormats = [
               </ul>
             </div>
             <div className="col-span-12 md:col-span-6">
-              <Image src="/Images/Research and Methodology Wing/How programmes are designed.jpg" alt="How Programmes are designed" width={600} height={500} div className="bg-white rounded-xl h-full flex items-center justify-center" />
+              <Image src="/Images/Research and Methodology Wing/How programmes are designed.jpg" alt="How Programmes are designed" width={600} height={500}  className="bg-white rounded-xl h-full flex items-center justify-center" />
               
             </div>
           </div>

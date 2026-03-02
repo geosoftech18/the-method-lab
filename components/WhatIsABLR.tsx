@@ -81,13 +81,15 @@ export default function WhatIsABLR() {
           {/* Right: Image */}
           <div className="col-span-12 lg:col-span-6 flex justify-center items-center relative order-2 lg:order-2 mb-6 lg:mb-0">
             <ScrollAnimation direction="up" delay={200}>
-              <div className="relative w-full max-w-[400px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px]">
+              <div className="relative w-full max-w-[500px] sm:max-w-[600px] md:max-w-[500px] lg:max-w-[550px]">
                 <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <img
-                    src="/about-image.png"
+                    src="/Images/Homepage/What is The Method Lab.jpg"
                     alt="The Method Lab - Applied Practice & Research"
-                    className="w-full h-auto object-cover"
+                    className="w-full aspect-square object-cover"
+                    width={800}
+                    height={800}
                   />
                 </div>
               </div>

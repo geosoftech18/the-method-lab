@@ -8,7 +8,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import ScrollAnimation from '@/components/ScrollAnimation'
 import { GraduationCap, Users, Award, BookOpen, ArrowRight, CheckCircle2, UserCheck, Briefcase, Linkedin, ExternalLink, Building2 } from 'lucide-react'
 import Link from 'next/link'
-
+import Image from 'next/image'
 interface FacultyMember {
   id: string
   name: string
@@ -126,30 +126,48 @@ export default function FacultyCollaboratorsPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative bg-white py-16 md:py-32 overflow-hidden">
-        <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-ablr-primary/5 to-transparent"></div>
+      <section className="relative bg-white py-16 md:py-20 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-ablr-primary/5 to-transparent"></div>
         
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-          <div className="max-w-4xl">
-            <ScrollAnimation direction="up">
-              <p className="label-small-caps text-ablr-dark/70 mb-4 text-sm">Faculty & Collaborators</p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 text-ablr-primary leading-[0.9]">
-                Excellence Through
-                <br />
-                <span className="text-ablr-dark">Collaboration</span>
-              </h1>
-              <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-2xl mb-8">
-                Our diverse community of faculty and collaborators brings together expertise, experience, and innovation to deliver exceptional learning experiences.
-              </p>
-              <Link
-                href="/inquiry/teach"
-                className="inline-flex items-center gap-3 bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 group"
-              >
-                <GraduationCap size={24} />
-                <span>Apply to Join Faculty</span>
-                <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
-              </Link>
-            </ScrollAnimation>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Image - First on mobile, Right on desktop */}
+            <div className="order-1 md:order-2">
+              <ScrollAnimation direction="up" delay={200}>
+                <div className="relative w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[500px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/Images/Our Faculty/Hero section.jpg"
+                    alt="Faculty and collaborators"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </ScrollAnimation>
+            </div>
+            
+            {/* Content - Second on mobile, Left on desktop */}
+            <div className="order-2 md:order-1 max-w-4xl">
+              <ScrollAnimation direction="up">
+                <p className="label-small-caps text-ablr-dark/70 mb-4 text-sm">Faculty & Collaborators</p>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 text-ablr-primary leading-[0.9]">
+                  Excellence Through
+                  <br />
+                  <span className="text-ablr-dark">Collaboration</span>
+                </h1>
+                <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-2xl mb-8">
+                  Our diverse community of faculty and collaborators brings together expertise, experience, and innovation to deliver exceptional learning experiences.
+                </p>
+                <Link
+                  href="/inquiry/teach"
+                  className="inline-flex items-center gap-3 bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 group"
+                >
+                  <GraduationCap size={24} />
+                  <span>Apply to Join Faculty</span>
+                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </ScrollAnimation>
+            </div>
           </div>
         </div>
       </section>
@@ -226,8 +244,8 @@ export default function FacultyCollaboratorsPage() {
               <ScrollAnimation direction="up" delay={200}>
                 <div className="relative">
                   <div className="absolute -inset-4 bg-ablr-primary/10 rounded-2xl transform rotate-3"></div>
-                  <div className="relative bg-gradient-to-br from-ablr-primary to-ablr-dark rounded-2xl p-6 sm:p-8 md:p-12 h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center">
-                    <GraduationCap size={60} className="sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-[120px] lg:h-[120px] text-white/80" strokeWidth={1} />
+                  <div >
+                    <Image src="Images/Our Faculty/How The Method Lab Approaches Faculty.jpg" alt="Our Approach" width={600} height={500} className="relative rounded-2xl  h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center" />
                   </div>
                 </div>
               </ScrollAnimation>

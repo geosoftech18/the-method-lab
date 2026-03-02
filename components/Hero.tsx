@@ -3,7 +3,7 @@
 import { ChevronDown } from 'lucide-react'
 import { CirclePattern } from './DecorativeElements'
 import { useEffect, useState, useRef } from 'react'
-
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 export default function Hero() {
   const router = useRouter()
@@ -63,9 +63,23 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="bg-gradient-to-tr from-[#162d5f] via-ablr-primary to-[#16377d] text-white py-20 md:py-32 relative overflow-hidden">
+    <section className="text-white py-20 md:py-32 relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/Images/Homepage/Hero section.jpg"
+          alt="Hero background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+      
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#162d5f] via-ablr-primary to-[#16377d] opacity-80"></div>
+      
       {/* Decorative background vectors */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 z-10">
         <div className="absolute top-10 right-10 w-32 h-32 text-white">
         <CirclePattern />
         </div>
@@ -76,17 +90,17 @@ export default function Hero() {
       </div>
       
       {/* Geometric shapes */}
-      <div className="absolute top-0 right-0 w-96 h-96 opacity-5">
+      <div className="absolute top-0 right-0 w-96 h-96 opacity-5 z-10">
        
       </div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 opacity-5">
+      <div className="absolute bottom-0 left-0 w-64 h-64 opacity-5 z-10">
         <svg viewBox="0 0 200 200" className="w-full h-full">
           <circle cx="100" cy="100" r="80" fill="none" stroke="white" strokeWidth="2" />
           <circle cx="100" cy="100" r="50" fill="none" stroke="white" strokeWidth="1" />
         </svg>
       </div>
 
-      <div className="container max-w-3xl mx-auto px-4 sm:px-6 text-center relative z-10">
+      <div className="container max-w-3xl mx-auto px-4 sm:px-6 text-center relative z-20">
         <p className="text-xs sm:text-sm tracking-wider text-[#a6c3e5] mb-4 sm:mb-6 md:mb-8">
         An Initiative by Hopscotch Child Therapy</p>
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-2xl font-bold mx-auto font-serif mb-6 sm:mb-8 leading-tight">

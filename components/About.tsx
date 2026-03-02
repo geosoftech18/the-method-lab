@@ -145,7 +145,7 @@ export default function About() {
                 <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3"></div>
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-full w-full">
                     <Image 
-                      src="/about-image.png" 
+                      src="Images/About Us/About The Method Lab.jpg" 
                       alt="About The Method Lab" 
                       width={600} 
                       height={500}
@@ -348,9 +348,9 @@ export default function About() {
                 <div className="col-span-12 md:col-span-6 order-1 md:order-2">
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3"></div>
-                    <div className="relative bg-gradient-to-br from-ablr-secondary to-ablr-primary rounded-2xl p-6 sm:p-8 md:p-12 h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] flex items-center justify-center">
-                      <BookOpen size={60} className="sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-[100px] lg:h-[100px] text-white/80" strokeWidth={1} />
-                    </div>
+                  
+                     <Image src="Images/About Us/Our Approach.jpg" alt="Our Approach" width={600} height={500} className="relative bg-gradient-to-br from-ablr-secondary to-ablr-primary rounded-2xl h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] flex items-center justify-center" />
+                   
                   </div>
                 </div>
               </div>
@@ -485,15 +485,9 @@ export default function About() {
               <ScrollAnimation direction="up" delay={200}>
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-ablr-secondary/20 to-ablr-primary/20 rounded-2xl transform -rotate-3"></div>
-                  <div className="relative bg-gradient-to-br from-ablr-primary to-ablr-dark rounded-2xl p-6 sm:p-8 md:p-12 h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex flex-col items-center justify-center text-white">
-                    <GraduationCap size={60} className="sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-[100px] lg:h-[100px] mb-4 sm:mb-6 text-white/80" strokeWidth={1} />
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold mb-3 sm:mb-4 text-center px-4">
-                      Hopscotch Child Therapy
-                    </h3>
-                    <p className="text-white/90 text-center max-w-md text-sm sm:text-base px-4">
-                      Leading the way in evidence-based therapeutic services and professional development
-                    </p>
-                  </div>
+                  
+                    <Image src="Images/About Us/Initiative by Hopscotch Child Therapy.webp" alt="Hopscotch Child Therapy" width={600} height={500} className="relative  rounded-2xl  h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex flex-col items-center justify-center text-white"/>
+               
                 </div>
               </ScrollAnimation>
             </div>

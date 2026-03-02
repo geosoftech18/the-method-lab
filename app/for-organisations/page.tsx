@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import ScrollAnimation from '@/components/ScrollAnimation'
 import { Building2, Users, Target, ArrowRight, CheckCircle2, Sparkles, Network, GraduationCap, Award, Quote, Calendar, Heart } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Testimonials from '@/components/Testimonials'
 import { Linkedin, Mail } from 'lucide-react'
 
@@ -31,30 +32,48 @@ export default function ForOrganisationsPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative bg-white py-16 md:py-32 overflow-hidden">
+      <section className="relative bg-white py-16 md:py-20 overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-ablr-primary/5 to-transparent"></div>
         
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-          <div className="max-w-4xl">
-            <ScrollAnimation direction="up">
-              <p className="label-small-caps text-ablr-dark/70 mb-4 text-sm">For Organisations</p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 text-ablr-primary leading-[0.9]">
-                Empowering
-                <br />
-                <span className="text-ablr-dark/80">Organisations</span>
-              </h1>
-              <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-2xl mb-8">
-                Tailored training and research solutions designed to elevate your team's capabilities and drive meaningful impact.
-              </p>
-              <Link
-                href="/inquiry/organisation"
-                className="inline-flex items-center gap-3 bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 group"
-              >
-                <Calendar size={24} />
-                <span>Schedule a Consultation</span>
-                <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
-              </Link>
-            </ScrollAnimation>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Image - First on mobile, Right on desktop */}
+            <div className="order-1 md:order-2">
+              <ScrollAnimation direction="up" delay={200}>
+                <div className="relative w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[500px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/Images/For organisations/Hero section.jpg"
+                    alt="Organisations collaborating"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </ScrollAnimation>
+            </div>
+            
+            {/* Content - Second on mobile, Left on desktop */}
+            <div className="order-2 md:order-1 max-w-4xl">
+              <ScrollAnimation direction="up">
+                <p className="label-small-caps text-ablr-dark/70 mb-4 text-sm">For Organisations</p>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 text-ablr-primary leading-[0.9]">
+                  Empowering
+                  <br />
+                  <span className="text-ablr-dark/80">Organisations</span>
+                </h1>
+                <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-2xl mb-8">
+                  Tailored training and research solutions designed to elevate your team's capabilities and drive meaningful impact.
+                </p>
+                <Link
+                  href="/inquiry/organisation"
+                  className="inline-flex items-center gap-3 bg-ablr-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-ablr-dark transition-colors duration-300 group"
+                >
+                  <Calendar size={24} />
+                  <span>Schedule a Consultation</span>
+                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </ScrollAnimation>
+            </div>
           </div>
         </div>
       </section>

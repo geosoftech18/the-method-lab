@@ -6,6 +6,7 @@ import CourseCard from './CourseCard'
 import ScrollAnimation from '../ScrollAnimation'
 import Link from 'next/link'
 import { usePrograms } from '@/contexts/ProgramContext'
+import Image from 'next/image'
 
 export default function AppliedLearningTraining() {
   const { programs, courses: dbCourses, loading } = usePrograms()
@@ -170,9 +171,8 @@ const programFormats = [
               </ul>
             </div>
             <div className="col-span-12 md:col-span-6">
-              <div className="bg-white rounded-xl p-8 h-full flex items-center justify-center">
-                <Target size={80} className="text-ablr-primary/30" strokeWidth={1} />
-              </div>
+              <Image src="/Images/Practice and Implementation Wing/How programmes are desgined.jpg" alt="How Programmes are designed" width={600} height={500} className="bg-white rounded-xl h-full flex items-center justify-center"/>
+              
             </div>
           </div>
         </div>

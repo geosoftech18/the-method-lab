@@ -19,7 +19,7 @@ export default function Header() {
           {/* Logo Section */}
           <div className="flex items-center">
             <a href="/" className="flex flex-col group">
-             <Image src="/logo.png" alt="ABLR" width={150} height={100} />
+             <Image src="/logo.png" alt="ABLR" width={150} height={100} style={{ width: 'auto', height: 'auto' }} />
             </a>
           </div>
 

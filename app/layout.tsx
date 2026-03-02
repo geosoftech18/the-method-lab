@@ -15,6 +15,7 @@ export const viewport: Viewport = {
 
 // Disable static generation for all pages to prevent React context issues
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default function RootLayout({
   children,

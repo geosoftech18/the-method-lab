@@ -89,7 +89,17 @@ interface ProgramContextType {
   getCourseById: (id: string) => Course | undefined
 }
 
-const ProgramContext = createContext<ProgramContextType | undefined>(undefined)
+// Initialize with default value to prevent undefined context issues
+const ProgramContext = createContext<ProgramContextType>({
+  programs: [],
+  courses: [],
+  loading: true,
+  error: null,
+  refreshPrograms: async () => {},
+  refreshCourses: async () => {},
+  getProgramById: () => undefined,
+  getCourseById: () => undefined,
+})
 
 // Default context value for SSR
 const defaultContextValue: ProgramContextType = {
@@ -196,20 +206,8 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
 }
 
 export function usePrograms() {
+  // Context always has a default value, so this should never be undefined
   const context = useContext(ProgramContext)
-  if (context === undefined) {
-    // Return default values when context is not available (during SSR or outside provider)
-    return {
-      programs: [],
-      courses: [],
-      loading: true,
-      error: null,
-      refreshPrograms: async () => {},
-      refreshCourses: async () => {},
-      getProgramById: () => undefined,
-      getCourseById: () => undefined,
-    }
-  }
   return context
 }
 

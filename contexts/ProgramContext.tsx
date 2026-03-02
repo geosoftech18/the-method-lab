@@ -91,7 +91,26 @@ interface ProgramContextType {
 
 const ProgramContext = createContext<ProgramContextType | undefined>(undefined)
 
+// Default context value for SSR
+const defaultContextValue: ProgramContextType = {
+  programs: [],
+  courses: [],
+  loading: true,
+  error: null,
+  refreshPrograms: async () => {},
+  refreshCourses: async () => {},
+  getProgramById: () => undefined,
+  getCourseById: () => undefined,
+}
+
 export function ProgramProvider({ children }: { children: ReactNode }) {
+  // Check if we're in a browser environment
+  const [isClient, setIsClient] = useState(false)
+  
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const [programs, setPrograms] = useState<Program[]>([])
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
@@ -130,13 +149,16 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
+    // Only fetch on client side
+    if (!isClient) return
+    
     const fetchAll = async () => {
       setLoading(true)
       await Promise.all([fetchPrograms(), fetchCourses()])
       setLoading(false)
     }
     fetchAll()
-  }, [])
+  }, [isClient])
 
   const refreshPrograms = async () => {
     await fetchPrograms()
@@ -154,19 +176,20 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
     return courses.find(c => c.id === id)
   }
 
+  // During SSR, provide default values
+  const contextValue = isClient ? {
+    programs,
+    courses,
+    loading,
+    error,
+    refreshPrograms,
+    refreshCourses,
+    getProgramById,
+    getCourseById,
+  } : defaultContextValue
+
   return (
-    <ProgramContext.Provider
-      value={{
-        programs,
-        courses,
-        loading,
-        error,
-        refreshPrograms,
-        refreshCourses,
-        getProgramById,
-        getCourseById,
-      }}
-    >
+    <ProgramContext.Provider value={contextValue}>
       {children}
     </ProgramContext.Provider>
   )

@@ -282,9 +282,9 @@ export default function FacultyCollaboratorsPage() {
           ) : (
             <div className="grid grid-cols-12 gap-6">
               {currentFaculty.map((faculty, index) => (
-                <div key={faculty.name + index} className="col-span-12 sm:col-span-6 lg:col-span-3">
-                  <ScrollAnimation direction="up" delay={index * 100}>
-                    <div className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden card-elevated group hover:border-ablr-primary transition-all duration-500 flex flex-col h-full">
+                <div key={faculty.name + index} className="col-span-12 sm:col-span-6 lg:col-span-3 flex">
+                  <ScrollAnimation direction="up" delay={index * 100} className="flex-1 flex flex-col">
+                    <div className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden card-elevated group hover:border-ablr-primary transition-all duration-500 flex flex-col h-full w-full">
                       <div className="relative h-64 overflow-hidden flex-shrink-0">
                         <img
                           src={faculty.image}
@@ -304,7 +304,7 @@ export default function FacultyCollaboratorsPage() {
                         </div>
                       </div>
                       
-                      <div className="p-6 flex flex-col flex-1 transition-all duration-500 min-h-[120px] group-hover:min-h-[220px]">
+                      <div className="p-6 flex flex-col flex-1 h-[220px]">
                         <h3 className="text-xl sm:text-2xl font-serif font-bold mb-2 text-ablr-primary">
                           {faculty.name}
                         </h3>
@@ -312,14 +312,14 @@ export default function FacultyCollaboratorsPage() {
                           {faculty.role}
                         </p>
                         
-                        {/* Description - Always Visible */}
-                        <p className="text-sm text-gray-700 mb-4 leading-relaxed">
+                        {/* Description - Always Visible with fixed height */}
+                        <p className="text-sm text-gray-700 mb-4 leading-relaxed line-clamp-3 flex-shrink-0">
                           {faculty.summary}
                         </p>
                         
                         {/* Tags and Links - Visible on Hover */}
                         {(faculty.tags && faculty.tags.length > 0) || faculty.linkedin ? (
-                          <div className="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-[200px] transition-all duration-500 flex-1 flex flex-col overflow-hidden">
+                          <div className="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-full transition-all duration-500 flex-1 flex flex-col overflow-hidden mt-auto">
                             {/* Tags */}
                             {faculty.tags && faculty.tags.length > 0 && (
                               <div className="flex flex-wrap gap-2 mb-4">
@@ -336,7 +336,7 @@ export default function FacultyCollaboratorsPage() {
                             
                             {/* Links */}
                             {faculty.linkedin && (
-                              <div className={`flex items-center gap-3 ${faculty.tags && faculty.tags.length > 0 ? 'mt-auto pt-4 border-t border-gray-200' : 'mt-0 pt-0'}`}>
+                              <div className={`flex items-center gap-3 ${faculty.tags && faculty.tags.length > 0 ? 'pt-4 border-t border-gray-200' : ''}`}>
                                 <a
                                   href={faculty.linkedin}
                                   target="_blank"

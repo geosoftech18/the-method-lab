@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="col-span-12 md:col-span-3">
             <Image src="/white-footer-logo.png" alt="Method Lab Logo" width={250} height={250} />
             <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-              Applied Behavioural Learning and Research Centre
+              Grounded in research, shaped by practice.
             </p>
           </div>
 
@@ -98,13 +98,13 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 sm:mb-6 label-small-caps text-white/90 text-xs sm:text-sm">Contact</h4>
             <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-white/70">
               <li>
-                <a href="mailto:info@ablr.org" className="hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  info@ablr.org
+                <a href="mailto:info@methodlabacademy.com" className="hover:text-white transition-colors duration-300 underline-animate inline-block">
+                  info@methodlabacademy.com
                 </a>
               </li>
               <li>
-                <a href="tel:+919876543210" className="hover:text-white transition-colors duration-300 underline-animate inline-block">
-                  +91 98765 43210
+                <a href="tel:+918240338278" className="hover:text-white transition-colors duration-300 underline-animate inline-block">
+                  +91 8240338278
                 </a>
               </li>
               <li>Mumbai, India</li>

@@ -3,7 +3,7 @@ import './globals.css'
 import { Providers } from '@/components/Providers'
 
 export const metadata: Metadata = {
-  title: 'Applied Behavioural Learning and Research | ABLR',
+  title: 'Method Lab Academy',
   description: 'The latest applied practice methodology to support professional judgement.',
 }
 

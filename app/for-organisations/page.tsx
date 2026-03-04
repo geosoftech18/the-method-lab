@@ -21,7 +21,7 @@ const leadership = [
     image: '/founder-image.jpg',
     linkedin: 'https://www.linkedin.com/in/dr-angana-nandy-28546350?utm_source=share_via&utm_content=profile&utm_medium=member_android',
     
-    email: 'sarah.mitchell@ablr.org',
+    
   },
 ]
 export default function ForOrganisationsPage() {
@@ -557,15 +557,7 @@ export default function ForOrganisationsPage() {
                           </a>
                         )}
                       
-                        {leadership[0].email && (
-                          <a
-                            href={`mailto:${leadership[0].email}`}
-                            className="w-12 h-12 rounded-full bg-gradient-to-br from-ablr-terracotta to-ablr-terracotta/80 hover:from-ablr-terracotta/90 hover:to-ablr-terracotta/70 text-white flex items-center justify-center transition-all duration-300 group shadow-lg hover:shadow-xl"
-                            aria-label="Email"
-                          >
-                            <Mail size={22} className="group-hover:scale-110 transition-transform" />
-                          </a>
-                        )}
+                       
                       </div>
                     </div>
                   </div>

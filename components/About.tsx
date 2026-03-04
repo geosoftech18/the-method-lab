@@ -57,7 +57,7 @@ export default function About() {
       image: '/founder-image.jpg',
       linkedin: 'https://www.linkedin.com/in/dr-angana-nandy-28546350?utm_source=share_via&utm_content=profile&utm_medium=member_android',
       
-      email: 'sarah.mitchell@ablr.org',
+      
     },
 
   ]
@@ -402,7 +402,7 @@ export default function About() {
                           {leadership[0].bio}
                         </p>
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-6 max-w-2xl">
-                        In addition to her academic work, she is the founder of Hopscotch Child Therapy, a clinical and training initiative dedicated to strengthening applied standards within child and family mental health. The Method Lab was established to extend this commitment globally — integrating professional practice and methodological rigour through structured, faculty-led capacity building.
+                        In addition to her academic work, she is the founder of Hopscotch Child Therapy, a clinical  initiative dedicated to strengthening applied standards within child and family mental health. The Method Lab was established to extend this commitment globally — integrating professional practice and methodological rigour through structured, faculty-led capacity building.
                         </p>
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg mb-8 max-w-2xl">
                         Her work has focused on bridging research and practice within behavioural and health sciences systems, with particular emphasis on evidence-based professional training, applied competence and research methodology.
@@ -424,15 +424,7 @@ export default function About() {
                           </a>
                         )}
                       
-                        {leadership[0].email && (
-                          <a
-                            href={`mailto:${leadership[0].email}`}
-                            className="w-12 h-12 rounded-full bg-gradient-to-br from-ablr-terracotta to-ablr-terracotta/80 hover:from-ablr-terracotta/90 hover:to-ablr-terracotta/70 text-white flex items-center justify-center transition-all duration-300 group shadow-lg hover:shadow-xl"
-                            aria-label="Email"
-                          >
-                            <Mail size={22} className="group-hover:scale-110 transition-transform" />
-                          </a>
-                        )}
+                        
                       </div>
                     </div>
                   </div>
@@ -458,7 +450,7 @@ export default function About() {
                 <div className="w-20 h-1 bg-ablr-primary mb-6 sm:mb-8"></div>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                The Method Lab emerged from the work of Hopscotch Child Therapy, a clinical and training initiative committed to evidence-based practice in child and family mental health.
+                The Method Lab emerged from the work of Hopscotch Child Therapy, a clinical  initiative committed to evidence-based practice in child and family mental health.
                 </p>
                 
                 <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">

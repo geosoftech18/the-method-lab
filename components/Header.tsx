@@ -1,12 +1,22 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { ChevronDown, Menu, X, Search } from 'lucide-react'
 import Image from 'next/image'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [programmesDropdown, setProgrammesDropdown] = useState(false)
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <header className="bg-white/95 backdrop-blur-sm border-b  border-gray-200/50 sticky top-0 z-50 shadow-sm">
@@ -30,15 +40,40 @@ export default function Header() {
             <a href="/about" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 underline-animate">About Us</a>
             <div 
               className="relative"
-              onMouseEnter={() => setProgrammesDropdown(true)}
-              onMouseLeave={() => setProgrammesDropdown(false)}
+              onMouseEnter={() => {
+                if (dropdownTimeoutRef.current) {
+                  clearTimeout(dropdownTimeoutRef.current)
+                  dropdownTimeoutRef.current = null
+                }
+                setProgrammesDropdown(true)
+              }}
+              onMouseLeave={() => {
+                // Add a small delay before closing to allow mouse movement to dropdown
+                dropdownTimeoutRef.current = setTimeout(() => {
+                  setProgrammesDropdown(false)
+                }, 150)
+              }}
             >
               <a href="/programs" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 flex items-center gap-1 underline-animate">
                 Programmes
                 <ChevronDown size={14} className={`transition-transform duration-300 ${programmesDropdown ? 'rotate-180' : ''}`} />
               </a>
               {programmesDropdown && (
-                <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200/50 rounded-lg shadow-lg py-2 min-w-[280px] z-50 card-elevated">
+                <div 
+                  className="absolute top-full left-0 mt-2 bg-white border border-gray-200/50 rounded-lg shadow-lg py-2 min-w-[280px] z-50 card-elevated"
+                  onMouseEnter={() => {
+                    if (dropdownTimeoutRef.current) {
+                      clearTimeout(dropdownTimeoutRef.current)
+                      dropdownTimeoutRef.current = null
+                    }
+                    setProgrammesDropdown(true)
+                  }}
+                  onMouseLeave={() => {
+                    dropdownTimeoutRef.current = setTimeout(() => {
+                      setProgrammesDropdown(false)
+                    }, 150)
+                  }}
+                >
                   <a href="/programs" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">All Programmes</a>
                   <a href="/programs/learning" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Practice and Implementation Wing</a>
                   <a href="/programs/research" className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-50/50 transition-colors duration-200">Research and Methodology Wing</a>
@@ -54,9 +89,7 @@ export default function Header() {
             <a href="/faculty-collaborators" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
               Faculty & Collaborators
             </a>
-            <a href="/blog" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
-              Blog
-            </a>
+           
             <a href="/contact-us" className="text-base text-gray-700 hover:text-ablr-primary transition-colors duration-300 leading-tight underline-animate">
               Contact Us
             </a>

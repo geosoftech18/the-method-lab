@@ -349,7 +349,7 @@ export default function About() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-ablr-primary/20 to-ablr-dark/20 rounded-2xl transform rotate-3"></div>
                   
-                     <Image src="Images/About Us/Our Approach.jpg" alt="Our Approach" width={600} height={500} className="relative bg-gradient-to-br from-ablr-secondary to-ablr-primary rounded-2xl h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] flex items-center justify-center" />
+                     <Image src="Images/About Us/Our approach.jpg" alt="Our Approach" width={600} height={500} className="relative bg-gradient-to-br from-ablr-secondary to-ablr-primary rounded-2xl h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] flex items-center justify-center" />
                    
                   </div>
                 </div>
@@ -486,7 +486,7 @@ export default function About() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-ablr-secondary/20 to-ablr-primary/20 rounded-2xl transform -rotate-3"></div>
                   
-                    <Image src="Images/About Us/Initiative by Hopscotch Child Therapy.webp" alt="Hopscotch Child Therapy" width={600} height={500} className="relative  rounded-2xl  h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex flex-col items-center justify-center text-white"/>
+                    <Image src="Images/About Us/Initiative BY Hopscotch Child Therapy.webp" alt="Hopscotch Child Therapy" width={600} height={500} className="relative  rounded-2xl  h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex flex-col items-center justify-center text-white"/>
                
                 </div>
               </ScrollAnimation>

@@ -245,7 +245,7 @@ export default function FacultyCollaboratorsPage() {
                 <div className="relative">
                   <div className="absolute -inset-4 bg-ablr-primary/10 rounded-2xl transform rotate-3"></div>
                   <div >
-                    <Image src="Images/Our Faculty/How The Method Lab Approaches Faculty.jpg" alt="Our Approach" width={600} height={500} className="relative rounded-2xl  h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center" />
+                    <Image src="Images/Our Faculty/How the Method Lab Approaches Faculty.jpg" alt="Our Approach" width={600} height={500} className="relative rounded-2xl  h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center" />
                   </div>
                 </div>
               </ScrollAnimation>

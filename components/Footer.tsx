@@ -16,9 +16,9 @@ export default function Footer() {
       
       <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-12 gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-12 md:mb-16">
-          <div className="col-span-12 md:col-span-3">
-            <Image src="/white-footer-logo.png" alt="Method Lab Logo" width={250} height={250} />
-            <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+          <div className="col-span-12 md:col-span-3 text-left">
+            <Image src="/footer-MONOGRAM.png" alt="Method Lab Logo" width={500} height={500} className=" w-96 h-64 sm:w-80 sm:h-80 md:w-96 md:h-52" />
+            <p className="text-white/70 text-base sm:text-md leading-relaxed">
               Grounded in research, shaped by practice.
             </p>
           </div>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const ADMIN_EMAIL = 'pranavkhandekar152@gmail.com'
+const ADMIN_EMAIL = 'info@methodlabacademy.com'
 
 async function sendEmail(to: string, subject: string, htmlContent: string) {
   const apiKey = process.env.BREVO_API_KEY

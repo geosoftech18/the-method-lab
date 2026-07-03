@@ -4,7 +4,8 @@ import { verificationCodes } from '../send-code/route'
 
 const ADMIN_EMAILS = [
   'pranavkhandekar152@gmail.com',
-  'drangananandy@gmail.com'
+  'drangananandy@gmail.com',
+  'angana.nandy90@gmail.com'
 ]
 
 export async function POST(request: NextRequest) {

@@ -15,7 +15,8 @@ export default function AdminLoginPage() {
 
   const ADMIN_EMAILS = [
     'pranavkhandekar152@gmail.com',
-    'drangananandy@gmail.com'
+    'drangananandy@gmail.com',
+    'angana.nandy90@gmail.com'
   ]
 
   const handleSendCode = async (e: React.FormEvent) => {

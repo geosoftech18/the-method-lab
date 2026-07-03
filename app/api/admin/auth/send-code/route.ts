@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const ADMIN_EMAILS = [
   'pranavkhandekar152@gmail.com',
-  'drangananandy@gmail.com'
+  'drangananandy@gmail.com',
+  'angana.nandy90@gmail.com'
 ]
 
 // Store verification codes in memory (in production, use Redis or database)

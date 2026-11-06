@@ -17,6 +17,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let cancelled = false
+
     const fetchStats = async () => {
       try {
         const response = await fetch('/api/admin/stats', {
@@ -25,17 +27,26 @@ export default function AdminDashboard() {
         })
         const result = await response.json()
         
-        if (result.success) {
-          setStats(result.data)
+        if (!cancelled && result.success && result.data) {
+          setStats({
+            programs: result.data.programs ?? 0,
+            courses: result.data.courses ?? 0,
+            blogs: result.data.blogs ?? 0,
+          })
         }
       } catch (error) {
         console.error('Error fetching stats:', error)
       } finally {
-        setLoading(false)
+        if (!cancelled) {
+          setLoading(false)
+        }
       }
     }
 
     fetchStats()
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   const statsCards = [

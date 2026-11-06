@@ -115,7 +115,7 @@ export default function BlogAdminPage() {
   const filteredBlogs = blogs
 
 
-  if (blogsLoading) {
+  if (blogsLoading && blogs.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-ablr-primary via-ablr-primary/95 to-ablr-dark flex items-center justify-center">
         <div className="text-center">

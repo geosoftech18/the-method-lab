@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react'
 
 interface Program {
   id: string
@@ -91,33 +91,40 @@ interface AdminContextType {
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined)
 
+const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [programs, setPrograms] = useState<Program[]>([])
   const [programsLoading, setProgramsLoading] = useState(false)
-  const [programsCacheTime, setProgramsCacheTime] = useState<number | null>(null)
   
   const [courses, setCourses] = useState<Course[]>([])
   const [coursesLoading, setCoursesLoading] = useState(false)
-  const [coursesCacheTime, setCoursesCacheTime] = useState<number | null>(null)
   
   const [blogs, setBlogs] = useState<BlogPost[]>([])
   const [blogsLoading, setBlogsLoading] = useState(false)
-  const [blogsCacheTime, setBlogsCacheTime] = useState<number | null>(null)
-  const [blogsFilters, setBlogsFilters] = useState<{ status?: string; search?: string }>({})
   
   const [faculty, setFaculty] = useState<FacultyMember[]>([])
   const [facultyLoading, setFacultyLoading] = useState(false)
-  const [facultyCacheTime, setFacultyCacheTime] = useState<number | null>(null)
-  const [facultyFilters, setFacultyFilters] = useState<{ search?: string }>({})
   
   const [testimonials, setTestimonials] = useState<TestimonialMember[]>([])
   const [testimonialsLoading, setTestimonialsLoading] = useState(false)
-  const [testimonialsCacheTime, setTestimonialsCacheTime] = useState<number | null>(null)
-  const [testimonialsFilters, setTestimonialsFilters] = useState<{ search?: string }>({})
 
-  const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+  // Cache in refs so fetch callbacks stay stable and empty results still count as cached
+  const programsCacheRef = useRef<number | null>(null)
+  const coursesCacheRef = useRef<number | null>(null)
+  const blogsCacheRef = useRef<{ time: number | null; filtersKey: string }>({
+    time: null,
+    filtersKey: '',
+  })
+  const facultyCacheRef = useRef<{ time: number | null; filtersKey: string }>({
+    time: null,
+    filtersKey: '',
+  })
+  const testimonialsCacheRef = useRef<{ time: number | null; filtersKey: string }>({
+    time: null,
+    filtersKey: '',
+  })
 
-  // Check if cache is still valid
   const isCacheValid = (cacheTime: number | null): boolean => {
     if (!cacheTime) return false
     return Date.now() - cacheTime < CACHE_DURATION
@@ -125,8 +132,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   // Fetch Programs
   const fetchPrograms = useCallback(async (force = false) => {
-    // Use cache if valid and not forcing refresh
-    if (!force && isCacheValid(programsCacheTime) && programs.length > 0) {
+    if (!force && isCacheValid(programsCacheRef.current)) {
       return
     }
 
@@ -135,22 +141,23 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const response = await fetch('/api/programs')
       if (response.ok) {
         const data = await response.json()
-        setPrograms(data)
-        setProgramsCacheTime(Date.now())
+        setPrograms(Array.isArray(data) ? data : [])
+        programsCacheRef.current = Date.now()
       } else {
         console.error('Failed to fetch programs')
+        setPrograms([])
       }
     } catch (error) {
       console.error('Error fetching programs:', error)
+      setPrograms([])
     } finally {
       setProgramsLoading(false)
     }
-  }, [programsCacheTime, programs.length])
+  }, [])
 
   // Fetch Courses
   const fetchCourses = useCallback(async (force = false) => {
-    // Use cache if valid and not forcing refresh
-    if (!force && isCacheValid(coursesCacheTime) && courses.length > 0) {
+    if (!force && isCacheValid(coursesCacheRef.current)) {
       return
     }
 
@@ -159,25 +166,32 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const response = await fetch('/api/courses')
       if (response.ok) {
         const data = await response.json()
-        setCourses(data)
-        setCoursesCacheTime(Date.now())
+        setCourses(Array.isArray(data) ? data : [])
+        coursesCacheRef.current = Date.now()
       } else {
         console.error('Failed to fetch courses')
+        setCourses([])
       }
     } catch (error) {
       console.error('Error fetching courses:', error)
+      setCourses([])
     } finally {
       setCoursesLoading(false)
     }
-  }, [coursesCacheTime, courses.length])
+  }, [])
 
   // Fetch Blogs
-  const fetchBlogs = useCallback(async (force = false, filters = {}) => {
-    const filtersKey = JSON.stringify(filters)
-    const currentFiltersKey = JSON.stringify(blogsFilters)
-    
-    // Use cache if valid, not forcing refresh, and filters haven't changed
-    if (!force && isCacheValid(blogsCacheTime) && blogs.length > 0 && filtersKey === currentFiltersKey) {
+  const fetchBlogs = useCallback(async (force = false, filters: { status?: string; search?: string } = {}) => {
+    const filtersKey = JSON.stringify({
+      status: filters.status || undefined,
+      search: filters.search || undefined,
+    })
+
+    if (
+      !force &&
+      isCacheValid(blogsCacheRef.current.time) &&
+      blogsCacheRef.current.filtersKey === filtersKey
+    ) {
       return
     }
 
@@ -195,31 +209,38 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const result = await response.json()
 
       if (result.success) {
-        const transformedBlogs = result.data.map((blog: any) => ({
+        const transformedBlogs = (result.data || []).map((blog: any) => ({
           ...blog,
           id: blog.id,
           _id: blog.id,
         }))
         setBlogs(transformedBlogs)
-        setBlogsCacheTime(Date.now())
-        setBlogsFilters(filters)
+        blogsCacheRef.current = { time: Date.now(), filtersKey }
       } else {
         console.error('Error loading blogs:', result.error)
+        setBlogs([])
+        blogsCacheRef.current = { time: Date.now(), filtersKey }
       }
     } catch (error) {
       console.error('Error fetching blogs:', error)
+      setBlogs([])
+      blogsCacheRef.current = { time: Date.now(), filtersKey }
     } finally {
       setBlogsLoading(false)
     }
-  }, [blogsCacheTime, blogs.length, blogsFilters])
+  }, [])
 
   // Fetch Faculty
-  const fetchFaculty = useCallback(async (force = false, filters = {}) => {
-    const filtersKey = JSON.stringify(filters)
-    const currentFiltersKey = JSON.stringify(facultyFilters)
-    
-    // Use cache if valid, not forcing refresh, and filters haven't changed
-    if (!force && isCacheValid(facultyCacheTime) && faculty.length > 0 && filtersKey === currentFiltersKey) {
+  const fetchFaculty = useCallback(async (force = false, filters: { search?: string } = {}) => {
+    const filtersKey = JSON.stringify({
+      search: filters.search || undefined,
+    })
+
+    if (
+      !force &&
+      isCacheValid(facultyCacheRef.current.time) &&
+      facultyCacheRef.current.filtersKey === filtersKey
+    ) {
       return
     }
 
@@ -244,45 +265,32 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
       if (result.success) {
         setFaculty(result.data || [])
-        setFacultyCacheTime(Date.now())
-        setFacultyFilters(filters)
+        facultyCacheRef.current = { time: Date.now(), filtersKey }
       } else {
         console.error('Error loading faculty:', result.error)
         setFaculty([])
+        facultyCacheRef.current = { time: Date.now(), filtersKey }
       }
     } catch (error: any) {
       console.error('Error fetching faculty:', error)
       setFaculty([])
+      facultyCacheRef.current = { time: Date.now(), filtersKey }
     } finally {
       setFacultyLoading(false)
     }
-  }, [facultyCacheTime, faculty.length, facultyFilters])
-
-  // Invalidate caches
-  const invalidatePrograms = useCallback(() => {
-    setProgramsCacheTime(null)
-  }, [])
-
-  const invalidateCourses = useCallback(() => {
-    setCoursesCacheTime(null)
-  }, [])
-
-  const invalidateBlogs = useCallback(() => {
-    setBlogsCacheTime(null)
-  }, [])
-
-  const invalidateFaculty = useCallback(() => {
-    setFacultyCacheTime(null)
   }, [])
 
   // Fetch Testimonials
-  const fetchTestimonials = useCallback(async (force = false, filters = {}) => {
-    const filtersKey = JSON.stringify(filters)
-    const currentFiltersKey = JSON.stringify(testimonialsFilters)
-    
-    // Use cache if valid, not forcing refresh, and filters haven't changed
-    if (!force && isCacheValid(testimonialsCacheTime) && testimonials.length > 0 && filtersKey === currentFiltersKey) {
-      setTestimonialsLoading(false)
+  const fetchTestimonials = useCallback(async (force = false, filters: { search?: string } = {}) => {
+    const filtersKey = JSON.stringify({
+      search: filters.search || undefined,
+    })
+
+    if (
+      !force &&
+      isCacheValid(testimonialsCacheRef.current.time) &&
+      testimonialsCacheRef.current.filtersKey === filtersKey
+    ) {
       return
     }
 
@@ -307,22 +315,40 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
       if (result.success) {
         setTestimonials(result.data || [])
-        setTestimonialsCacheTime(Date.now())
-        setTestimonialsFilters(filters)
+        testimonialsCacheRef.current = { time: Date.now(), filtersKey }
       } else {
         console.error('Error loading testimonials:', result.error)
         setTestimonials([])
+        testimonialsCacheRef.current = { time: Date.now(), filtersKey }
       }
     } catch (error: any) {
       console.error('Error fetching testimonials:', error)
       setTestimonials([])
+      testimonialsCacheRef.current = { time: Date.now(), filtersKey }
     } finally {
       setTestimonialsLoading(false)
     }
-  }, [testimonialsCacheTime, testimonials.length, testimonialsFilters])
+  }, [])
+
+  // Invalidate caches
+  const invalidatePrograms = useCallback(() => {
+    programsCacheRef.current = null
+  }, [])
+
+  const invalidateCourses = useCallback(() => {
+    coursesCacheRef.current = null
+  }, [])
+
+  const invalidateBlogs = useCallback(() => {
+    blogsCacheRef.current = { time: null, filtersKey: '' }
+  }, [])
+
+  const invalidateFaculty = useCallback(() => {
+    facultyCacheRef.current = { time: null, filtersKey: '' }
+  }, [])
 
   const invalidateTestimonials = useCallback(() => {
-    setTestimonialsCacheTime(null)
+    testimonialsCacheRef.current = { time: null, filtersKey: '' }
   }, [])
 
   // Pre-fetch data on mount
@@ -332,8 +358,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     fetchBlogs()
     fetchFaculty()
     fetchTestimonials()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // Only run on mount
+  }, [fetchPrograms, fetchCourses, fetchBlogs, fetchFaculty, fetchTestimonials])
 
   return (
     <AdminContext.Provider
@@ -372,4 +397,3 @@ export function useAdmin() {
   }
   return context
 }
-

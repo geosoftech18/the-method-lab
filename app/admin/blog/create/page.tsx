@@ -181,7 +181,7 @@ function BlogCreateContent() {
               {isEditing ? '✏️ Edit Blog Post' : '✨ Create New Blog Post'}
             </h1>
             <p className="text-white/70 text-lg">
-              {isEditing ? 'Update your blog post' : 'Share your thoughts about E-Waste Recycling'}
+              {isEditing ? 'Update your blog post' : 'Share your thoughts about The Method Lab'}
             </p>
           </div>
         </motion.div>

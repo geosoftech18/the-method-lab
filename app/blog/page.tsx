@@ -167,7 +167,7 @@ export default function BlogPage() {
           >
             <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-xl text-gray-600 mb-2">No blog posts yet</h3>
-            <p className="text-gray-500">Check back soon for new content about E-Waste Recycling!</p>
+            <p className="text-gray-500">Check back soon for new content about The Method Lab!</p>
           </motion.div>
         )}
       </div>
